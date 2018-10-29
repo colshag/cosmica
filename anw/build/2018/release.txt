@@ -1,0 +1,12 @@
+Cosmica
+=======
+NeuroJump (2018) all rights reserved
+====================================
+
+0.14.1.0 Release Notes:
+====================================
+- Assault ships will attack now without waiting for a damaged ship making them more useful
+- Trade routes over warp gates are 3 times more effective for empires (less costly)
+- medium and heavy regiments do not cost more than light regiments
+- regiments are cheaper to repair
+- starships have better stock defence to assault ships

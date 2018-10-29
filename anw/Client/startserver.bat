@@ -1,0 +1,1 @@
+python run.py --galaxy ANW33 --map quickstart-4man.map --server 8033

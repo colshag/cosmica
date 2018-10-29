@@ -1,0 +1,9 @@
+*.wpr
+*.wpu
+*.pyc
+*~
+*.log
+.project
+.pydevproject
+anw/Database/*.*
+
