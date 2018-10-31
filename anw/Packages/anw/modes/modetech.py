@@ -8,7 +8,7 @@
 import types
 
 import mode
-from anw.gui import techbeaker, scrollvalue, techline, valuebar, techdescription
+from anw.gui import techbeaker, scrollvalue, techline, valuebar
 from anw.func import globals
 import textwrap
 
