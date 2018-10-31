@@ -22,6 +22,7 @@ class TechBeaker(rootsim.RootSim):
         self.textRequired = None
         self.textOrder = None
         self.textPreTech = None
+        self.textPercentChance = None
         self.clickable = 0
         self.x = myTech.x
         self.z = myTech.y
@@ -50,6 +51,7 @@ class TechBeaker(rootsim.RootSim):
         self.clearText(self.textCurrent)
         self.clearText(self.textRequired)
         self.clearText(self.textOrder)
+        self.clearText(self.textPercentChance)
         self.clearText(self.textPreTech)
     
     def writeName(self):
@@ -71,6 +73,13 @@ class TechBeaker(rootsim.RootSim):
             self.textOrder = textonscreen.TextOnScreen(self.path, str(self.currentTechOrder), 0.4)
             self.textOrder.writeTextToScreen(self.x -0.65, self.y-0.1, self.z+0.2)
             self.textOrder.setColor(globals.colors['guiyellow'])
+            
+            self.clearText(self.textPercentChance)
+            percent = ((float(self.myTech.currentPoints) + float(self.currentTechOrder)) / float(self.myTech.requiredPoints)) * 100
+            percentChance = "%d% %\nSuccess\nRate" % percent
+            self.textPercentChance = textonscreen.TextOnScreen(self.path, str(percentChance), 0.3)
+            self.textPercentChance.writeTextToScreen(self.x-2.05, self.y-0.1, self.z+0)
+            self.textPercentChance.setColor(globals.colors['orange'])           
     
     def writePreTech(self):
         """Only Write the minimum pre techs required if its not all of them"""
@@ -160,6 +169,7 @@ class TechBeaker(rootsim.RootSim):
         """Clear the current order from beaker"""
         self.currentTechOrder = 0
         self.clearText(self.textOrder)
+        self.clearText(self.textPercentChance)
         
 if __name__ == "__main__":
     from anw.war import tech

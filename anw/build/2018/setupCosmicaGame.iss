@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cosmica"
-#define MyAppVersion "0.14.0.1"
+#define MyAppVersion "0.14.1.0"
 #define MyAppPublisher "NeuroJump (2018) all rights reserved"
 #define MyAppURL "https://playcosmica.com"
-#define MyGameSourcePath "C:\Users\colsh\Downloads\development\ANW\anw"
+#define MyGameSourcePath "C:\Users\colsh\Downloads\development\cosmica\anw"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -20,11 +20,11 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName=c:\neurojump\{#MyAppName}
 DefaultGroupName={#MyAppName}
-LicenseFile=C:\Users\colsh\Downloads\development\ANW\anw\build\2018\license.txt
-InfoBeforeFile=C:\Users\colsh\Downloads\development\ANW\anw\build\2018\release.txt
-OutputDir=C:\Users\colsh\Downloads\development\ANW\anw\build\2018
+LicenseFile=C:\Users\colsh\Downloads\development\cosmica\anw\build\2018\license.txt
+InfoBeforeFile=C:\Users\colsh\Downloads\development\cosmica\anw\build\2018\release.txt
+OutputDir=C:\Users\colsh\Downloads\development\cosmica\anw\build\2018
 OutputBaseFilename=Cosmica-{#MyAppVersion}
-SetupIconFile=C:\Users\colsh\Downloads\development\ANW\anw\build\2018\app.ico
+SetupIconFile=C:\Users\colsh\Downloads\development\cosmica\anw\build\2018\app.ico
 Compression=lzma
 SolidCompression=yes
 UsePreviousAppDir=no

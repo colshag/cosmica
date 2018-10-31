@@ -82,20 +82,22 @@ class ModeTech(mode.Mode):
         self.clearAnyGui()
         self.zoomOutCamera()
         self.enableScrollWheelZoom = 1
+        self.clearAllCanSelectFlags()
     
     def clearAnyGui(self):
         self.removeMyGui('scrollvaluegui')
     
     def beakersSelected(self, myTechBeaker):
         """Beaker Selected"""
-        self.playSound('beep01')
-        self.selectedBeaker = myTechBeaker
-        if self.setMySelector(myTechBeaker.sim.getX(), myTechBeaker.sim.getY(), myTechBeaker.sim.getZ(), scale=2):
-            self.createScrollValue(myTechBeaker)
-            self.centerCameraOnSim(myTechBeaker.sim)
-            self.zoomInCamera()
-            # mode is wacky for this one, can't figure out how to get the mode into the button
-            self.enableScrollWheelZoom = 0
+        if self.isAnyFlagSelected() == 0:
+            self.setCanSelectFlag('beakerSelected')
+            self.playSound('beep01')
+            self.selectedBeaker = myTechBeaker
+            if self.setMySelector(myTechBeaker.sim.getX(), myTechBeaker.sim.getY(), myTechBeaker.sim.getZ(), scale=2):
+                self.createScrollValue(myTechBeaker)
+                self.centerCameraOnSim(myTechBeaker.sim)
+                self.zoomInCamera()
+                self.enableScrollWheelZoom = 0
     
     def createScrollValue(self, myTechBeaker):
         """Create the scrollValue gui to allow for tech orders"""
@@ -106,7 +108,8 @@ class ModeTech(mode.Mode):
             self.scrollvaluegui.setMinValue(myTechBeaker.getMinValue())
         else:
             self.scrollvaluegui.setMaxValue(0)
-            self.scrollvaluegui.setMinValue(0)            
+            self.scrollvaluegui.setMinValue(0)
+            self.scrollvaluegui.hideAll()
         self.scrollvaluegui.setID(myTechBeaker.id)
         
         # create the tech description
@@ -115,14 +118,20 @@ class ModeTech(mode.Mode):
             % (myTechBeaker.myTech.name, textwrap.fill(globals.techDesciptions[myTechBeaker.myTech.name], width=43))
         if myTechBeaker.myTech.complete == 1:
             textColor = globals.colors['guigreen']
+            self.scrollvaluegui.createInfoPane(description, 0,-0.2,-0.2, 0.025, textColor)
+            self.gui.append(self.scrollvaluegui)            
         elif myTechBeaker.myTech.currentPoints > 0:
             textColor = globals.colors['guiyellow']
+            self.scrollvaluegui.createInfoPane(description, 0,0.36,0.2, 0.025, textColor)
+            self.gui.append(self.scrollvaluegui)            
         elif myTechBeaker.isMyPreTechsResearched() == 1:
             textColor = globals.colors['cyan']
+            self.scrollvaluegui.createInfoPane(description, 0,0.36,0.2, 0.025, textColor)
+            self.gui.append(self.scrollvaluegui)            
         else:
             textColor = globals.colors['guired']
-        self.scrollvaluegui.createInfoPane(description, 0,0.36,0.2, 0.025, textColor)
-        self.gui.append(self.scrollvaluegui)
+            self.scrollvaluegui.createInfoPane(description, 0,-0.2,-0.2, 0.025, textColor)
+            self.gui.append(self.scrollvaluegui)            
     
     def getTechOrders(self):
         """Ask the Server for an updated Tech Orders list"""
