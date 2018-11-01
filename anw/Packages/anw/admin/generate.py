@@ -10,7 +10,7 @@ import string
 import csv
 import random
 
-from anw.func import funcs, globals, names
+from anw.func import funcs, globals, names, storedata
 from anw.aw import galaxy, empire, system, tech, industrydata, ai
 from anw.war import regimentdata, componentdata, shiphulldata, weapondata
 
@@ -21,7 +21,8 @@ class GenerateGalaxy(object):
         self.dataPath = ''
         self.generateSystems = None
         self.generateTech = None
-        self.galaxyName = "ANW1"
+        self.path = os.getcwd()
+        self.galaxyName = "ANW1"        
 
     def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "ANW1", serverPort=8000):
         """Generate a Galaxy Object given data path, and star Map data file"""
@@ -39,6 +40,18 @@ class GenerateGalaxy(object):
         self.genDesigns()
         self.genNeutralShips()
         self.myGalaxy.serverPort = serverPort
+        self.saveClientData()
+    
+    def saveClientData(self):
+        """Save the client Data"""
+        # save data files
+        data = {'componentdata':self.myGalaxy.componentdata, 
+                'shiphulldata':self.myGalaxy.shiphulldata,
+                'dronehulldata':self.myGalaxy.dronehulldata,
+                'weapondata':self.myGalaxy.weapondata,
+                'regimentdata':self.myGalaxy.regimentdata,
+                'industrydata':self.myGalaxy.industrydata}
+        result = storedata.saveToFile(data, '%s/client.data' % self.path)
     
     def getGalaxy(self):
         """Return the galaxy object"""
