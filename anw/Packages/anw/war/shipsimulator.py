@@ -108,7 +108,7 @@ class ShipSimulator(mode.Mode, root.Root):
         if globals.serverMode == 0:
             self.setupCamera()
             self.setupMinimap()
-            self.setupMapMove()
+            #self.setupMapMove()
             self.setBackgroundSystem()
             self.explosions = []
             self.setupRadar()
@@ -131,8 +131,8 @@ class ShipSimulator(mode.Mode, root.Root):
         systemDict = {'id':self.shipBattle.systemID, 
                       'myEmpireID':self.shipBattle.empireID,
                       'cities':self.shipBattle.cities,
-                      'x':self.shipBattle.x,
-                      'y':self.shipBattle.y,
+                      'x':self.shipBattle.x+500,
+                      'y':self.shipBattle.y+500,
                       'name':self.shipBattle.systemName}
         mySystem = system.BackgroundSystem(self.guiMediaPath, self, systemDict, glow=0)
         mySystem.setMyMode(self)

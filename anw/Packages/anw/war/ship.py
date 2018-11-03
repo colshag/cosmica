@@ -764,7 +764,7 @@ class Ship(root.Root, kobj.KObj):
 
         self.name = designObject.name + '-' + self.id
         self.setMyStrength()
-        if 'AS' in self.myShipHull.abr:
+        if 'AS' in self.myShipHull.abr and self.isTransport == 0:
             self.isAssault = 1
         else:
             self.isAssault = 0

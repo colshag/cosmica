@@ -369,7 +369,6 @@ class Galaxy(root.Root):
                         systemFrom.IA -= myTradeRoute.IA
                         systemFrom.usedWGC += warpReq
                         systemTo.usedWGC += warpReq
-                    
             return str(resultslist)
         except:
             return 'galaxy->processTradeRoutes error'
@@ -1507,6 +1506,7 @@ class Galaxy(root.Root):
         myTransport.setMyDesign(myDesign)
         myTransport.setMyStatus()
         myTransport.isTransport = 1
+        myTransport.isAssault = 0
         
     def runShipBattle(self, myShipBattle):
         """Run through a Ship Battle"""

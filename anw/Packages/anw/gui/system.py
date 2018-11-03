@@ -522,7 +522,7 @@ class BackgroundSystem(System):
     """A Background System that is not clickable, just for viewing"""
     def __init__(self, path, mode, systemDict,glow=1):
         System.__init__(self, path, mode, systemDict)
-        self.scale = 20
+        self.scale = 10
         self.y = 50
         self.x = 30
         self.z = 30
@@ -539,8 +539,8 @@ class BackgroundSystem(System):
             self.setGlow()
         self.setColor()
         self.setPos()
-        self.writeName()
-        self.writeCityNum()
+        #self.writeName()
+        #self.writeCityNum()
         self.rotateSim()
         
     def rotateSim(self):

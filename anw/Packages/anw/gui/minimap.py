@@ -20,7 +20,7 @@ class Minimap:
 		self.map = aspect2d.attachNewNode('Map')
 		mapimage = self.getMapImage(mapimageName)
 		
-		props = base.win.getProperties( )
+		props = base.win.getProperties()
 		self.Height = float(props.getYSize())
 		self.Hscale = (1/self.Height)
 		
