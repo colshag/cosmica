@@ -9,8 +9,7 @@
 # XML for the client.
 # ---------------------------------------------------------------------------
 from anw.func import storedata, globals, funcs
-#from anw.gae.access import GAE, LocalGAE
-from anw.mail.sending import SmtpEmail, Email #,NullEmail
+from anw.mail.sending import SmtpEmail, Email
 from anw.server import anwserver
 from anw.util.Injection import Services
 from threading import Thread
@@ -19,7 +18,6 @@ from twisted.web import xmlrpc, server
 import ConfigParser
 import datetime
 import hashlib
-#import logging
 import os
 import errno
 import random
