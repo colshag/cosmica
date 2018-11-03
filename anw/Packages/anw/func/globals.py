@@ -11,7 +11,7 @@ except:
     pass
 currentVersion = '0.14.1'
 currentVersionShort = 'master'
-currentVersionTag = '.1'
+currentVersionTag = '.2'
 serverMode = 0
 
 maxShipsPerBattle = 120
@@ -400,6 +400,7 @@ techDesciptions = {'Nuclear Age of Technology':'The Starting Age of Technology o
 'Medium Graviton Gun':'This technology allows an empire to build a medium Graviton Gun, this is similar to the light Graviton gun, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship.',
 'Medium Nuclear Missiles':'This technology allows an empire to build a medium Nuclear Missile Launcher, this is similar to the light Nuclear Missile Launcher, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship. ',
 'Medium Phasor Gun':'This technology allows an empire to build a medium Phasor Gun, this is similar to the light Phasor gun, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship.',
+'Medium Fusion Cannon':'This technology allows an empire to build a medium Fusion Cannon, this is similar to the Light Fusion Cannon, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship.',
 'Medium Nuclear Torpedoes':'This technology allows an empire to build a medium Nuclear Torpedo Launcher, this is similar to the light Nuclear Torpedo Launcher, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship. ',
 'Simple StarShip Armor':'This technology does not enable any ship component, but leads to both reflective and impact armor technologies.',
 'Simple Anti-Missile System':'This technology does not enable any ship component, but leads to both Anti Missile Technologies for AMS Graviton (needs ammo) and AMS Phasor (does not need ammo, but needs more power). ',
@@ -471,6 +472,7 @@ techDesciptions = {'Nuclear Age of Technology':'The Starting Age of Technology o
 'Battle Frigates':'This Technology allows an empire to build the slightly improved Battle Frigate ship type.',
 'Medium Fusion Drones':'This technology allows an empire to build medium fusion drones which are larger drones capable of carrying larger weapons and shields/armor. ',
 'Medium Auto Cannon':'This technology allows an empire to build a medium Auto Cannon, this is similar to the light Auto Cannon, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship. ',
+'Medium Plasma Cannon':'This technology allows an empire to build a medium Plasma Cannon, this is similar to the light Plasma Cannon, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship. ',
 'Medium Fusion Missiles':'This technology allows an empire to build a medium Fusion Missile Launcher, this is similar to the light Fusion Missile Launcher, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship.',
 'Medium Fusion Torpedoes':'This technology allows an empire to build a medium Fusion Torpedo Launcher, this is similar to the light Fusion Torpedo Launcher, but has a longer range, does more damage, requires more power, and takes longer to target an enemy ship. ',
 'Progressive StarShip Armor':'This technology does not enable any ship component, but leads to both reflective and impact armor technologies. ',
