@@ -3,6 +3,11 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.14.2.0 Release Notes:
+====================================
+- Fixed bug with Transport Ships thinking they are assault ships
+- Some tweaks to the battle screen, removed some buttons, shrank the planet
+
 0.14.1.0 Release Notes:
 ====================================
 - Assault ships will attack now without waiting for a damaged ship making them more useful
