@@ -108,7 +108,7 @@ class ShipSimulator(mode.Mode, root.Root):
         if globals.serverMode == 0:
             self.setupCamera()
             self.setupMinimap()
-            #self.setupMapMove()
+            self.setupMapMove()
             self.setBackgroundSystem()
             self.explosions = []
             self.setupRadar()
