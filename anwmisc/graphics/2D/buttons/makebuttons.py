@@ -5,7 +5,8 @@
 # ---------------------------------------------------------------------------
 # This function will make button images
 # ---------------------------------------------------------------------------
-import Image, ImageDraw, ImageFont
+import PIL
+from PIL import Image, ImageDraw, ImageFont
 guiPath = '../../../../anw/Packages/anw/gui/media/'
 
 class CreateButtonImages(object):
@@ -193,7 +194,7 @@ def run():
     #createMultiSimButtons()
     #createQuestionEndRound()
     #createQuestionSurrender()
-    createLoginButtons()
+    createHelpButtons()
 
 def createMainButtons():
     myButtons = {'I':'CREDIT', 'E':'END', 'O':'MARKET', 'Q':'QUIT', 'R':'MAP',
@@ -421,12 +422,11 @@ def createQuestionSurrender():
         myCreate = CreateTradeButtonImages(guiPath, 'questionsurrender', key, action)
         myCreate.createButtons()
         
-def createLoginButtons():
-    myButtons = {'Singleplayer':'SINGLEPLAYER', 
-                 'Mulitplayer':'MULTIPLAYER', 
-                 'Quit':'QUIT'}
+def createHelpButtons():
+    myButtons = {'blank':'OK,   I   UNDERSTAND', 
+                 }
     for key, action in myButtons.iteritems():
-        myCreate = CreateTradeButtonImages(guiPath, 'login', key, action)
+        myCreate = CreateTradeButtonImages(guiPath, 'okiunderstand', key, action)
         myCreate.createButtons()
         
 if __name__ == '__main__':

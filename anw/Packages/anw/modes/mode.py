@@ -18,7 +18,7 @@ if globals.serverMode == 0:
     from panda3d.core import CollisionHandlerQueue,CollisionRay
     from panda3d.core import Shader, ColorBlendAttrib
     import direct.directbase.DirectStart #camera
-    from anw.gui import textonscreen, fadingtext, mainmenubuttons, line
+    from anw.gui import textonscreen, fadingtext, mainmenubuttons, line, dialogbox
     from direct.directtools.DirectGeometry import LineNodePath
 
 class Mode(object):
@@ -53,6 +53,7 @@ class Mode(object):
         
         self.selector = None
         self.selector2 = None
+        self.dialogBox = None
         
         self.log = logging.getLogger('mode')
         
@@ -677,6 +678,20 @@ class Mode(object):
     def modeMsgBox(self, messageText):
         """Create a message for the user"""
         self.createMessage(messageText)
+    
+    def createDialogBox(self, x=-0.1, y=-0.85, text='Insert Dialog Here', 
+                        textColor=globals.colors['guiyellow']):
+        """Create a dialog box with text and an ok button"""
+        if self.dialogBox == None:
+            self.dialogBox = dialogbox.DialogBox(path=self.guiMediaPath,x=x, y=y, 
+                                                 text=text,textColor=textColor)
+            self.dialogBox.setMyMode(self)
+            self.gui.append(self.dialogBox)
+    
+    def removeDialogBox(self):
+        """remove dialogbox"""
+        self.dialogBox.destroy()
+        self.dialogBox = None
     
     def createMessage(self, text):
         """Create a new message for user"""

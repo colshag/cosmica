@@ -48,9 +48,9 @@ import os
        ##name = 'shipyard_' + key
        ##os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
 
-for key in ['warparmies', 'warpships', 'cancel', 'selectall','selectdamaged']:
-       name = 'mapmove_' + key
-       os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
+##for key in ['warparmies', 'warpships', 'cancel', 'selectall','selectdamaged']:
+       ##name = 'mapmove_' + key
+       ##os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
 
 ##for key in ['simulatedesign']:
        ##name = 'bv_' + key
@@ -122,4 +122,8 @@ for key in ['warparmies', 'warpships', 'cancel', 'selectall','selectdamaged']:
 ##for key in ['blankyes','blankno']:
        ##name = 'questionsurrender_' + key
        ##os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
+
+for key in ['blank']:
+       name = 'okiunderstand_' + key
+       os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
  

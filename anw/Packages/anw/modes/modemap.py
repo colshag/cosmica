@@ -105,7 +105,8 @@ class ModeMap(mode.Mode):
         self.regTo = []
         self.selectedSystem = None
         self.shipInfo = None
-        self.regInfo = None       
+        self.regInfo = None
+        self.createDialogBox(x=0,y=0,text='Test Test Test Test asdfasd asdf asdf asd fasdf sadf sdf af sdf sdfsd adfs asd fasdfasdf dsfasdf sdf  asdfasdf asdf asdf asjdklfjas askldfj lasdkfj asdklfj asdklfj klasdfj klsdafj klsdafj klasdfj sdklfj kls')
         
     def getMyCapitalSystemSim(self):
         """Return the sim of the biggest system player owns"""
