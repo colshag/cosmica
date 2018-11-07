@@ -16,7 +16,7 @@ from anw.func import globals
 
 class RootButton(DirectObject):
     """The Scroll Value Gui"""
-    def __init__(self, path, x, y, name, ignoreShortcutButtons = []):
+    def __init__(self, path, x, y, name, ignoreShortcutButtons = [],createButtons=True):
         self.game = None
         self.mode = None
         self.color = ''
@@ -36,14 +36,14 @@ class RootButton(DirectObject):
         self.allKeys = [] # fill this in to allow for renabling key shortcuts
         self.lastKey = ''
         self.lastKey2 = '' # in case you want to sets of disable groups
-        if name != '':
+        if name != '' and createButtons == True:
             self.createButtons()
         self.acceptExtraKeys()
         
     def createInfoPane(self, text, wordwrap, x, z, scale=0.025, textColor=globals.colors['white']):
         """Default Title label for gui controls"""
         myInfoPane = TextNode('infoPane')
-        myInfoPane.setFont(self.font)
+        myInfoPane.setFont(loader.loadFont('%s/star3' % self.path))
         myInfoPane.setText(text)
         myInfoPane.setWordwrap(wordwrap)
         myInfoPane.setTextColor(textColor)
@@ -55,7 +55,8 @@ class RootButton(DirectObject):
         textNodePath = aspect2d.attachNewNode(myInfoPane)
         textNodePath.setScale(scale)
         textNodePath.setPos(x, 0, z)
-        self.myWidgets.append(textNodePath)    
+        self.myWidgets.append(textNodePath)
+        return myInfoPane.getFrameActual()
     
     def setPause(self):
         """Allow mode to pause using space bar"""
