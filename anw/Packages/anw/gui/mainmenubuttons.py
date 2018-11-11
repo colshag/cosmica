@@ -151,9 +151,9 @@ class MainMenuButtons(RootButton):
         self.enterMode(ModeDesign)
     
     def pressU(self):
-        """Enter the User Mode"""
-        from anw.modes.modeuser import ModeUser
-        self.enterMode(ModeUser)
+        """Ask for Help"""
+        self.mode.askForHelp()
+        self.enableLastButton('U')
     
     def pressY(self):
         """Enter the Mail Mode"""

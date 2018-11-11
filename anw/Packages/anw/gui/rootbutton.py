@@ -56,7 +56,7 @@ class RootButton(DirectObject):
         textNodePath.setScale(scale)
         textNodePath.setPos(x, 0, z)
         self.myWidgets.append(textNodePath)
-        return myInfoPane.getFrameActual()
+        return myInfoPane.getHeight()
     
     def setPause(self):
         """Allow mode to pause using space bar"""

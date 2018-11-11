@@ -169,7 +169,7 @@ class CreateDesignButtonImages(CreateIndustryButtonImages):
     
 
 def run():
-    #createMainButtons()
+    createMainButtons()
     #createScrollButtons()
     #createCityButtons()
     #createIndustryButtons()
@@ -194,11 +194,11 @@ def run():
     #createMultiSimButtons()
     #createQuestionEndRound()
     #createQuestionSurrender()
-    createHelpButtons()
+    #createHelpButtons()
 
 def createMainButtons():
     myButtons = {'I':'CREDIT', 'E':'END', 'O':'MARKET', 'Q':'QUIT', 'R':'MAP',
-                 'T':'TECH', 'U':'USER', 'I':'DESIGN', 'W':'WAR', 'Y':'MAIL'}
+                 'T':'TECH', 'U':'HELP', 'I':'DESIGN', 'W':'WAR', 'Y':'MAIL'}
     for key, action in myButtons.iteritems():
         myCreate = CreateButtonImages(guiPath, 'main', key, action)
         myCreate.createButtons()

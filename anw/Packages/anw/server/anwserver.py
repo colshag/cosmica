@@ -202,7 +202,7 @@ class ANWServer(xmlrpc.XMLRPC):
             if self._ValidateKey(clientKey) == 1:
                 myGalaxy = self.galaxies[clientKey['galaxyName']]
                 myEmpire = myGalaxy.empires[clientKey['empireID']]
-                return myEmpire.askForHelp(1)
+                return myEmpire.askForHelp()
             else:
                 s = 'invalid key: cannot askForHelp'
                 self._Log(s, clientKey)
@@ -969,8 +969,6 @@ class ANWServer(xmlrpc.XMLRPC):
             if result == 1:
                 myGalaxy = self.galaxies[loginKey['galaxyName']]
                 myEmpire = myGalaxy.empires[loginKey['empireID']]
-                # update help
-                myEmpire.askForHelp(0)
 
                 # update empire login info
                 myEmpire.ip = loginKey['ip']
@@ -1017,6 +1015,7 @@ class ANWServer(xmlrpc.XMLRPC):
                 myEmpire = myGalaxy.empires[clientKey['empireID']]
                 myEmpire.resetData()
                 self._Log('logout Success', clientKey)
+                result = saveGalaxy(self, clientKey['galaxyName'])
                 return 1
             else:
                 s = 'invalid key: cannot Logout Properly, Please Re-Logout'
@@ -1587,9 +1586,9 @@ def endRoundCounter(server):
     for galaxyName, myGalaxy in server.galaxies.iteritems():
         if myGalaxy.currentHoursLeft <= 0:
             endRound(server, galaxyName)
-        elif myGalaxy.currentHoursLeft == 1:
+        elif myGalaxy.currentHoursLeft <= 2:
             # email all players that round will end in one hour
-            title = '%s will Force-End Round in 1 hour' % galaxyName
+            title = '%s will Force-End Round in %s hours' % (galaxyName, myGalaxy.currentHoursLeft)
             desc = 'Please end your turn'
             for empireID, myEmpire in myGalaxy.empires.iteritems():
                 if myEmpire.roundComplete == 0 and myEmpire.alive == 1:

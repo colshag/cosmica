@@ -9,7 +9,7 @@ try:
     from panda3d.core import Vec4
 except:
     pass
-currentVersion = '0.14.2'
+currentVersion = '0.14.3'
 currentVersionShort = 'master'
 currentVersionTag = '.0'
 serverMode = 0

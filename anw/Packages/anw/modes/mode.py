@@ -33,6 +33,7 @@ class Mode(object):
         self.messagePositions = []
         self.selectTypes = []
         self.gui = []
+        self.help = []
         self.sims = []
         self.game = game
         self.depth = 20.0
@@ -345,13 +346,20 @@ class Mode(object):
         try:
             serverResult = self.game.server.askForHelp(self.game.authKey)
             if type(serverResult) == types.ListType:
-                (message, self.game.myEmpire['help']) = serverResult
-                self.modeMsgBox(message)
+                self.help = serverResult
+                self.displayHelpMessage()
             else:
                 self.modeMsgBox(serverResult)
         except:
             self.modeMsgBox('askForHelp->Connection to Server Lost')
-        
+    
+    def displayHelpMessage(self):
+        """Look for any remaining help messages and display one of them"""
+        if self.dialogBox == None:
+            if len(self.help) > 0:
+                message = self.help.pop()
+                self.createDialogBox(x=-0.1,y=0.7,text=message)
+       
     def assignSelector(self, myObj, scale):
         """create the Selector and assign to myObj at scale"""
         if self.selector == None:
@@ -369,24 +377,6 @@ class Mode(object):
             
         self.selector2.setPos(myObj.getX(), myObj.getY(), myObj.getZ())
         self.selector2.setScale(scale)
-       
-    ##def checkEndTurn(self):
-        ##"""Do a Server Assesment of turn before ending the turn"""
-        ##try:
-            ##if 'EndTurn' in self.game.myEmpire['help']:
-                ### turn not ended yet
-                ##(serverResult, self.game.myEmpire['help']) = self.game.server.askForHelp(self.game.authKey)
-                ##if serverResult == 'Server Assessment: WARNINGS:0, CRITICAL:0 (Check Mail for Assesment)':
-                    ### server assessment is good, end the turn without asking
-                    ##self.endMyTurn()
-                ##else:
-                    ### server assessment has not come back without warnings ask for confirmation
-                    ##self.modeYesNoBox('%s - Do you still want to end your turn?' % serverResult, 'endturnYes', 'yesNoBoxNo')
-            ##else:
-                ### turn already ended, unend turn
-                ##self.modeYesNoBox('Do you want to cancel your end turn?' , 'endturnYes', 'yesNoBoxNo')
-        ##except:
-            ##self.modeMsgBox('checkEndTurn->Connection to Server Lost, Login Again')
     
     def exitGame(self, doLogout=True):
         """Exit the game"""
@@ -680,18 +670,19 @@ class Mode(object):
         self.createMessage(messageText)
     
     def createDialogBox(self, x=-0.1, y=-0.85, text='Insert Dialog Here', 
-                        textColor=globals.colors['guiyellow']):
+                        textColor=globals.colors['orange']):
         """Create a dialog box with text and an ok button"""
         if self.dialogBox == None:
             self.dialogBox = dialogbox.DialogBox(path=self.guiMediaPath,x=x, y=y, 
                                                  text=text,textColor=textColor)
             self.dialogBox.setMyMode(self)
-            self.gui.append(self.dialogBox)
+            self.gui.append(self.dialogBox)       
     
     def removeDialogBox(self):
         """remove dialogbox"""
         self.dialogBox.destroy()
         self.dialogBox = None
+        self.displayHelpMessage()
     
     def createMessage(self, text):
         """Create a new message for user"""

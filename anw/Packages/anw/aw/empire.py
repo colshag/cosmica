@@ -167,35 +167,18 @@ class Empire(root.Root):
         self.viewResources = 1
         self.viewTradeRoutes = 1
     
-    def askForHelp(self, mail=1):
+    def askForHelp(self):
         """Return an assessment of players current status"""
         try:
-            # reset help list
-            self.help = []
             resultList = []
-            warnings = 0
-            critical = 0
-            # check end turn
-            if self.roundComplete == 0:
-                self.addHelp('EndTurn')
-            
-            #resultList.append('CONFIG')
-            #resultList.append('===================================================')
-            # check email
-            #if self.emailAddress == '':
-            #    resultList.append('CRITICAL: You have not set an email address')
-            #    critical += 1
-            #    self.addHelp('Config')
 
             # check tech
-            resultList.append('')
-            resultList.append('RESEARCH')
-            resultList.append('===================================================')
+            text = 'SCANNING RESEARCH:\n======================================\n\n'
+            
             # check if all research used up
             if self.rpAvail > 0:
-                critical += 1
-                resultList.append('CRITICAL: You have %d Research Points still to allocate this round' % (self.rpAvail))
-                self.addHelp('Tech')
+                text = text + 'You have %d Research Points still to allocate this round\n\n' % (self.rpAvail)
+
             # check if any ongoing research was forgotten
             ongoingTechList = []
             for techID, myTech in self.techTree.iteritems():
@@ -207,89 +190,50 @@ class Empire(root.Root):
                     ongoingTechList.remove(id)
             for id in ongoingTechList:
                 myTech = self.techTree[id]
-                critical += 1
-                resultList.append('CRITICAL: Place some research into:%s' % myTech.name)
-                self.addHelp('Tech')
+                text = text + 'Consider continuing research in:%s\n\n' % myTech.name
             
-            resultList.append('')
-            resultList.append('ECONOMY')
-            resultList.append('===================================================')
-            # check if any systems are conducting trade routes that will fail due to lack of resources
+            resultList.append(text)
+            
+            text = 'SCANNING INDUSTRY:\n======================================\n\n'
+            
+            # check system industry
             for systemID, mySystem in self.myGalaxy.systems.iteritems():
                 if mySystem.myEmpireID == self.id:
                     # check for systems that have built factories that cannot add value
-                    factoryCR = 0
                     factoryAL = 0
                     factoryEC = 0
                     factoryIA = 0
                     for key, myIndustryNum in mySystem.myIndustry.iteritems():
                         if myIndustryNum > 0:
-                            if self.myGalaxy.industrydata[key].abr[1:] == 'CC':
-                                factoryCR = 1
-                            elif self.myGalaxy.industrydata[key].abr[1:] == 'AF':
+                            if self.myGalaxy.industrydata[key].abr[1:] == 'AF':
                                 factoryAL = 1
                             elif self.myGalaxy.industrydata[key].abr[1:] == 'CM':
                                 factoryEC = 1
                             elif self.myGalaxy.industrydata[key].abr[1:] == 'SS':
                                 factoryIA = 1
-                            
-                    if mySystem.prodCR == 0 and factoryCR == 1:
-                        resultList.append('CRITICAL: System:%s has Credit Centers, but does not produce Credits(CR)' % mySystem.name)
-                        critical += 1
-                        self.addHelp('Map')
-                    elif mySystem.prodAL == 0 and factoryAL == 1:
-                        resultList.append('CRITICAL: System:%s has Alloy Factories, but does not produce Alloys(AL)' % mySystem.name)
-                        critical += 1
-                        self.addHelp('Map')
+                    if mySystem.prodAL == 0 and factoryAL == 1:
+                        text = text + 'System:%s has Alloy Factories, but does not produce Alloys\n\n' % mySystem.name
                     elif mySystem.prodEC == 0 and factoryEC == 1:
-                        resultList.append('CRITICAL: System:%s has Crystal Mines, but does not produce Energy Crystals(EC)' % mySystem.name)
-                        critical += 1
-                        self.addHelp('Map')
+                        text = text + 'System:%s has Crystal Mines, but does not produce Energy Crystals\n\n' % mySystem.name
                     elif mySystem.prodIA == 0 and factoryIA == 1:
-                        resultList.append('CRITICAL: System:%s has Synthetic Sytems, but does not Intel Arrays(IA)' % mySystem.name)
-                        critical += 1
-                        self.addHelp('Map')
+                        text = text + 'System:%s has Synthetic Sytems, but does not produce Intel Arrays\n\n' % mySystem.name
             
-            resultList.append('')
-            resultList.append('MILITARY')
-            resultList.append('===================================================')
-            # get list of regiment ID's currently given restoration orders:
-            regimentsToRestore = []
-            for orderID, myOrder in self.industryOrders.iteritems():
-                if myOrder.round == self.myGalaxy.currentRound and myOrder.type == 'Restore Regiment':
-                    regimentsToRestore.append(myOrder.value)
-            # check if any regiments need restoring
-            for regimentID, myRegiment in self.myGalaxy.regiments.iteritems():
-                if (myRegiment.empireID == self.id and 
-                    self.myGalaxy.systems[myRegiment.fromSystem].availMIC > 0
-                    and myRegiment.strength < 100 and myRegiment.id not in regimentsToRestore):
-                        resultList.append('WARNING: Regiment:%s ON:%s is damaged and should be restored' % (myRegiment.name, self.myGalaxy.systems[myRegiment.fromSystem].name))
-                        warnings += 1
-                        
-            resultList.append('')
-            resultList.append('DIPLOMACY')
-            resultList.append('===================================================')
-            # check if empire has any petitions for increased relations from other empires
-            for empireID, myDiplomacy in self.diplomacy.iteritems():
-                if myDiplomacy.myIntent == 'none' and myDiplomacy.empireIntent == 'increase':
-                    resultList.append('WARNING: %s would like to increase relations with you' % self.myGalaxy.empires[empireID].name)
-                    warnings += 1
-                    self.addHelp('View Diplomacy')
+                    # check if any industry could be updated with latest research
+                    upgrade = 0
+                    for key, myIndustryNum in mySystem.myIndustry.iteritems():
+                        if myIndustryNum > 0:
+                            if self.myGalaxy.industrydata[key].abr[:1] in ['B','A']:
+                                if self.techTree[self.myGalaxy.industrydata[str(int(key)+1)].techReq].complete == 1:
+                                    upgrade = 1
+                    if upgrade == 1:
+                        text = text + 'System:%s has industry that could be upgraded\n\n' % mySystem.name
+                            
             
-            # mail out results to Empire
-            results = str(resultList)
-            if len(resultList) > 0 and (critical > 0 or warnings > 0) and mail == 1:
-                self.genMail({'fromEmpire':self.id, 'round':self.myGalaxy.currentRound,
-                              'messageType':'general', 'subject':'Server Assessment of Empire Status: WARNINGS:%d, CRITICAL:%d' % (warnings, critical),
-                              'body':results})
-            return ('Server Assessment: WARNINGS:%d, CRITICAL:%d (Check Mail for Assesment)' % (warnings, critical), self.help)
+            resultList.append(text)
+            
+            return (resultList)
         except:
             return 'empire->askForHelp error'
-    
-    def addHelp(self, help):
-        """Add to help list"""
-        if help not in self.help:
-            self.help.append(help)
     
     def buildIndustry(self):
         """Take the current industry orders for current round and build industry on systems"""
