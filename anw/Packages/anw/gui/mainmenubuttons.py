@@ -57,7 +57,7 @@ class MainMenuButtons(RootButton):
         """Write when the round will auto-end"""
         if self.textRoundEnds != None:
             self.removeMyWidget(self.textRoundEnds)
-        if 'EndTurn' in self.mode.game.myEmpire['help']:
+        if self.mode.game.myEmpire['roundComplete'] == 0:
             text = 'PLEASE FINISH YOUR TURN\nROUND AUTO ENDS IN %d HRS' % self.game.myGalaxy['currentHoursLeft']
             color = 'guiyellow'
         else:

@@ -172,7 +172,7 @@ class Empire(root.Root):
         try:
             resultList = []
 
-            # check tech
+            # check research
             text = 'SCANNING RESEARCH:\n======================================\n\n'
             
             # check if all research used up
@@ -194,9 +194,10 @@ class Empire(root.Root):
             
             resultList.append(text)
             
-            text = 'SCANNING INDUSTRY:\n======================================\n\n'
-            
             # check system industry
+            text = 'SCANNING INDUSTRY:\n======================================\n\n'
+            militaryinstallations = 0
+            shipyards = 0
             for systemID, mySystem in self.myGalaxy.systems.iteritems():
                 if mySystem.myEmpireID == self.id:
                     # check for systems that have built factories that cannot add value
@@ -218,17 +219,33 @@ class Empire(root.Root):
                     elif mySystem.prodIA == 0 and factoryIA == 1:
                         text = text + 'System:%s has Synthetic Sytems, but does not produce Intel Arrays\n\n' % mySystem.name
             
-                    # check if any industry could be updated with latest research
+                    # check if any industry could be updated with latest research, also check for war infrastructure
                     upgrade = 0
                     for key, myIndustryNum in mySystem.myIndustry.iteritems():
                         if myIndustryNum > 0:
                             if self.myGalaxy.industrydata[key].abr[:1] in ['B','A']:
                                 if self.techTree[self.myGalaxy.industrydata[str(int(key)+1)].techReq].complete == 1:
                                     upgrade = 1
+                            if self.myGalaxy.industrydata[key].abr[1:] == 'SY':
+                                shipyards = 1
+                            if self.myGalaxy.industrydata[key].abr[1:] == 'MI':
+                                militaryinstallations = 1
                     if upgrade == 1:
                         text = text + 'System:%s has industry that could be upgraded\n\n' % mySystem.name
-                            
+                    
+                    # check if system has cities that are not working
+                    if mySystem.citiesUsed < mySystem.cities:
+                        text = text + 'System:%s has cities that are not assigned an industry\n\n' % mySystem.name
             
+            resultList.append(text)
+            
+            # check for war infrastructure
+            text = 'SCANNING MILITARY:\n======================================\n\n'
+            if shipyards == 0:
+                text = text + 'Notice: Your empire has no Shipyards to build ships on any of its systems\n\n'
+            if militaryinstallations == 0:
+                text = text + 'Notice: Your empire has no Military Installations to build marines on any of its systems\n\n'
+                            
             resultList.append(text)
             
             return (resultList)

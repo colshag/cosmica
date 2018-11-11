@@ -16,10 +16,7 @@ import logging
 from multiprocessing import Process, Queue
 import ConfigParser
 from anw.func import funcs
-
 from panda3d.core import *
-
-
 from servermain import serverMain
 from anw.func import storedata, globals
 

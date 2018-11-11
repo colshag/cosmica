@@ -52,7 +52,7 @@ class QuestionEndRound(rootbutton.RootButton):
         """Player would not like to cancel"""
         self.mode.game.server.endEmpireTurn(self.mode.game.authKey)
         self.mode.modeMsgBox('You have now un-ended your turn')
-        self.mode.game.myEmpire['help'].append('EndTurn')
+        self.mode.game.myEmpire['roundComplete'] == 0
         self.mode.mainmenu.writeTextRoundEnds()
         self.mode.clearMyGui()
             

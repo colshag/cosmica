@@ -45,12 +45,12 @@ class ModeQuestion(mode.Mode):
         try:
             result = self.game.server.endEmpireTurn(self.game.authKey)
             if result == 0:
-                if 'EndTurn' not in self.game.myEmpire['help']:
+                if self.game.myEmpire['roundComplete'] == 1:
                     self.modeMsgBox('You have now un-ended your turn')
-                    self.game.myEmpire['help'].append('EndTurn')
+                    self.game.myEmpire['roundComplete'] = 0
                 else:
                     self.modeMsgBox('Your turn has been ended, thankyou')
-                    self.game.myEmpire['help'].remove('EndTurn')
+                    self.game.myEmpire['roundComplete'] = 1
                 self.mainmenu.writeTextRoundEnds()
             elif type(result) == types.StringType:
                 self.modeMsgBox(result)

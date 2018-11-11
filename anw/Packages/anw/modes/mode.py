@@ -358,7 +358,13 @@ class Mode(object):
         if self.dialogBox == None:
             if len(self.help) > 0:
                 message = self.help.pop()
-                self.createDialogBox(x=-0.1,y=0.7,text=message)
+                if 'SCANNING RESEARCH' in message:
+                    color = globals.colors['cyan']
+                elif 'SCANNING INDUSTRY' in message:
+                    color = globals.colors['orange']
+                elif 'SCANNING MILITARY' in message:
+                    color = globals.colors['red']
+                self.createDialogBox(x=-0.1,y=0.7,text=message,textColor=color)
        
     def assignSelector(self, myObj, scale):
         """create the Selector and assign to myObj at scale"""
