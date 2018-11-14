@@ -3,6 +3,11 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.14.3.0 Release Notes:
+====================================
+- Created a Check AI System to check players situation with server
+- Made ships under assault that take damage to have less security troops available
+
 0.14.2.0 Release Notes:
 ====================================
 - Fixed bug with Transport Ships thinking they are assault ships

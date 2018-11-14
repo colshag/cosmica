@@ -846,7 +846,7 @@ class Ship(root.Root, kobj.KObj):
         if self.isAssault == 1:
             self.assaultStrength = assaultStrength
         else:
-            self.assaultStrength = assaultStrength + self.getPersonStrength()
+            self.assaultStrength = assaultStrength + (self.getPersonStrength()) * ratio
 
     def setRepairCost(self):
         """Set the repair cost of Starship"""
