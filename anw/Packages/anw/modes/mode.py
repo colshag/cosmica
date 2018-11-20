@@ -792,19 +792,43 @@ class Mode(object):
             globals.tutorialStepComplete = True   
     
     def tutorial7(self):
-        message = "Nice Work! You now have focused 4 of your 20 cities on crystal mines, notice that the output of energy is higher as each mine increases the percentage of crystal production, and since all your cities are focused on energy, the total energy production (yellow) is higher than if you divided a planet into multiple resource types. We now want to do the same thing to planet X2, but this time lets focus the cities from blue to red (arrays), and build 4 basic synthetic systems, do this now."
+        message = "Nice Work! You now have focused 4 of your 20 cities on crystal mines, notice that the output of energy is higher as each mine increases the percentage of crystal production, and since all your cities are focused on energy, the total energy production (yellow) is higher than if you divided a planet into multiple resource types.\n\nChange the city focus to energy on Strig and build 4 simple Cystal Mines.\n\nChange the city focus to arrays (IA) on Cygnus, and build 6 Simple Synthetic Systems on Cygnus as well.\n\nDo this now."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
         
         # check that steps complete
-        mySystem = self.game.allSystems['21']
-        if mySystem['name'] == 'Onatarin' and mySystem['myIndustry']['4'] == 4:
-            globals.tutorialStepComplete = True  
+        mySystem1 = self.game.allSystems['41']
+        mySystem2 = self.game.allSystems['53']
+        if mySystem1['name'] == 'Cygnus' and mySystem1['cityIndustry'] == [0, 0, 30] and mySystem1['myIndustry']['4'] == 4 and \
+           mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['8'] == 6:
+            globals.tutorialStepComplete = True
+    
+    def tutorial8(self):
+        message = "Excellent! you now have a homeworld focused on alloys(blue), systems Strig and Onatarin focused on energy(yellow), and Cygnus focused on arrays(red). The next thing we want to do is move resources around to where they need to go to accomplish two short term goals:\n\n1) make sure all our planets are fully focused on industry (no idle cities)\n\n2) make sure our homeworld has resources streaming into it via trade routes so that in a few turns we can start building ships and troops to start our expansion into the galaxy. \n\nTo accomplish this we need to leverage trade routes."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
+        
+    def tutorial9(self):
+        message = "Trade routes allow an empire to move the three resources (alloys, energy, alloys) from one planet to another. The planets have to either be adjacent to each other (connected via a line designating a warp point), or if two planets have warp gates, trade can warp between them (taking away some warp gate points).\n\nThere are three trade types:\n\nA Gen trade route will allow a planets newly created resources to all be sent towards another planet on the same turn they are generated.\n\n  A one-time trade route will send resources from one planet to another one-time only.\n\nA standard trade route will attempt to send trade between planets forever as long as the sending planet has the resources available."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
+    
+    def tutorial10(self):
+        message = "Lets start with creating a one-type trade route to send all the current alloys on our homeworld to Onatarin so that it will have more alloys to build factories in the following turn.\n\nClick on your homeworld, click trade, click on Onatarin, choose alloys, and choose all of the available alloys.\n\n Finally, click the one-time trade button."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
+        
+        # check that steps complete
+        mySystemFrom = self.game.allSystems['40']
+        mySystemTo = self.game.allSystems['21']
+        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Onatarin':
+            for tradeRouteID, tradeRouteDict in self.game.tradeRoutes.iteritems():
+                if self.game.allSystems[tradeRouteDict['fromSystem']] == '40' and self.game.allSystems[tradeRouteDict['toSystem']] == '21' and \
+                   tradeRouteDict['onetime'] = 1 and tradeRouteDict['AL'] > 0 and tradeRouteDict['EC'] == 0 and tradeRouteDict['IA'] == 0:
+                    globals.tutorialStepComplete = True 
+    
 
-    #[,<check that both were done on X2>],
-    #["Excellent! you now have a homeworld focused on alloys(blue), planet X1 focused on energy(yellow), and planet X2 focused on arrays(red). The next thing we want to do is move resources around to where they need to go to accomplish two short term goals:\n\n1) make sure all our planets are fully focused on industry (no idle cities)\n\n2) make sure our homeworld has resources streaming into it via trade routes so that in a few turns we can start building ships and troops to start our expansion into the galaxy. \n\nTo accomplish this we need to leverage trade routes.",True],
-    #["Trade routes allow an empire to move the three resources (blue, yellow, red) from one planet to another. The planets have to either be adjacent to each other (connected via a line designating a warp point), or if two planets have warp gates, trade can warp between them (taking away some warp gate points). There are three trade types: A Trade Gen Route, a standard repeating trade route, and a one-time trade route. A Gen trade route will allow a planets newly created resources to all be sent towards another planet on the same turn they are generated. A one-time trade route will send resources from one planet to another one-time. a standard trade route will attempt to send trade between planets forever as long as the giving planet has the resources available.",True],
-    #["Lets start with creating a one-type trade route to send all the alloys on our homeworld to planet X1 so that it will have more alloys to build factories in the following turn. Click on your homeworld, click trade, click on planet X1. choose alloys, and choose all of the available ones on our homeworld. Click the one-time trade button.",<check that trade route created>],
+    #["",<check that trade route created>],
     #["Great job! Notice that the trade route has been created, feel free to click on it, you could modify it, cancel it, or just leave it there (which is what we want for now). Now, to expedite alloys going to our feeder planets, lets create a gen trade route from our homeworld (that creates alloys) to planet X2. This will send whatever our homeworld makes next turn in alloys directly to planet X2 next round. Click on our homeworld, click on trade, click on planet X2, and click gen trade route",<check that this was done>],
     #["Nice work! Notice that this arrow looks different, all gen trade routes have the same look, but if you zoom in you can see what expected resources will go to the receiving planet, which is based on the production of resources from the planet setting up the trade. Next I want you to setup a gen trade route from Planet X1 to your homeworld (sending any created yellow energy to your homeworld), and to send another gen trade route from planet X2 to your homeworld (sending any created red arrays to your homeworld). Do this now.",<check that both trade routes were created>],
     #["Our economy has been setup to startup quite nicely, we will continue to build it up next round, in the meantime lets move over to technology, click on the tech button at the top to view your technology tree, do this now.",<check that technology mode enabled>],
