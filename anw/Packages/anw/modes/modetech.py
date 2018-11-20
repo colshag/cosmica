@@ -118,7 +118,7 @@ class ModeTech(mode.Mode):
             % (myTechBeaker.myTech.name, textwrap.fill(globals.techDesciptions[myTechBeaker.myTech.name], width=43))
         if myTechBeaker.myTech.complete == 1:
             textColor = globals.colors['guigreen']
-            self.scrollvaluegui.createInfoPane(description, 0,-0.2,-0.2, 0.04, textColor)
+            self.scrollvaluegui.createInfoPane(description, 0,0.2,0.2, 0.04, textColor)
             self.gui.append(self.scrollvaluegui)            
         elif myTechBeaker.myTech.currentPoints > 0:
             textColor = globals.colors['guiyellow']
@@ -130,7 +130,7 @@ class ModeTech(mode.Mode):
             self.gui.append(self.scrollvaluegui)            
         else:
             textColor = globals.colors['guired']
-            self.scrollvaluegui.createInfoPane(description, 0,-0.2,-0.2, 0.04, textColor)
+            self.scrollvaluegui.createInfoPane(description, 0,0.2,0.2, 0.04, textColor)
             self.gui.append(self.scrollvaluegui)            
     
     def getTechOrders(self):

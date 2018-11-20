@@ -138,7 +138,7 @@ class ScrolledButtonsList(DirectObject):
     def __init__(self, parent=None, frameSize=(.8,1.2), buttonTextColor=(1,1,1,1),
                  font=None, itemScale=.045, itemTextScale=0.85, itemTextZ=0,
                  command=None, contextMenu=None, autoFocus=0,
-                 colorChange=1, colorChangeDuration=1, newItemColor=globals.colors['guiblue1'],
+                 colorChange=0, colorChangeDuration=0, newItemColor=globals.colors['guiblue1'],
                  rolloverColor=globals.colors['guiyellow'],
                  suppressMouseWheel=1, modifier='control'):
         self.mode = None

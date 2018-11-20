@@ -15,7 +15,7 @@ import time
 
 from anw.func import globals
 if globals.serverMode == 0:
-    from anw.modes import modetech, modemail, modebattle, modelogin
+    from anw.modes import modetech, modemail, modebattle, modelogin, modemap
 from anw.func import globals, funcs, storedata
 from anw.war import shipdesign, dronedesign, empire, tech, shipsimulator
 
@@ -184,7 +184,7 @@ class ANWGame:
     def processSuccessfulLogin(self, result):
         """Login worked, process the data"""
         self.processLoginInfo(result)
-        startMode = modemail.ModeMail(self)
+        startMode = modemap.ModeMap(self)
         self.enterMode(startMode)
         
     def waitForRoundToEnd(self):

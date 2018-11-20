@@ -21,7 +21,7 @@ class MainMenuButtons(RootButton):
     def __init__(self, path, x=-0.35, y=0.95, name='main'):
         RootButton.__init__(self, path, x, y, name, ignoreShortcutButtons = [])
         self.allKeys = ['Q','W','E','R','T','Y','U','I','O']
-        self.disableButtonIgnore = []
+        self.disableButtonIgnore = ['U']
         self.disableButtonTime = 0
         self.lastDisabledButton = ''
         self.textTitle = None
@@ -151,9 +151,11 @@ class MainMenuButtons(RootButton):
         self.enterMode(ModeDesign)
     
     def pressU(self):
-        """Ask for Help"""
-        self.mode.askForHelp()
-        self.enableLastButton('U')
+        """Ask for Help, or do the tutorial"""
+        if globals.isTutorial:
+            self.mode.displayTutorialMessage()
+        else:
+            self.mode.askForHelp()
     
     def pressY(self):
         """Enter the Mail Mode"""

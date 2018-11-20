@@ -183,7 +183,11 @@ if __name__ == '__main__':
     parser.add_argument("--server", metavar="port", default=None, help="Turns into standalone server. Listens on defined port", type=int)
     parser.add_argument("--clientonly", action="store_true", default=False)
     parser.add_argument('--map', '-m', metavar="MAPFILE", type=str, default="testai2man.map", choices=getMapList(), help="MAPFILE can be one of {}".format(getMapList()))
+    parser.add_argument("--tutorial", action="store_true", default=False)
     args = parser.parse_args()
+
+    if args.tutorial == True:
+        globals.isTutorial = True
 
     runner = ANWRunner(singlePlayer=not args.server, startSinglePlayerServer=not args.clientonly, remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, password=args.empirepass, sound=not args.disableSound,fullscreen=args.fullscreen, resolution=args.resolution, serverPort=args.server, mapfile=args.map)
     runner.start()

@@ -1,1 +1,1 @@
-python run.py --galaxy ANW1 --map triangle-3man.map
+python run.py --galaxy ANW1 --map slow2man.map --tutorial

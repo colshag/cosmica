@@ -11,7 +11,7 @@ except:
     pass
 currentVersion = '0.14.3'
 currentVersionShort = 'master'
-currentVersionTag = '.0'
+currentVersionTag = '.1'
 serverMode = 0
 
 maxShipsPerBattle = 120
@@ -69,6 +69,11 @@ empires = [{'id':'0', 'name':'Neutral', 'color1':'white', 'color2':'black','CR':
            {'id':'7', 'name':'Cyan Empire', 'color1':'cyan', 'color2':'black','CR':0},
            {'id':'8', 'name':'Fire Empire', 'color1':'yellow', 'color2':'blood','CR':0},]
 
+
+initialLogin = True
+isTutorial = False
+tutorialStep = 0
+tutorialStepComplete = False
 
 marinesPerTransport = 10
 
@@ -570,3 +575,9 @@ techDesciptions = {'Nuclear Age of Technology':'The Starting Age of Technology o
 'Ultra Jamming':'This technology allows a ship design to build the Ultra Jamming Dishes component. This component does not affect a ships combat abilities, however it is a powerful tool as part of a larger fleet as it does two primary tasks: First, it can jam the radar scans of an enemy fleet during battle, making it more difficult for an enemy player to understand how the ship designs work for an empire\'s fleet. Second, it can jam the details of a fleet from the planetary level, and consequently also jam any information about a planet as the ships jamming will support the jamming at the planet level as well, if the ships with jamming components happen to be orbiting a friendly planet. ',
 'Capital Ship Drives':'This special Plasma Age technology allows an empire to build the ultra-advanced Capital ship drives. These drives greatly increase the engine power for capital ships, allowing them to free up a large number of components for more offensive and defensive components, making them much more powerful. '
 }
+
+
+
+
+
+
