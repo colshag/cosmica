@@ -774,36 +774,42 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
     def tutorial5(self):
-        message = "Notice that all your planets have a blue triangle at the bottom, this designates that the planet cities are focused on building alloys currently. There is also a blue number below each planet.\n\nAny colored number represents the exact amount of that type of resource residing on that planet this turn. You can make your planets focus on multiple resources, but it is more efficient to have them focus on one due to the power of resource factories.\n\nIt is important to get your various planets focusing on different resources so that you are generating all three resources early in the game.\n\nClick on your planetary system: Onatarin, Click cities, reduce the alloys(AL) focus to 0, increase the energy(EC) focus to 20, and click submit"
-        globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
-        
         # check that steps complete
         mySystem = self.game.allSystems['21']
         if mySystem['name'] == 'Onatarin' and mySystem['cityIndustry'] == [0, 20, 0]:
-            globals.tutorialStepComplete = True
-    
-    def tutorial6(self):
-        message = "Great! You have now focused Onatarin to build energy (yellow) instead of alloys (blue).\n\nThis will be helpful for future military growth in a few turns. Lets now click back on Onatarin, click industry, click on Crystal Mine, choose Basic, and build the max mines you can at 100 Alloys per mine which is 4 (you only have 400 Alloys on your planet), then click submit."
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Notice that all your planets have a blue triangle at the bottom, this designates that the planet cities are focused on building alloys currently. There is also a blue number below each planet.\n\nAny colored number represents the exact amount of that type of resource residing on that planet this turn. You can make your planets focus on multiple resources, but it is more efficient to have them focus on one due to the power of resource factories.\n\nIt is important to get your various planets focusing on different resources so that you are generating all three resources early in the game.\n\nClick on your planetary system: Onatarin, Click cities, reduce the alloys(AL) focus to 0, increase the energy(EC) focus to 20, and click submit"
         globals.tutorialStepComplete = False
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
-        
+    
+    def tutorial6(self):
         # check that steps complete
         mySystem = self.game.allSystems['21']
         if mySystem['name'] == 'Onatarin' and mySystem['myIndustry']['4'] == 4:
-            globals.tutorialStepComplete = True   
-    
-    def tutorial7(self):
-        message = "Nice Work! You now have focused 4 of your 20 cities on crystal mines, notice that the output of energy is higher as each mine increases the percentage of crystal production, and since all your cities are focused on energy, the total energy production (yellow) is higher than if you divided a planet into multiple resource types.\n\nChange the city focus to energy on Strig and build 4 simple Cystal Mines.\n\nChange the city focus to arrays (IA) on Cygnus, and build 6 Simple Synthetic Systems on Cygnus as well.\n\nDo this now."
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Great! You have now focused Onatarin to build energy (yellow) instead of alloys (blue).\n\nThis will be helpful for future military growth in a few turns. Lets now click back on Onatarin, click industry, click on Crystal Mine, choose Basic, and build the max mines you can at 100 Alloys per mine which is 4 (you only have 400 Alloys on your planet), then click submit."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
-        
+    
+    def tutorial7(self):
         # check that steps complete
         mySystem1 = self.game.allSystems['41']
         mySystem2 = self.game.allSystems['53']
         if mySystem1['name'] == 'Cygnus' and mySystem1['cityIndustry'] == [0, 0, 30] and mySystem1['myIndustry']['7'] == 6 and \
            mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['4'] == 4:
-            globals.tutorialStepComplete = True
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Nice Work! You now have focused 4 of your 20 cities on crystal mines, notice that the output of energy is higher as each mine increases the percentage of crystal production, and since all your cities are focused on energy, the total energy production (yellow) is higher than if you divided a planet into multiple resource types.\n\nChange the city focus to energy on Strig and build 4 simple Cystal Mines.\n\nChange the city focus to arrays (IA) on Cygnus, and build 6 Simple Synthetic Systems on Cygnus as well.\n\nDo this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
     def tutorial8(self):
         message = "Excellent! you now have a homeworld focused on alloys(blue), systems Strig and Onatarin focused on energy(yellow), and Cygnus focused on arrays(red). The next thing we want to do is move resources around to where they need to go to accomplish two short term goals:\n\n1) make sure all our planets are fully focused on industry (no idle cities)\n\n2) make sure our homeworld has resources streaming into it via trade routes so that in a few turns we can start building ships and troops to start our expansion into the galaxy. \n\nTo accomplish this we need to leverage trade routes."
@@ -816,29 +822,95 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
     def tutorial10(self):
-        message = "Lets start with creating a one-type trade route to send all the current alloys on our homeworld to Onatarin so that it will have more alloys to build factories in the following turn.\n\nClick on your homeworld, click trade, click on Onatarin, choose alloys, and choose all of the available alloys.\n\n Finally, click the one-time trade button."
-        globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
-        
         # check that steps complete
         mySystemFrom = self.game.allSystems['40']
         mySystemTo = self.game.allSystems['21']
-        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Onatarin':
-            for tradeRouteID, tradeRouteDict in self.game.tradeRoutes.iteritems():
-                if self.game.allSystems[tradeRouteDict['fromSystem']] == '40' and self.game.allSystems[tradeRouteDict['toSystem']] == '21' and \
-                   tradeRouteDict['onetime'] == 1 and tradeRouteDict['AL'] > 0 and tradeRouteDict['EC'] == 0 and tradeRouteDict['IA'] == 0:
-                    globals.tutorialStepComplete = True 
+        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Onatarin' and '40-21-REG' in self.game.tradeRoutes.keys():
+            myTradeRouteDict = self.game.tradeRoutes['40-21-REG']
+            if myTradeRouteDict['oneTime'] == 1 and myTradeRouteDict['AL'] == 1600 and myTradeRouteDict['EC'] == 0 and myTradeRouteDict['IA'] == 0:
+                globals.tutorialStep += 1
+                self.displayTutorialMessage()
+                return
+            
+        message = "Lets start with creating a one-type trade route to send all the current alloys on our homeworld to Onatarin so that it will have more alloys to build factories in the following turn.\n\nClick on your homeworld, click trade, click on Onatarin, choose alloys, and choose all of the available alloys.\n\n Finally, click the one-time trade button."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
+               
+    def tutorial11(self):
+        # check that steps complete
+        mySystemFrom = self.game.allSystems['40']
+        mySystemTo = self.game.allSystems['53']
+        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Strig' and '40-53-GEN' in self.game.tradeRoutes.keys():
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Great job! Notice that the trade route has been created, feel free to click on it, you could modify it, cancel it, or just leave it there (which is what we want for now).\n\nNow, to expedite alloys going to our feeder planets, lets create a gen trade route from our homeworld (that creates alloys) to Strig.\n\nThis will send whatever our homeworld makes next turn in alloys directly to Strig next round. Click on our homeworld, click on trade, click on Strig, and click gen trade route. Do This Now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
+    def tutorial12(self):
+        # check that steps complete
+        if '53-40-GEN' in self.game.tradeRoutes.keys() and '21-40-GEN' in self.game.tradeRoutes.keys() and '41-40-GEN' in self.game.tradeRoutes.keys():
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Nice work! Notice that this arrow looks different, all gen trade routes have the same look, but if you zoom in you can see what expected resources will go to the receiving planet, which is based on the production of resources from the planet setting up the trade.\n\nNext I want you to setup gen trade routes from Onatarin, Strig, and Cygnus to your homeworld (sending any created EC and IA resources there for future use). energy to your homeworld). Do this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
+        
+    def tutorial13(self):
+        message = "Our economy has been setup to startup quite nicely, we will continue to build it up next round, in the meantime lets move over to technology.\n\nClick on the tech button at the top to view your technology tree, do this now."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guigreen'],displayNextMessage=message)    
 
-    #["",<check that trade route created>],
-    #["Great job! Notice that the trade route has been created, feel free to click on it, you could modify it, cancel it, or just leave it there (which is what we want for now). Now, to expedite alloys going to our feeder planets, lets create a gen trade route from our homeworld (that creates alloys) to planet X2. This will send whatever our homeworld makes next turn in alloys directly to planet X2 next round. Click on our homeworld, click on trade, click on planet X2, and click gen trade route",<check that this was done>],
-    #["Nice work! Notice that this arrow looks different, all gen trade routes have the same look, but if you zoom in you can see what expected resources will go to the receiving planet, which is based on the production of resources from the planet setting up the trade. Next I want you to setup a gen trade route from Planet X1 to your homeworld (sending any created yellow energy to your homeworld), and to send another gen trade route from planet X2 to your homeworld (sending any created red arrays to your homeworld). Do this now.",<check that both trade routes were created>],
-    #["Our economy has been setup to startup quite nicely, we will continue to build it up next round, in the meantime lets move over to technology, click on the tech button at the top to view your technology tree, do this now.",<check that technology mode enabled>],
-    #["Great, in Cosmica the technology tree is faster to develop than a standard 4X game. Once you build a few research centers you should be gaining technology every round, sometimes you could be gaining 5-10 technologies in one round! In this game setup you are given the first age of technology (the nuclear age), in some games you will be given the fusion age as well, but not in this tutorial. In order to research the many technologies in the fusion age you first need to research\n\nThe Fusion Age of Technology tech beaker. Notice you can click on any technology and gain information about what it does for you. For now, click on the Fusion Age of Technology, add all of your available technology points (that you got from your research centers on your homeworld), and click submit. Do this now.", <check that tech was researched>],
-    #["Nice, notice that you have an X percent chance of gaining this technology. When the round ends the game will determine via a random roll if you gained that technology or not. Once you gain that technology you can start researching other technologies and gaining the benefits they offer. It is my suggestion that you prioritize on research centers (so you can upgrade them and get more technology points per turn, followed by the alloy, energy, and array factories (so you can upgrade and make more resources and credits), and then start focusing on your ship components and weapons (so you can make more powerful ships to take over the galaxy)",True],
-    #["Ok, you have now done almost everything you should do in your first round of play. You will find that the first 5 rounds are very quick as players build out their economy, start some simple research, and maybe play with a few ship designs. Expansion and combat will not start until enough resources are gathered that a fleet and army can be assembled. Some players might even avoid expansion and focus on technology early on, other players would take a different approach. It is my suggestion that some light expansion is recommended to give your empire more cities to control allowing more research in the long run. Before we end our turn lets take a quick look at the ship design screen by clicking on it from the main menu above. Do this now.",<check they are in design mode>],
-    #"Great, Notice that the first thing you have to decide is if you want to design with your current technology or with all technology, or just start a simulation of existing designs. Cosmica was purposely designed to give a player a lot of flexibility in ship design, and I feel it is as important strategically as where fleets and armies are sent as the game progresses. As you start to play Cosmica you will learn that critical fleet battles between empires can swing the fortunes of empires quickly. For this reason a well-designed and upgrade fleet composed of ship designs that counter other fleet designs, and complement each other is of critical importance. Ship designing and simulating is also a lot of fun, and can take a lot of time for players that want that extra edge.",True],
-    #["First, lets start with the easy part, simulating a ship battle. If ship designing is something that intimidates you, do not worry. Cosmica comes with a set of neutral ship designs that the neutral (white) planets use to defend themselves from aggressive empires such as yours. These designs are generally quite sound, and you could get away with using them without worrying too much about making your own designs. ",],    
+    def tutorial14(self):
+        # check that steps complete
+        if self.game.myEmpire['rpAvail'] == 0:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()            
+            return
+        
+        message = "Great, in Cosmica the technology tree is faster to develop than your more standard 4X game. Once you build a few research centers you should be gaining technology every round, sometimes you could be gaining 5-10 technologies in one round! In this game setup you are given the first age of technology (the nuclear age).\n\nIn some games you will be given the fusion age as well, but not in this tutorial.\n\nIn order to research the many technologies in the fusion age you first need to research the Fusion Age of Technology tech beaker.\n\nNotice you can click on any technology and gain information about what it does for you. For now, click on the Fusion Age of Technology, and commit all of your available technology points (225) (that you got from your research centers on your homeworld), and click submit. Do this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guigreen'],displayNextMessage=message)
+        
+    def tutorial15(self):
+        message = "Nice, notice that you have an 37 percent chance of gaining this technology. When the round ends the game will determine via a random roll if you gained that technology or not. Once you gain that technology you can start researching other technologies and gaining the benefits they offer.\n\nIt is my suggestion that you prioritize on research centers (so you can upgrade them and get more technology points per turn, followed by the alloy, energy, and array factories (so you can upgrade and make more resources and credits).\n\nThen start focusing on your ship components and weapons (so you can make more powerful ships to take over the galaxy)."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guigreen'],displayNextMessage=message) 
+        
+    def tutorial16(self):
+        message = "Ok, you have now done almost everything you should do in your first round of play. You will find that the first 5 rounds are very quick as players build out their economy, start some simple research, and maybe play with a few ship designs.\n\nExpansion and combat will not start until enough resources are gathered that a fleet and army can be assembled.\n\nSome players might even avoid expansion and focus on technology early on, other players would take a different approach. It is my suggestion that some light expansion is recommended to give your empire more cities to control allowing more research in the long run. Before we end our turn lets take a quick look at the ship design screen by clicking on it from the main menu above. Do this now."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guigreen'],displayNextMessage=message) 
+        
+    def tutorial17(self):
+        message = "Notice that the first thing you have to decide is if you want to design with your current technology or with all technology, or just start a simulation of existing designs.\n\nCosmica was purposely designed to give a player a lot of flexibility in ship design.\n\nAs you play Cosmica you will find that a well-designed fleet of ships will make a big difference in your attempts to dominate opponents in space. As you start to play Cosmica you will learn that critical fleet battles between empires can swing the fortunes of empires quickly.\n\nFor this reason a well-designed and upgraded fleet composed of ship designs that counter other fleet designs, and complement each other is of critical importance. Ship designing and simulating is also a lot of fun, and can take a lot of time for players that want that extra edge."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message) 
+        
+    def tutorial18(self):
+        message = "First, lets start with the easy part, simulating a ship battle. If ship designing is something that intimidates you, do not worry. Cosmica comes with a set of neutral ship designs that the neutral (white) planets use to defend themselves from aggressive empires such as yours. These designs are generally quite sound, and you could get away with using them without worrying too much about making your own designs.\n\nSince these ship designs are already pre-made and available, lets setup a ship simulation between several ship variants.\n\nIn order to simulate ships you need to have constructed Simulation Centers. Each simulation center you build on a system will provide you will a certain number of simulation points per round. These points do not stack for later use. Think of them as simulation engineers waiting for you to ask them to run some simulations on your behalf. If you do not ask them to do anything they just hang out and drink space coffee all day."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial19(self):
+        # check that steps complete
+        if self.game.myEmpire['simulationsLeft'] == 0:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()            
+            return
+        
+        message = "Since you are a new empire and you are focusing on building up your economy you only have one lonely Simple Simulation Center currently on your homeworld.\n\nThis gives you only 1 simulation point, which is enough to simulation one ship design against one other design. The formulae for how many ship simulation points will be required:\n\n  = (the number of ship designs of Team A x (the number of ship designs of Team B)\n\nFor our test feel free to select any ship design, assign a number of the ships to team A, select another design, and assign to Team B. Then click the Simulate button. Do this now and enjoy the Battle!\n\nRemember, you press space-bar to pause and un-pause, use the mouse to navigate and zoom, feel free to select ships to see how they act with each other. Click on any main menu bar to leave the simulation at any time."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial18(self):
+        message = "I hope that was entertaining! One good way to learn about ship designs is to use the singleplayer function to build a bunch of simulation centers and play with ship designs, then take that knowledge to your slower (but more important) multiplayer games. Simulations are also critical when we are designing ships as it is a great way to make sure your designs work as you intend. It is very common for example to make a ship that doesn't have the correct ammunition, something you would want to learn from your simulations, not in real battle!"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)    
     
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""
