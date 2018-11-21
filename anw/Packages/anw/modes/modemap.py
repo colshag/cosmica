@@ -1510,7 +1510,7 @@ class ModeMap(mode.Mode):
         """Send an Add or Remove Industry Request to the Server"""
         try:
             if amount > 0:
-                    serverResult = self.game.server.addIndustry(self.game.authKey, systemID, amount, industryID)
+                serverResult = self.game.server.addIndustry(self.game.authKey, systemID, amount, industryID)
             else:
                 serverResult = self.game.server.removeIndustry(self.game.authKey, systemID, abs(amount), industryID)
             if serverResult != 1:

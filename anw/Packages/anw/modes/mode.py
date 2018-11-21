@@ -714,7 +714,9 @@ class Mode(object):
         if parent == 'cam':
             parent = camera
         scaleX = 187.5
-        scaleZ = 117.1875
+        scaleZ = 117.1875        #if globals.isTutorial:
+            #self.clearMouseSelection()
+            #self.mainmenu.pressU()
         obj = loader.loadModelCopy('%s%s' % (self.guiMediaPath, model)) #default object uses the plane model
         if parent:
             obj.reparentTo(parent)              #Everything is parented to the camera so
@@ -799,8 +801,8 @@ class Mode(object):
         # check that steps complete
         mySystem1 = self.game.allSystems['41']
         mySystem2 = self.game.allSystems['53']
-        if mySystem1['name'] == 'Cygnus' and mySystem1['cityIndustry'] == [0, 0, 30] and mySystem1['myIndustry']['4'] == 4 and \
-           mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['8'] == 6:
+        if mySystem1['name'] == 'Cygnus' and mySystem1['cityIndustry'] == [0, 0, 30] and mySystem1['myIndustry']['7'] == 6 and \
+           mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['4'] == 4:
             globals.tutorialStepComplete = True
     
     def tutorial8(self):
@@ -824,7 +826,7 @@ class Mode(object):
         if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Onatarin':
             for tradeRouteID, tradeRouteDict in self.game.tradeRoutes.iteritems():
                 if self.game.allSystems[tradeRouteDict['fromSystem']] == '40' and self.game.allSystems[tradeRouteDict['toSystem']] == '21' and \
-                   tradeRouteDict['onetime'] = 1 and tradeRouteDict['AL'] > 0 and tradeRouteDict['EC'] == 0 and tradeRouteDict['IA'] == 0:
+                   tradeRouteDict['onetime'] == 1 and tradeRouteDict['AL'] > 0 and tradeRouteDict['EC'] == 0 and tradeRouteDict['IA'] == 0:
                     globals.tutorialStepComplete = True 
     
 
