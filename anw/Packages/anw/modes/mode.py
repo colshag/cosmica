@@ -688,9 +688,9 @@ class Mode(object):
     
     def removeDialogBox(self):
         """remove dialogbox"""
-        self.dialogBox.destroy()
-        self.dialogBox = None
-        self.displayHelpMessage()
+        if self.dialogBox != None:
+            self.dialogBox.destroy()
+            self.dialogBox = None
     
     def createMessage(self, text):
         """Create a new message for user"""
@@ -714,9 +714,7 @@ class Mode(object):
         if parent == 'cam':
             parent = camera
         scaleX = 187.5
-        scaleZ = 117.1875        #if globals.isTutorial:
-            #self.clearMouseSelection()
-            #self.mainmenu.pressU()
+        scaleZ = 117.1875
         obj = loader.loadModelCopy('%s%s' % (self.guiMediaPath, model)) #default object uses the plane model
         if parent:
             obj.reparentTo(parent)              #Everything is parented to the camera so
@@ -913,7 +911,7 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
         
     def tutorial21(self):
-        message = "Ok, lets try to create a ship design. click back on design and choose all technology. Notice that the screen is full of every type of ship hull, and there is a list of every Neutral Ship Design for you to review at any time.\n\nCosmica was designed to give you the option to build any ship design before you have the technology to build your ships.\n\nThe reasoning here is that you can plan out your fleet and research towards those goals.\n\nClick on the Neutral Design with SDN in its name. Notice that it says OUT OF TECH LEVEL, this lets you know that you cannot build this ship currently.\n\nNow click the Design button again and click on Current Technology."
+        message = "Ok, lets try to create a ship design. click back on design and choose all technology. Notice that the screen is full of every type of ship hull, and there is a list of every Neutral Ship Design for you to review at any time.\n\nCosmica was designed to give you the option to build any ship design before you have the technology to build your ships.\n\nThe reasoning here is that you can plan out your fleet and research towards those goals.\n\nClick on the Neutral Design with SDN in its name. Notice that it says SHIP PAST TECH LEVEL, this lets you know that you cannot build this ship currently.\n\nNow click the Design button again and click on Current Technology."
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
         
@@ -948,10 +946,78 @@ class Mode(object):
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
         
-    def tutorial26(self):
-        message = "Platforms are defensive ships that cannot be used to attack any enemy planetary systems. They do however have much more flexibility in that they hold a lot of space for anything from drones to large weapons. Platforms can also be converted into mobile shipyards by installing engineering stations, a powerful tactic in the mid to late game of Cosmica."
+    def tutorial27(self):
+        message = "Platforms are defensive ships that cannot be used to attack any enemy planetary systems. They do however have much more flexibility in that they hold a lot of space for anything from drones to large weapons.\n\nPlatforms can also be converted into mobile shipyards by installing engineering stations, a powerful tactic in the mid to late game of Cosmica."
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)                    
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial28(self):
+        # check that steps complete
+        if self.game.currentRound > 1:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()            
+            return
+        
+        message = "Ok that was a lot of good information, lets move into the next round and build up our forces to take over one of the nearby neutral systems.\n\nTo do this click on the End Round button from the top menu, and choose to End and Wait so that we can start our next round of play. Do this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'],displayNextMessage=message)
+        
+    def tutorial29(self):
+        message = "When the round ends, I suggest your first step besides seeing visually on the galactic map how your empire did from a military standpoint would be to click on the Mail button from the top menu. Do this now."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'],displayNextMessage=message)
+        
+    def tutorial30(self):
+        message = "Notice that the mail is broken down into rounds, you can click on any past round of play and review any messages in there as well. If you are playing a multiplayer game you will also get all your end-round messages emailed to you as a way both inform you that a new round has started, and to also give you some information on how your empire faired when the round ended.\n\nThis is a good time to explain that Cosmica deals with turn-based strategy differently then many strategy games in that all empire moves are handled at the same time once every player has submitted their turns to the game server.\n\nThe game server will turn-over after a certain limit of time that you can access from to top left corner, or it will end sooner based on players finishing their turn of play.\n\nThe advantage of this system is that players can finish their turn when it works with their schedule and as long as everyone stays engaged with their turns, Cosmica tends to turn into a deep strategy and diplomacy game without the requirement for a ton of player committment time-wise, day-to-day."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'],displayNextMessage=message)    
+    
+    def tutorial31(self):
+        # check that steps complete
+        if self.game.currentRound > 5:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()
+            return
+        
+        message = "Ok, lets try to invade a planet. To do this we are first going to need some resources. Notice your trade routes in Round 2 activated and you now have some alloys (blue) at two of your three sub-systems.\n\nTake this opportunity to build the appropriate factories at these locations so that more resources will be generated each round. Also send some more alloys from your homeworld via a gen trade to your other systems that still need alloys to build factories in round 3. I wont check if you do this, but try to get all your systems fully activated with industry.\n\nYour goal is to build a stockpile of resources on your homeworld.\n\nOne other thing you can try is to buy resources (or sell them) directly on the market. You do this by clicking on your homeowlrd, click market, and buy or sell resources. Generally speaking choose a price one above or below the asking price if you want a better chance of succeeding.\n\nYou do not have to do this now, but I wanted to point it out.\n\nThe market is a great way to make some quick cash by selling extra resources, and it is a great way to build up your fleets and armies quickly at the expense of credits.\n\nI will leave you to this till lets say round 6."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)    
+    
+    def tutorial32(self):
+        message = "Great, it is at least round 6 for you and if you are in round 6 and you did not use the market you should have around 4000 alloys (blue), 5360 energy (yellow), and 2160 arrays (red) on your homeworld.\n\nThis assumes you built up your three sub planetary systems with factories and send any remaining alloys back to your homeworld. In any case you now have enough resources to build some ships and marines!\n\nMarines are easy to build, click on your homeworld, click on Marines, click on Build Marines, choose Light Nuclear Artillery, and build the maximum which would be 6 and click submit. Do this now."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
+    
+    def tutorial33(self):
+        # check that steps complete
+        for industryID in funcs.sortStringList(self.mode.game.myEmpire['industryOrders'].keys()):
+            myOrder = self.mode.game.myEmpire['industryOrders'][industryID]
+            if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.mode.game.currentRound:
+                globals.tutorialStep += 1
+                self.displayTutorialMessage()                
+                return
+        
+        message = "Nice work. In the current version of Cosmica marines are fairly simple. There are three types:\n\nArtillery Marines require energy (EC) resources to build and are strong against Infrantry and Militia Fortresses (what the neutral planets use to defend themselves).\n\nMechanical Marines require alloy (AL) resources to build and are strong against Artillery marines.\n\nInfantry Marines require array (IA) resources and are strong against Mechanical marines. Generally it is a good tactic to focus on Artillery marines early on to make your expansion against neutral systems easier, and then switch to other types depending on what your opponents are building.\n\nLike anything in Cosmica you can change your mind while doing your turn. If you click on your marines you can decide to reduce the number of marines from this order and the server will give you back the appropriate resources and credits. Also notice that near your homeworld there is now a symbol that used to be grey, but now it is yellow. This gives you the tip that your industry is working on building something on that Planetary System.\n\nLets focus on ships next."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)
+        
+    def tutorial34(self):
+        # check that steps complete
+        for industryID in funcs.sortStringList(self.mode.game.myEmpire['industryOrders'].keys()):
+            myOrder = self.mode.game.myEmpire['industryOrders'][industryID]
+            if myOrder['type'] == 'Add Ship' and myOrder['round'] == self.mode.game.currentRound:
+                globals.tutorialStep += 1
+                self.displayTutorialMessage()                
+                return
+        
+        message = "Great. Now lets build some ships. Click on your homeworld, click on Ships, click on Build Ships. You will see a list of ship designs that you are allowed to build based on your current technology. Choose one and the Ship information will pop up including its cost. Choose any ship that you have the resources for, select one and submit. If you cannot add any ships it is because you do not have enough resources. Fast forward a few more rounds and try again. Try this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
+    
+    def tutorial35(self):
+        message = "Nice work! If you had an optimal amount of resources you should have been able to build up to 5 HCO-11 Neutral Ships. This is a side note, but in this version of Cosmica the early testers have noticed that the HCO-11 design is quite solid, and I recommend you consider this design if you want to mass up a bunch of ships that will do a lot of damage in the early game against smaller neutral planets (size 10-15-20).\n\nSo at this point you should have put in orders with your military for 6 marine regiments, and up to 5 corvettes, not bad! End the round and lets see what we can do with your new recruits!"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)        
     
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""

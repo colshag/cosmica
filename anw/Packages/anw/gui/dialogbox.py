@@ -28,7 +28,9 @@ class DialogBox(RootButton):
         self.mode.removeDialogBox()
         if globals.isTutorial and globals.tutorialStepComplete:
             globals.tutorialStep += 1
-            self.mode.displayTutorialMessage()    
+            self.mode.displayTutorialMessage()
+        if globals.isTutorial == False:
+            self.mode.displayHelpMessage()
                     
 if __name__ == "__main__":
     myGui = DialogBox('media')

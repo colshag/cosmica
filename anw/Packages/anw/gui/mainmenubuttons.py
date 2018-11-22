@@ -152,6 +152,7 @@ class MainMenuButtons(RootButton):
     
     def pressU(self):
         """Ask for Help, or do the tutorial"""
+        self.mode.removeDialogBox()
         if globals.isTutorial:
             self.mode.displayTutorialMessage()
         else:
