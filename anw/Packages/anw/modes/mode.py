@@ -749,7 +749,7 @@ class Mode(object):
                 gui.setShortcuts()
     
     def tutorial0(self):
-        message = "Welcome to Cosmica!\n\nI see you have selected to go through the tutorial, hence this welcome message, great! \n\nI have setup the tutorial by explaining how Cosmica is played and asking you to complete specific orders by submitting moves to your tutorial game which will activate the next message.\n\nWhen you click ok to remove a message you can always retrieve the message later by clicking the help button, which is always available as one of the top menu buttons. Normally the help button plays a different role in that it will scan your current situation and give you a quick AI assessment of how you are doing and any areas you might want to focus some thought on. That feature is disabled for this tutorial game.\n\nMy hope is that this tutorial will give you the basics of Cosmica, however, please join the forums on our website at www.playcosmica.com to get more advanced techniques, join multiplayer games, and watch our many developer and user created videos.\n\nI hope you consider joining our growing community of strategy gamers!\n\n -- Chris Lewis (game creator)"
+        message = "Welcome to Cosmica!\n\nI see you have selected to go through the tutorial, hence this welcome message, great! \n\nI have setup the tutorial by explaining how Cosmica is played and asking you to complete specific orders by submitting moves to your tutorial game which will activate the next message after you click the help button.\n\nWhen you click ok to remove a message you can always retrieve the message later by clicking the help button, which is always available as one of the top menu buttons.\n\nNormally the help button plays a different role in that it will scan your current situation and give you a quick AI assessment of how you are doing and any areas you might want to focus some thought on. That feature is disabled for this tutorial game.\n\nMy hope is that this tutorial will give you the basics of Cosmica, however, please join the forums on our website at www.playcosmica.com to get more advanced techniques, join multiplayer games, and watch our many developer and user created videos.\n\nI hope you consider joining our growing community of strategy gamers!\n\n -- Chris Lewis (game creator)"
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
@@ -817,7 +817,7 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
         
     def tutorial9(self):
-        message = "Trade routes allow an empire to move the three resources (alloys, energy, alloys) from one planet to another. The planets have to either be adjacent to each other (connected via a line designating a warp point), or if two planets have warp gates, trade can warp between them (taking away some warp gate points).\n\nThere are three trade types:\n\nA Gen trade route will allow a planets newly created resources to all be sent towards another planet on the same turn they are generated.\n\n  A one-time trade route will send resources from one planet to another one-time only.\n\nA standard trade route will attempt to send trade between planets forever as long as the sending planet has the resources available."
+        message = "Trade routes allow an empire to move the three resources (alloys, energy, arrays) from one planet to another. The planets have to either be adjacent to each other (connected via a line designating a warp point), or if two planets have warp gates, trade can warp between them (taking away some warp gate points).\n\nThere are three trade types:\n\nA Gen trade route will allow a planets newly created resources to all be sent towards another planet on the same turn they are generated.\n\nA one-time trade route will send resources from one planet to another one-time only.\n\nA standard trade route will attempt to send trade between planets forever as long as the sending planet has the resources available."
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)
     
@@ -884,7 +884,7 @@ class Mode(object):
     def tutorial16(self):
         message = "Ok, you have now done almost everything you should do in your first round of play. You will find that the first 5 rounds are very quick as players build out their economy, start some simple research, and maybe play with a few ship designs.\n\nExpansion and combat will not start until enough resources are gathered that a fleet and army can be assembled.\n\nSome players might even avoid expansion and focus on technology early on, other players would take a different approach. It is my suggestion that some light expansion is recommended to give your empire more cities to control allowing more research in the long run. Before we end our turn lets take a quick look at the ship design screen by clicking on it from the main menu above. Do this now."
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guigreen'],displayNextMessage=message) 
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message) 
         
     def tutorial17(self):
         message = "Notice that the first thing you have to decide is if you want to design with your current technology or with all technology, or just start a simulation of existing designs.\n\nCosmica was purposely designed to give a player a lot of flexibility in ship design.\n\nAs you play Cosmica you will find that a well-designed fleet of ships will make a big difference in your attempts to dominate opponents in space. As you start to play Cosmica you will learn that critical fleet battles between empires can swing the fortunes of empires quickly.\n\nFor this reason a well-designed and upgraded fleet composed of ship designs that counter other fleet designs, and complement each other is of critical importance. Ship designing and simulating is also a lot of fun, and can take a lot of time for players that want that extra edge."
@@ -907,10 +907,51 @@ class Mode(object):
         globals.tutorialStepComplete = False
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
         
-    def tutorial18(self):
-        message = "I hope that was entertaining! One good way to learn about ship designs is to use the singleplayer function to build a bunch of simulation centers and play with ship designs, then take that knowledge to your slower (but more important) multiplayer games. Simulations are also critical when we are designing ships as it is a great way to make sure your designs work as you intend. It is very common for example to make a ship that doesn't have the correct ammunition, something you would want to learn from your simulations, not in real battle!"
+    def tutorial20(self):
+        message = "I hope that was entertaining! One good way to learn about ship designs is to use the singleplayer function to build a bunch of simulation centers and play with ship designs, then take that knowledge to your slower (but more important) multiplayer games. Simulations are also critical when we are designing ships as it is a great way to make sure your designs work as you intend.\n\nIt is very common for example to make a ship that does not have the correct ammunition, something you would want to learn from your simulations, not in real battle!"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)    
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial21(self):
+        message = "Ok, lets try to create a ship design. click back on design and choose all technology. Notice that the screen is full of every type of ship hull, and there is a list of every Neutral Ship Design for you to review at any time.\n\nCosmica was designed to give you the option to build any ship design before you have the technology to build your ships.\n\nThe reasoning here is that you can plan out your fleet and research towards those goals.\n\nClick on the Neutral Design with SDN in its name. Notice that it says OUT OF TECH LEVEL, this lets you know that you cannot build this ship currently.\n\nNow click the Design button again and click on Current Technology."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial22(self):
+        # check that steps complete
+        if self.game.myEmpire['designsLeft'] == 0:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()            
+            return
+        
+        message = "Now notice that you have far fewer designs to select from. The only available designs will be ones that you can currently build. Click on a hull type. To build a valid ship design in Cosmica you need to have at least one Engine component, one Rotation Component, and one power component.\n\nNotice that there are 4 quadrants. When a ship takes damage it will go into the quadrant that the weapon hit into. When you place a weapon notice that you can also place its direction.\n\nThis is important as a ship will behave based on the direction its weapons face. Try builing a valid design. Remember to give it a name in the text box to the right. You will have to press enter on the text box in order to enable the submit design button. Do this now."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)        
+        
+    def tutorial23(self):
+        message = "Good Job, your first Ship Design! I would not build any of these ships without first testing them in the simulator, but since we used our our 1 simulation point we have no idea if this design is any good. The good news is that if you go back to the Designs main screen, click on current technology, click on your new design, and click remove design. This will remove the design from your list of designs.\n\nThis is a nice feature when you have older designs that are no longer being used, but it can only be done if you have no more ships with that design in play.\n\nKeep in mind that you can always upgrade your ships from one design to a new design, and the costs will depend on how many components are different. So when you are making new upgrades, try to keep them as similar to the old design as you can, but with better components, if you want a reasonable upgrade cost."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial24(self):
+        message = "I do recommend that you look on our website forums for more information and videos on ship designs, however I feel I should explain the different ship classes.\n\nShips are divided into several classes:\n\nMost ships are Warships, these ships will attack the nearest ship or drone and shoot at it until it dies with whatever weapons the warship has. Some warship hulls are specialized to target other warship hulls like carriers and assault ships.\n\nConsider any ship that is not a Carrier, Assault Ship, or a Platform to be a Warship of various sizes."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial25(self):
+        message = "Carriers are specialized ships that cannot carry regular weapons, instead you install drones as weapons. Drones are also hull types, but they can only be installed in Carriers or Platforms, not warships.\n\nCarriers are powerful mid to late game ships as they provide a fighter screen that distracts most warships, keeping them from shooting at more valuable ships.\n\nDrones are also expendable as long as the Carrier survives the battle, any drones will be reset for the next battle."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial26(self):
+        message = "Assault ships are specilized ships that cannot carry weapons, instead you want to install marine pods which house special space marines that are trained to board enemy ships. If an assault ship is fast enough and protected enough it will crash into an enemy ship and its space marines will attempt to board and take over the enemy ship, making it your ship, even if it is of a higher technology then what you possess currently."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)
+        
+    def tutorial26(self):
+        message = "Platforms are defensive ships that cannot be used to attack any enemy planetary systems. They do however have much more flexibility in that they hold a lot of space for anything from drones to large weapons. Platforms can also be converted into mobile shipyards by installing engineering stations, a powerful tactic in the mid to late game of Cosmica."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'],displayNextMessage=message)                    
     
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""
