@@ -9,7 +9,7 @@ import random
 import types
 import logging
 
-from anw.func import globals
+from anw.func import globals, funcs
 if globals.serverMode == 0:
     from panda3d.core import Point2, Point3, Vec3, Vec4, BitMask32
     from panda3d.core import PandaNode,NodePath, TextNode
@@ -984,28 +984,28 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'],displayNextMessage=message)    
     
     def tutorial32(self):
-        message = "Great, it is at least round 6 for you and if you are in round 6 and you did not use the market you should have around 4000 alloys (blue), 5360 energy (yellow), and 2160 arrays (red) on your homeworld.\n\nThis assumes you built up your three sub planetary systems with factories and send any remaining alloys back to your homeworld. In any case you now have enough resources to build some ships and marines!\n\nMarines are easy to build, click on your homeworld, click on Marines, click on Build Marines, choose Light Nuclear Artillery, and build the maximum which would be 6 and click submit. Do this now."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
-    
-    def tutorial33(self):
         # check that steps complete
-        for industryID in funcs.sortStringList(self.mode.game.myEmpire['industryOrders'].keys()):
-            myOrder = self.mode.game.myEmpire['industryOrders'][industryID]
-            if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.mode.game.currentRound:
+        for industryID in funcs.sortStringList(self.game.myEmpire['industryOrders'].keys()):
+            myOrder = self.game.myEmpire['industryOrders'][industryID]
+            if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.game.currentRound:
                 globals.tutorialStep += 1
                 self.displayTutorialMessage()                
                 return
-        
-        message = "Nice work. In the current version of Cosmica marines are fairly simple. There are three types:\n\nArtillery Marines require energy (EC) resources to build and are strong against Infrantry and Militia Fortresses (what the neutral planets use to defend themselves).\n\nMechanical Marines require alloy (AL) resources to build and are strong against Artillery marines.\n\nInfantry Marines require array (IA) resources and are strong against Mechanical marines. Generally it is a good tactic to focus on Artillery marines early on to make your expansion against neutral systems easier, and then switch to other types depending on what your opponents are building.\n\nLike anything in Cosmica you can change your mind while doing your turn. If you click on your marines you can decide to reduce the number of marines from this order and the server will give you back the appropriate resources and credits. Also notice that near your homeworld there is now a symbol that used to be grey, but now it is yellow. This gives you the tip that your industry is working on building something on that Planetary System.\n\nLets focus on ships next."
+            
+        message = "Great, it is at least round 6 for you and if you are in round 6 and you did not use the market you should have around 4000 alloys (blue), 5360 energy (yellow), and 2160 arrays (red) on your homeworld.\n\nThis assumes you built up your three sub planetary systems with factories and sent any remaining alloys back to your homeworld. In any case you now have enough resources to build some ships and marines!\n\nMarines are easy to build, click on your homeworld, click on Marines, click on Build Marines, choose Light Nuclear Artillery, and build the maximum which would be 6 and click submit. Do this now."
         globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
+    
+    def tutorial33(self):
+        message = "Nice work. In the current version of Cosmica marines are fairly simple. There are three types:\n\nArtillery Marines require energy (EC) resources to build and are strong against Infrantry and Militia Fortresses (what the neutral planets use to defend themselves).\n\nMechanical Marines require alloy (AL) resources to build and are strong against Artillery marines.\n\nInfantry Marines require array (IA) resources and are strong against Mechanical marines. Generally it is a good tactic to focus on Artillery marines early on to make your expansion against neutral systems easier, and then switch to other types depending on what your opponents are building.\n\nLike anything in Cosmica you can change your mind while doing your turn. If you click on your marines you can decide to reduce the number of marines from this order and the server will give you back the appropriate resources and credits. Also notice that near your homeworld there is now a symbol that used to be grey, but now it is yellow. This gives you the tip that your industry is working on building something on that Planetary System.\n\nLets focus on ships next."
+        globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)
         
     def tutorial34(self):
         # check that steps complete
-        for industryID in funcs.sortStringList(self.mode.game.myEmpire['industryOrders'].keys()):
-            myOrder = self.mode.game.myEmpire['industryOrders'][industryID]
-            if myOrder['type'] == 'Add Ship' and myOrder['round'] == self.mode.game.currentRound:
+        for industryID in funcs.sortStringList(self.game.myEmpire['industryOrders'].keys()):
+            myOrder = self.game.myEmpire['industryOrders'][industryID]
+            if myOrder['type'] == 'Add Ship' and myOrder['round'] == self.game.currentRound:
                 globals.tutorialStep += 1
                 self.displayTutorialMessage()                
                 return
@@ -1015,9 +1015,41 @@ class Mode(object):
         self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
     
     def tutorial35(self):
+        # check that steps complete
+        if len(self.game.myShips.keys()) > 0 and len(self.game.myArmies.keys()) > 0:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()                
+            return
+        
         message = "Nice work! If you had an optimal amount of resources you should have been able to build up to 5 HCO-11 Neutral Ships. This is a side note, but in this version of Cosmica the early testers have noticed that the HCO-11 design is quite solid, and I recommend you consider this design if you want to mass up a bunch of ships that will do a lot of damage in the early game against smaller neutral planets (size 10-15-20).\n\nSo at this point you should have put in orders with your military for 6 marine regiments, and up to 5 corvettes, not bad! End the round and lets see what we can do with your new recruits!"
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)
+        
+    def tutorial36(self):
+        message = "Looks like you have some ships and some armies which is great, lets give them some a glorious battle!\n\nAll Neutral (white) planets will have a random fleet that is based on the map configuration, but generally goes up in defence as the neutral planets get bigger in size.\n\nYour five HCO11 ships should have a good chance against the neutral planet.\n\nOne important thing you can do to make sure is to build a radar station on a nearby friendly planet. Radar stations once built will provide you with the ability to click on adjacent planets and you will get a report on their strength.\n\nAnother way would be to sacrifice a cheap ship or one marine troop to attack early. Every ship battle is recorded for your later viewing, so you can use this information to determine the exact makeup of the planet defences, which gives you the option to simulate potential solutions as required.\n\nNeutral Planets will never attack you, and their ships will never repair, they are meant to slow you down, your real concern are the other empires in play."
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)        
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
+        
+    def tutorial37(self):
+        # check that steps complete
+        if len(self.game.warpedArmadas.keys()) > 0 and len(self.game.warpedArmies.keys()) > 0:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()                
+            return
+        
+        message = "Ok, lets attack the 5 city Neutral Planet. If you wanted to play it safe you would attack with your Fleet first, wait one round then move in your troops. Lets take a chance and send them in together!\n\nTo move your Ships simply click on the ship icon on the top right corner of your Homeworld. Click on the Neutral 5 Planet, select all the ships, and click WARP SHIPS.\n\nNotice they will show up in the bottom right corner of the Neutral Planet. Any Ships or Armies that have not moved will be in the top right corner, and moved ones in the bottom right.\n\nDo the same thing with your Army. Each Marine Regiments comes with its own transport ship, when you do not move them and they are on a friendly Planet they will defend on the planet surface.\n\nIf you move them however they have to survive the space battle as a troop transport before they are allowed to land on the Planetary System in question. Once they have both moved end the turn and you will notice that there is a bit of a delay.\n\nThis is because the server is resolving all battles, it should not take too long."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['red'],displayNextMessage=message)    
+    
+    def tutorial38(self):
+        message = "Ok, well hopefully we took this planet, you will be able to tell if its color changed, but to watch the battle click on the WAR button and click on your battle and watch the results! After that if you go to the MAIL section you can review how the ground battle unfolded. We might have been a bit too agressive here, but by my calculations you should have won this small planet, congrats!"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'],displayNextMessage=message)
+        
+    def tutorial39(self):
+        message = "I think at this point you should have the basic grasp of Cosmica, and everyone here at NeuroJump wants to thank you for considering our indie game.\n\nWe hope you consider joining our community as we build out this game and the many planned improvements in store!\n\nWe Hope to see you online at www.playcosmica.com!\n\nChris, Steve, and Jeremy (NeuroJump) 2018-2019."
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['pink'],displayNextMessage=message)        
     
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""
