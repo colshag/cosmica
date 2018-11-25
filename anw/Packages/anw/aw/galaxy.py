@@ -3,8 +3,8 @@
 # galaxy.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This represents a working Galaxy of ANW.  A Galaxy is essentially one 
-# running game of ANW.
+# This represents a working Galaxy of COSMICA.  A Galaxy is essentially one 
+# running game of COSMICA.
 # ---------------------------------------------------------------------------
 from anw.func import root, storedata, funcs, globals, names
 from anw.util.Injection import Services
@@ -18,7 +18,7 @@ import traderoute
 import galacticmarket
 
 class Galaxy(root.Root):
-    """A Galaxy object represents one working game of ANW."""
+    """A Galaxy object represents one working game of COSMICA."""
     def __init__(self, args):
         # Attributes
         self.name = str() # name of Galaxy

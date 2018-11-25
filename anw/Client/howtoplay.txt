@@ -5,7 +5,7 @@ To Play as a Player:
 edit startclient1.bat and run it. You need:
 
 a server to connect to (remoteserver), this is an ip address of where the server is including the port.
-a Galaxy Name (ANW1, ANW2, ANW3, etc)
+a Galaxy Name (COSMICA1, COSMICA2, COSMICA3, etc)
 an Empire ID (1,2,3,4, etc)
 a password (when the game is created by your administrator a password will be randomly generated for you, your administrator will give you this password)
 
@@ -23,7 +23,7 @@ If you are hosting ideally your ip address is static, there are services to do t
 Run the same dependency exe's
 
 make sure playerlist.txt has all the emails of the players that might play your game, or multiple games if you are running multiple servers at once
-make another txt file called GALAXYNAME-setup.txt where GALAXYNAME is ANW2, ANW3, ANW4, etc... make sure that you have a unique galaxy name for each game running if you are running more than one server at a time.
+make another txt file called GALAXYNAME-setup.txt where GALAXYNAME is COSMICA2, COSMICA3, COSMICA4, etc... make sure that you have a unique galaxy name for each game running if you are running more than one server at a time.
 edit startserver.bat to run your game. The first time you run it the galaxy will be generated for you, after that it will just load the galaxy file that it finds under /Database
 there are different maps you can use, and you can feel free to make your own maps, they are all in the /Data folder.
 

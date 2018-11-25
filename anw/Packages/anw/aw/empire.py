@@ -3,7 +3,7 @@
 # empire.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This represents an Empire in ANW
+# This represents an Empire in COSMICA
 # ---------------------------------------------------------------------------
 import string
 import types

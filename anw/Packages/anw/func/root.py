@@ -3,13 +3,13 @@
 # root.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This represents the root ANW class, common functions are stored 
+# This represents the root COSMICA class, common functions are stored 
 # ---------------------------------------------------------------------------
 import types
 import funcs
 
 class Root(object):
-    """A ANW object contains generic ANW Methods."""
+    """A COSMICA object contains generic COSMICA Methods."""
     def __init__(self, args):
         # The init is only used for testing and does not need to be called by child classes
         self.id = str()

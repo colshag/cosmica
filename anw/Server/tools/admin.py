@@ -5,7 +5,7 @@ import sys
 
 # forward declare. defined at bottom
 COMMANDS = {}
-PROMPT = "ANW>"
+PROMPT = "COSMICA>"
 
 class ServerConnection(object):
 
@@ -180,7 +180,7 @@ COMMANDS = {
 (processMail,
 """MAIL GALAXY
 - This will prompt for a message to send to all players in the GALAXY
-- eg. MAIL ANW77
+- eg. MAIL COSMICA77
 """
 )
 ,
@@ -189,7 +189,7 @@ COMMANDS = {
 (processEndRound,
 """ENDROUND GALAXY
 - This will force an end round for the GALAXY specified 
-- eg. ENDROUND ANW77
+- eg. ENDROUND COSMICA77
 """
 )
 ,
@@ -198,7 +198,7 @@ COMMANDS = {
 (processEndGame,
 """ENDGAME GALAXY <True|False>
 - This will tell the server to flag the game as ended in the central registry. Specify True to end the game.  Specify False to re-enable the game
-- eg. ENDGAME ANW77 True
+- eg. ENDGAME COSMICA77 True
 """
 )
 ,
@@ -207,8 +207,8 @@ COMMANDS = {
 (processVacation,
 """VACATION GALAXY <empire|empireid> <True|False>
 - Flag an empire as being on vacation in the database. This will make their turn auto ended.  When the user logs into the game and un-ends his turn he will leave vacation mode.
-- eg. vacation ANW77 1 True
-- eg. vacation ANW77 brown True
+- eg. vacation COSMICA77 1 True
+- eg. vacation COSMICA77 brown True
 - empire can be one of Yellow, Brown, Green, Blue, Pink, Red, Cyan or Fire 
 """
 )

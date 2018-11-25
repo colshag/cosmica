@@ -22,9 +22,9 @@ class GenerateGalaxy(object):
         self.generateSystems = None
         self.generateTech = None
         self.path = os.getcwd()
-        self.galaxyName = "ANW1"        
+        self.galaxyName = "COSMICA1"        
 
-    def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "ANW1", serverPort=8000):
+    def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "COSMICA1", serverPort=8000):
         """Generate a Galaxy Object given data path, and star Map data file"""
         self.galaxyName = galaxyName
         self.setDataPath(dataPath)

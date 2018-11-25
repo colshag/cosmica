@@ -124,7 +124,12 @@ droneAccel = 5.0
 droneRotation = 60.0
 
 targetPreference = {'INT':['ECA','HCA','BCA'],
-                    'COR':['LAS','HAS','BAS']}
+                    'COR':['LAS','HAS','BAS'],
+                    'FRG':['ECA','HCA','BCA'],
+                    'BFR':['LAS','HAS','BAS'],
+                    'HCU':['ECA','HCA','BCA'],
+                    'BCU':['LAS','HAS','BAS']
+                    }
 
 targetPrefDisplay = {'INT':'drone carriers',
                     'COR':'assault ships'} 

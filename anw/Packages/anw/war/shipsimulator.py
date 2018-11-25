@@ -3,7 +3,7 @@
 # shipsimulator.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of the Ship Battle Simulator in ANW
+# This is representation of the Ship Battle Simulator in COSMICA
 # ---------------------------------------------------------------------------
 import string
 import types

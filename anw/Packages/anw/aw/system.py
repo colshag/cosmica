@@ -13,7 +13,7 @@ from anw.func import root, funcs, globals
 from anw.war import captain, ship
 
 class System(root.Root):
-    """A System Represents one Territory Object in ANW.  A System will
+    """A System Represents one Territory Object in COSMICA.  A System will
     contain Industry, Armies, Fleets, etc.  Systems also have coordinates 
     on the Galactic Map.  These Coordinates decide which Systems are adjacent"""
     def __init__(self, args):

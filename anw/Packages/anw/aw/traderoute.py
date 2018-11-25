@@ -10,7 +10,7 @@ import string
 from anw.func import root, globals
 
 class TradeRoute(root.Root):
-    """A Trade Route represents one Trade Route Object in ANW"""
+    """A Trade Route represents one Trade Route Object in COSMICA"""
     def __init__(self, args):
         # Attributes
         self.id = str() # Unique Game Object ID

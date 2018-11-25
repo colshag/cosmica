@@ -3,12 +3,12 @@
 # app.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is the main application that runs ANW
+# This is the main application that runs COSMICA
 # ---------------------------------------------------------------------------
 import os
 import sys
 
-from game import ANWGame
+from game import COSMICAGame
 
 class Application(object):
     """set the basic app parameters, startup a client game, main Panda3d World Class"""
@@ -28,7 +28,7 @@ class Application(object):
 
     def loadGame(self):
         """Load the game"""
-        self.game = ANWGame(self, self.shipBattle)
+        self.game = COSMICAGame(self, self.shipBattle)
     
     def quit(self):
         return 0

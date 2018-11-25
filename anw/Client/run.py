@@ -3,7 +3,7 @@
 # run.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is runs the main client in ANW
+# This is runs the main client in COSMICA
 # ---------------------------------------------------------------------------
 import os
 import sys
@@ -20,8 +20,8 @@ from panda3d.core import *
 from servermain import serverMain
 from anw.func import storedata, globals
 
-class ANWRunner(object):
-    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, galaxy='ANW1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", mapfile="testai2man.map"):
+class COSMICARunner(object):
+    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", mapfile="testai2man.map"):
         self.singlePlayer = singlePlayer
         self.startSinglePlayerServer = startSinglePlayerServer
         self.remoteServer = remoteServer
@@ -65,7 +65,7 @@ class ANWRunner(object):
             # singlePlayer
             process, serverCommQueue = self.performSinglePlayerSetup()
             try:
-                    self.__runANW()
+                    self.__runCOSMICA()
             finally:
                 logging.info("Sending shutdown signal to server")
                 self.cleanupSinglePlayer(process, serverCommQueue)
@@ -148,7 +148,7 @@ class ANWRunner(object):
 
         return config
 
-    def __runANW(self):
+    def __runCOSMICA(self):
         from anw.client.directapp import DirectApplication
         wp = WindowProperties()
         x, y = self.resolution.split("x")
@@ -173,7 +173,7 @@ if __name__ == '__main__':
     absDataPath = os.path.abspath(os.path.join(os.path.join("..", "Data")))
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--galaxy", "-g", default='ANW1', help="galaxy name to use to. eg. ANW1. Default: ANW1")
+    parser.add_argument("--galaxy", "-g", default='COSMICA1', help="galaxy name to use to. eg. COSMICA1. Default: COSMICA1")
     parser.add_argument("--empireid", "-e", default=1, help="empire id to play in galaxy", type=int)
     parser.add_argument("--empirepass", "-p", default="singleplayer", help="password for connecting to remote server")
     parser.add_argument("--remoteserver", "-s", default="http://localhost:8000", help="server URL to play game")
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     if args.tutorial == True:
         globals.isTutorial = True
 
-    runner = ANWRunner(singlePlayer=not args.server, startSinglePlayerServer=not args.clientonly, remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, password=args.empirepass, sound=not args.disableSound,fullscreen=args.fullscreen, resolution=args.resolution, serverPort=args.server, mapfile=args.map)
+    runner = COSMICARunner(singlePlayer=not args.server, startSinglePlayerServer=not args.clientonly, remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, password=args.empirepass, sound=not args.disableSound,fullscreen=args.fullscreen, resolution=args.resolution, serverPort=args.server, mapfile=args.map)
     runner.start()
 
 

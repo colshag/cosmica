@@ -3,7 +3,7 @@
 # server.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is the main ANW Server: The Servers Job is to verify user
+# This is the main COSMICA Server: The Servers Job is to verify user
 # requests, read the object database and ask those objects to 
 # return values.  The Server then converts these values into
 # XML for the client.
@@ -153,7 +153,7 @@ def shutdown_signal():
     reactor.stop()
 
 
-def serverMain(queue=None, singleplayer=0, database='ANW1', port=8000, testemail=0, config="server", firsttime=0):
+def serverMain(queue=None, singleplayer=0, database='COSMICA1', port=8000, testemail=0, config="server", firsttime=0):
     #setupLogging()
     #logVersion()
     from optparse import OptionParser
@@ -170,7 +170,7 @@ def serverMain(queue=None, singleplayer=0, database='ANW1', port=8000, testemail
     else:
         setupDepenencyInjection(email=config['email'])
 
-    app = anwserver.ANWServer()
+    app = anwserver.COSMICAServer()
     app.runServer(port, database, singleplayer)
     if database != None:
         writeLocalAuthFile(port, database)

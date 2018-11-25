@@ -1,6 +1,6 @@
 #!/bin/bash
 # kill_anw.sh
-# If a command-line perameter is used, kills that ANW game
+# If a command-line perameter is used, kills that COSMICA game
 # Otherwise, promts the user for which game to kill
 # updates the .info file (if it exists) to remove the $pid and $key
 # (leaving only the port)
@@ -13,7 +13,7 @@ if [ $# -eq 0 ]; then
       clear
       sh $currentdir/running_anw.sh
       echo ""
-      echo "Enter the GameID (eg ANW29) of ANW you want stopped"
+      echo "Enter the GameID (eg COSMICA29) of COSMICA you want stopped"
       read -p "or {ENTER} to exit: " INPUT
       echo ""
       if [ -n "$INPUT" ]; then
@@ -27,14 +27,14 @@ if [ $# -eq 0 ]; then
 
          #Check for valid pid
          if [ -n "$pid" ]; then
-            echo "Stopping ANW server $INPUT..."
+            echo "Stopping COSMICA server $INPUT..."
             kill -SIGINT $pid
             if [ $? -eq 0 ]; then
                #remove the PID from the .info file
                echo "port=$port" > $HOME/.anw/$INPUT.info
             fi
          else
-            echo "Error! $INPUT not found as a valid ANW game."
+            echo "Error! $INPUT not found as a valid COSMICA game."
          fi
          sleep 5
       fi

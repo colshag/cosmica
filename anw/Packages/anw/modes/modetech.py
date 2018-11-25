@@ -3,7 +3,7 @@
 # modetech.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of the Technology Tree in ANW
+# This is representation of the Technology Tree in COSMICA
 # ---------------------------------------------------------------------------
 import types
 

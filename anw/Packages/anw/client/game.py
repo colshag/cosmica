@@ -3,7 +3,7 @@
 # game.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of one game of ANW
+# This is representation of one game of COSMICA
 # ---------------------------------------------------------------------------
 import sys
 from xmlrpclib import ServerProxy
@@ -19,8 +19,8 @@ if globals.serverMode == 0:
 from anw.func import globals, funcs, storedata
 from anw.war import shipdesign, dronedesign, empire, tech, shipsimulator
 
-class ANWGame:
-    """A game of ANW"""
+class COSMICAGame:
+    """A game of COSMICA"""
     def __init__(self, app, shipBattle):
         self.version = globals.currentVersion
         self.shipBattle = shipBattle

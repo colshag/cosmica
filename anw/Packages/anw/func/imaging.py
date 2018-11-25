@@ -11,8 +11,8 @@ import string
 
 import globals
 
-class ANWImager(object):
-    """Creates ANW based images"""
+class COSMICAImager(object):
+    """Creates COSMICA based images"""
     def __init__(self, filename, templatePath, imagePath):
         self.filename = filename
         self.templatePath = templatePath
@@ -71,7 +71,7 @@ class ANWImager(object):
         object = self.changeColor(objectL, '%s%s' % (self.templatePath, imageBaseName), color1, color2)
         return object
 
-class CreateGenericImage(ANWImager):
+class CreateGenericImage(COSMICAImager):
     """take a filename and decipher it to build a generic Image"""
     def createImage(self):
         """decipher filename: abr_color1_color2"""
@@ -84,7 +84,7 @@ class CreateGenericImage(ANWImager):
         im = self.createObject(color1, color2, imageLName, imageName)
         self.saveImage(im, '%s_%s' % (abr, empireID))
         
-class CreateSystemImage(ANWImager):
+class CreateSystemImage(COSMICAImager):
     """Take a filename and decipher it to build a System Image"""
     def createImage(self):
         """decipher system filename: sys_x_color1_color2"""
@@ -96,7 +96,7 @@ class CreateSystemImage(ANWImager):
         im = self.createObject(color1, color2, imageLName, imageName)
         self.saveImage(im, self.filename)
 
-class CreateEmpireImage(ANWImager):
+class CreateEmpireImage(COSMICAImager):
     """Take a filename and decipher it to build an Empire Image"""
     def createImage(self):
         """decipher empire filename: emp_x_color1_color2"""
@@ -108,7 +108,7 @@ class CreateEmpireImage(ANWImager):
         im = self.createObject(color1, color2, imageLName, imageName)
         self.saveImage(im, self.filename)
 
-class CreateTechImage(ANWImager):
+class CreateTechImage(COSMICAImager):
     """Take a filename and decipher it to build a Tech Image"""
     def createImage(self):
         """decipher tech filename: tech_color"""
@@ -129,7 +129,7 @@ class CreateTechImage(ANWImager):
         im = self.createObject(color1, color2, imageLName, imageName)
         self.saveImage(im, self.filename)
 
-class CreateSelectorImage(ANWImager):
+class CreateSelectorImage(COSMICAImager):
     """Take a filename and decipher it to build a Custom Selector Image"""
     def createImage(self):
         """decipher selector filename: selector_color1_color2"""

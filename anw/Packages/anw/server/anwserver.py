@@ -3,7 +3,7 @@
 # server.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is the main ANW Server: The Servers Job is to verify user
+# This is the main COSMICA Server: The Servers Job is to verify user
 # requests, read the object database and ask those objects to 
 # return values.  The Server then converts these values into
 # XML for the client.
@@ -19,10 +19,10 @@ import sys
 from anw.util.Injection import Services
 from anw.mail.sending import Email
 
-class ANWServer(xmlrpc.XMLRPC):
-    """The ANWServer maintains the state of various ANW galaxies at once
+class COSMICAServer(xmlrpc.XMLRPC):
+    """The COSMICAServer maintains the state of various COSMICA galaxies at once
     it handles the various user requests, validates them, and saves changes
-    to the various ANW databases"""
+    to the various COSMICA databases"""
     def __init__(self):
         #self._sighandler = signal.signal(signal.SIGINT, self.killnicely)
         
@@ -1394,13 +1394,13 @@ class ANWServer(xmlrpc.XMLRPC):
             # load all galaxy files in database sub folders
             for path, subdirs, files in os.walk(self.path):
                 for name in subdirs:
-                    if 'ANW' in name:
+                    if 'COSMICA' in name:
                         self._LoadGalaxy(name)
         else:
             self._LoadGalaxy(galaxyName)
 
     def _LoadGalaxy(self, name):
-        """attempt to load galaxy to memory given name of galaxy (eg: ANW1)"""
+        """attempt to load galaxy to memory given name of galaxy (eg: COSMICA1)"""
         galaxyFilename = '%s%s/%s.anw' % (self.path,name,name)
         galaxy = storedata.loadFromFile(galaxyFilename)
         self.galaxies[galaxy.name] = galaxy

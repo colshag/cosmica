@@ -608,7 +608,7 @@ class Ship(root.Root, kobj.KObj):
         rotate = 0
         if self.isOutsideBorder():
             rotate = funcs.getTargetRotate(self.posX, self.posY, 0, 0, self.facing)
-        elif self.currentTarget == None or self.myDesign.myShipHull.function == 'carrier':
+        elif self.currentTarget == None: #BALANCE: trying to remove carrier going in circles with new ships that target carriers or self.myDesign.myShipHull.function == 'carrier':
             rotate = 1
         else:
             targetX = self.currentTarget.posX

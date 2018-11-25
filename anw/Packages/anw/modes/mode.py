@@ -3,7 +3,7 @@
 # mode.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is the base mode class in ANW
+# This is the base mode class in COSMICA
 # ---------------------------------------------------------------------------
 import random
 import types

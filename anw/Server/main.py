@@ -176,7 +176,7 @@ if __name__ == '__main__':
         logging.info("Singleplayer mode activated")
         testemail = 0
 
-    app = anwserver.ANWServer()
+    app = anwserver.COSMICAServer()
     app.runServer(port, database, singleplayer)
     if database != None:
         writeLocalAuthFile(port, database)

@@ -3,7 +3,7 @@
 # modelogin.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of the Login Mode in ANW
+# This is representation of the Login Mode in COSMICA
 # ---------------------------------------------------------------------------
 import mode
 from anw.modes import modemail

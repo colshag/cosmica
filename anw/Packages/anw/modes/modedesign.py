@@ -3,7 +3,7 @@
 # modedesign.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of the Design Mode in ANW
+# This is representation of the Design Mode in COSMICA
 # ---------------------------------------------------------------------------
 import types
 import string

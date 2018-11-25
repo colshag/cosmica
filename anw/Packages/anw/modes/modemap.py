@@ -3,7 +3,7 @@
 # modemap.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is representation of the Galactic Map in ANW
+# This is representation of the Galactic Map in COSMICA
 # ---------------------------------------------------------------------------
 import types
 import copy

@@ -20,9 +20,9 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 CreateAppDir=no
-OutputDir=C:\Users\colsh\Downloads\development\ANW\anw\build\2018
+OutputDir=C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018
 OutputBaseFilename=Cosmica Dependency Setup
-SetupIconFile=C:\Users\colsh\Downloads\development\ANW\anw\build\2018\app.ico
+SetupIconFile=C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\app.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -30,8 +30,8 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\colsh\Downloads\development\ANW\anw\build\2018\Panda3D-SDK-1.10.0pre-df77bac-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
-Source: "C:\Users\colsh\Downloads\development\ANW\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Panda3D-SDK-1.10.0pre-df77bac-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Run]
