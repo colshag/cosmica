@@ -3,6 +3,14 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.14.4.0 Release Notes:
+====================================
+- Certain Frigates and Cruisers now target carriers or assault ships
+- Carriers can now run away from battle (do not circle)
+- Tutorial Mode enabled (use --tutorial)
+- Game starts in map mode
+- Game now references games as COSMICA1,2,3, not ANW1,2,3
+
 0.14.3.0 Release Notes:
 ====================================
 - Created a Check AI System to check players situation with server

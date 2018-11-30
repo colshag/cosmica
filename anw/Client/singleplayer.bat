@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA1 --map slow2man.map.map --tutorial
+python run.py --galaxy COSMICA1 --map slow2man.map --tutorial
