@@ -1,0 +1,6 @@
+/home/lewisc/development/cosmica/mono/mono/launcher/bin/Debug/launcher.exe
+/home/lewisc/development/cosmica/mono/mono/launcher/bin/Debug/launcher.pdb
+/home/lewisc/development/cosmica/mono/mono/launcher/obj/x86/Debug/launcher.csprojAssemblyReference.cache
+/home/lewisc/development/cosmica/mono/mono/launcher/obj/x86/Debug/launcher.csproj.CoreCompileInputs.cache
+/home/lewisc/development/cosmica/mono/mono/launcher/obj/x86/Debug/launcher.exe
+/home/lewisc/development/cosmica/mono/mono/launcher/obj/x86/Debug/launcher.pdb
