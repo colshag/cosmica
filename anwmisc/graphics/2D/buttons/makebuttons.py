@@ -169,7 +169,7 @@ class CreateDesignButtonImages(CreateIndustryButtonImages):
     
 
 def run():
-    createMainButtons()
+    #createMainButtons()
     #createScrollButtons()
     #createCityButtons()
     #createIndustryButtons()
@@ -194,7 +194,7 @@ def run():
     #createMultiSimButtons()
     #createQuestionEndRound()
     #createQuestionSurrender()
-    #createHelpButtons()
+    createHelpButtons()
 
 def createMainButtons():
     myButtons = {'I':'CREDIT', 'E':'END', 'O':'MARKET', 'Q':'QUIT', 'R':'MAP',
@@ -423,7 +423,8 @@ def createQuestionSurrender():
         myCreate.createButtons()
         
 def createHelpButtons():
-    myButtons = {'blank':'OK,   I   UNDERSTAND', 
+    myButtons = {'blank':'OK,   I   UNDERSTAND',
+                 'blankback':'GO BACK A STEP'
                  }
     for key, action in myButtons.iteritems():
         myCreate = CreateTradeButtonImages(guiPath, 'okiunderstand', key, action)

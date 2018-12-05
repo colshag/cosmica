@@ -383,6 +383,8 @@ class ModeDesign(mode.Mode):
         self.removeAllGui()
         self.createMainMenu('U')
         self.createDesignMenu()
+        if globals.isTutorial:
+            self.mainmenu.pressU()        
     
     def zoomInCamera(self):
         if camera.getY() <= self.zoomCameraOutDepth:

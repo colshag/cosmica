@@ -84,8 +84,11 @@ class COSMICARunner(object):
         generateGalaxy = generate.GenerateGalaxy()
         generateGalaxy.genGalaxy(dataPath = absDataPath + "/", starMapFile=self.mapfile, playerList = ['singleplayer'], doAI = 1, galaxyName = self.galaxy)
         workingGalaxy = generateGalaxy.getGalaxy()
-
         storedata.saveToFile(workingGalaxy, os.path.join("..", "Database", self.galaxy, self.galaxy + ".anw"))
+        try:
+            os.remove('tutorial.data')
+        except:
+            pass
 
         return self.galaxy
 

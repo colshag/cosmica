@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA1 --map quickstart-4man.map --server 8033
+python run.py --galaxy COSMICA3 --map quickstart-4man.map --server 8003

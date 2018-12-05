@@ -153,6 +153,8 @@ class ModeTech(mode.Mode):
             self.updateTechTotal()
             self.beakers[techID].setCurrentTechOrder()
             self.clearMouseSelection()
+            if globals.isTutorial:
+                self.mainmenu.pressU()            
         except:
             self.modeMsgBox('refreshTechOrder error ')
             

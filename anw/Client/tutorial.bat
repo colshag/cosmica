@@ -1,0 +1,1 @@
+python run.py --galaxy COSMICA1 --map tutorial.map --tutorial

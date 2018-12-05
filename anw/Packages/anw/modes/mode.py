@@ -9,7 +9,7 @@ import random
 import types
 import logging
 
-from anw.func import globals, funcs
+from anw.func import globals, funcs, storedata
 if globals.serverMode == 0:
     from panda3d.core import Point2, Point3, Vec3, Vec4, BitMask32
     from panda3d.core import PandaNode,NodePath, TextNode
@@ -116,12 +116,15 @@ class Mode(object):
         
     def removeMyGui(self, myGuiName):
         """Remove gui"""
-        myGui = getattr(self, myGuiName)
-        if myGui in self.gui:
-            self.gui.remove(myGui)
-        if myGui != None:
-            myGui.destroy()
-            setattr(self, myGuiName, None)
+        try:
+            myGui = getattr(self, myGuiName)
+            if myGui in self.gui:
+                self.gui.remove(myGui)
+            if myGui != None:
+                myGui.destroy()
+                setattr(self, myGuiName, None)
+        except:
+            pass
     
     def createMainMenu(self, key):
         self.mainmenu = mainmenubuttons.MainMenuButtons(self.guiMediaPath)
@@ -389,6 +392,9 @@ class Mode(object):
         if doLogout:
             self.setLogout(self.game.authKey)
         self.alive = 0
+        if globals.isTutorial:
+            tutorialInfo = {'tutorialStep':globals.tutorialStep, 'tutorialStepComplete':globals.tutorialStepComplete}
+            storedata.saveToFile(tutorialInfo, '%s/tutorial.data' % self.game.app.path)        
         self.game.app.quit()
     
     def getCreditInfoFromServer(self):
@@ -681,6 +687,8 @@ class Mode(object):
                         textColor=globals.colors['orange'],displayNextMessage=False):
         """Create a dialog box with text and an ok button"""
         if self.dialogBox == None:
+            if globals.isTutorial:
+                text = "                    ====================== Cosmica Tutorial Step: %s of %s ======================\n\n%s" % (globals.tutorialStep, globals.tutorialTotalSteps, text)
             self.dialogBox = dialogbox.DialogBox(path=self.guiMediaPath,x=x, y=y, 
                                                  text=text,textColor=textColor,displayNextMessage=displayNextMessage)
             self.dialogBox.setMyMode(self)

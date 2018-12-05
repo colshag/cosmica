@@ -969,6 +969,8 @@ class ModeMap(mode.Mode):
         self.updateSystemUnits([fromSystem, toSystem])
         self.updateSystemWarpInfo([fromSystem, toSystem])
         self.clearMouseSelection()
+        if globals.isTutorial:
+            self.mainmenu.pressU()
     
     def updateSystemWarpInfo(self, systemList):
         for systemID in systemList:
@@ -1376,6 +1378,8 @@ class ModeMap(mode.Mode):
         self.updateSystemUnits([fromSystem, toSystem])
         self.updateSystemWarpInfo([fromSystem, toSystem])
         self.clearMouseSelection()
+        if globals.isTutorial:
+            self.mainmenu.pressU()        
         
     def addToWarpedArmy(self, systemID, regList):
         """Add regiments to warpedarmy"""
@@ -1504,7 +1508,11 @@ class ModeMap(mode.Mode):
         self.game.allSystems[systemID]['cityIndustry'] = copy.copy(self.systemmenu.cityindustrygui.cityIndustryList)
         self.refreshSystem(systemID)
         self.systems[systemID].refreshGenTradeRoute()
-        self.systemmenu.press1()
+        if globals.isTutorial:
+            self.onSpaceBarClear()
+            self.mainmenu.pressU()
+        else:
+            self.systemmenu.press1()
     
     def modifyIndustry(self, systemID, amount, industryID):
         """Send an Add or Remove Industry Request to the Server"""
@@ -1529,7 +1537,11 @@ class ModeMap(mode.Mode):
         self.refreshSystem(systemID)
         self.systems[systemID].refreshGenTradeRoute()
         self.refreshCredit()
-        self.systemmenu.press2()
+        if globals.isTutorial:
+            self.onSpaceBarClear()
+            self.mainmenu.pressU()
+        else:
+            self.systemmenu.press2()
         
     def refreshSystemAfterTradeRoute(self, tradeRouteID, refreshToSystem):
         """Refresh Systems after trade route changes"""
@@ -1538,7 +1550,10 @@ class ModeMap(mode.Mode):
         self.refreshSystem(fromSystemID)
         if refreshToSystem:
             self.getSystemUpdate(['AL','EC','IA','usedWGC'], toSystemID)
-            self.refreshSystem(toSystemID)            
+            self.refreshSystem(toSystemID)
+        if globals.isTutorial:
+            self.onSpaceBarClear()
+            self.mainmenu.pressU()
         
     def refreshSystemMarketOrder(self, systemID):
         """Command sent to server, refresh system gui"""
@@ -1721,8 +1736,12 @@ class ModeMap(mode.Mode):
         self.getEmpireOrders('industryOrders')
         self.refreshSystem(systemID)
         self.refreshCredit()
-        self.systemmenu.press5()
-        self.systemmenu.createBuildShipsGui()
+        if globals.isTutorial:
+            self.onSpaceBarClear()
+            self.mainmenu.pressU()
+        else:        
+            self.systemmenu.press5()
+            self.systemmenu.createBuildShipsGui()
     
     def refreshRegimentOrder(self, systemID):
         self.getEmpireUpdate(['CR','AL','EC','IA'])
@@ -1730,8 +1749,12 @@ class ModeMap(mode.Mode):
         self.getEmpireOrders('industryOrders')
         self.refreshSystem(systemID)
         self.refreshCredit()
-        self.systemmenu.press6()
-        self.systemmenu.createBuildMarinesGui()
+        if globals.isTutorial:
+            self.onSpaceBarClear()
+            self.mainmenu.pressU()
+        else:
+            self.systemmenu.press6()
+            self.systemmenu.createBuildMarinesGui()
     
     def refreshRepairShipsOrder(self, systemID):
         self.refreshShipsOrder(systemID)

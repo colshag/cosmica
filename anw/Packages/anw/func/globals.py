@@ -74,6 +74,7 @@ initialLogin = True
 isTutorial = False
 tutorialStep = 0
 tutorialStepComplete = False
+tutorialTotalSteps = 39
 
 marinesPerTransport = 10
 
@@ -132,7 +133,12 @@ targetPreference = {'INT':['ECA','HCA','BCA'],
                     }
 
 targetPrefDisplay = {'INT':'drone carriers',
-                    'COR':'assault ships'} 
+                    'COR':'assault ships',
+                    'FRG':'drone carriers',
+                    'BFR':'assault ships',
+                    'HCU':'drone carriers',
+                    'BCU':'assault ships'
+                    } 
 
 # hardpoints
 hardPoints = {'SCT':{'fore-1':[0,8],
