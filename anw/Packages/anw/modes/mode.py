@@ -20,6 +20,7 @@ if globals.serverMode == 0:
     import direct.directbase.DirectStart #camera
     from anw.gui import textonscreen, fadingtext, mainmenubuttons, line, dialogbox
     from direct.directtools.DirectGeometry import LineNodePath
+    from direct.gui.OnscreenImage import OnscreenImage    
 
 class Mode(object):
     """This is the base Mode class"""
@@ -614,7 +615,15 @@ class Mode(object):
         
     def setMyBackground(self):
         """Set the Background of mode"""
-        base.setBackgroundColor(globals.colors['guiblue3'])
+        #base.setBackgroundColor(globals.colors['guiblue3'])
+        
+        # We use a special trick of Panda3D: by default we have two 2D renderers: render2d and render2dp, the two being equivalent. We can then use render2d for front rendering (like modelName), and render2dp for background rendering.
+        self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1,1,1)) # Load an image object
+        #self.background.setScale(float(self.background.getTexture().getYSize())/base.win.getYSize())
+        base.cam2dp.node().getDisplayRegion(0).setSort(-20) # Force the rendering to render the background image first (so that it will be put to the bottom of the scene since other models will be necessarily drawn on top)
+        
+        #self.background = OnscreenImage(parent=render2d, image=self.guiMediaPath+"backgroundspace.mp4") # Load an image object
+        self.gui.append(self.background)
         
     def setEmpireDefaults(self, clientKey):
         """Read the defaults currently set and change them in the database"""
