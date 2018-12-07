@@ -123,7 +123,7 @@ import os
        ##name = 'questionsurrender_' + key
        ##os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
 
-for key in ['blank']:
+for key in ['blank', 'blankback']:
        name = 'okiunderstand_' + key
        os.popen4('egg-texture-cards -o %s_maps.egg -p 800,100 %s_ready.png %s_click.png %s_rollover.png %s_disabled.png' % (name, name, name, name, name))
  

@@ -39,7 +39,7 @@ class RootButton(DirectObject):
         if name != '' and createButtons == True:
             self.createButtons()
         self.acceptExtraKeys()
-        
+    
     def createInfoPane(self, text, wordwrap, x, z, scale=0.025, textColor=globals.colors['white']):
         """Default Title label for gui controls"""
         myInfoPane = TextNode('infoPane')
