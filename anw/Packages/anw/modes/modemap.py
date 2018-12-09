@@ -20,6 +20,8 @@ from anw.func import globals, funcs
 if globals.serverMode == 0:
     from anw.war import ship, captain
     from anw.gui import shipinfo
+    import direct.directbase.DirectStart
+    from direct.gui.OnscreenImage import OnscreenImage
 
 class ModeMap(mode.Mode):
     """This is the Map Mode, This Mode allows player to interact with the majority
@@ -1513,6 +1515,14 @@ class ModeMap(mode.Mode):
             self.mainmenu.pressU()
         else:
             self.systemmenu.press1()
+    
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        # use render2d for front rendering and render2dp for background rendering.
+        #self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))
+        self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1.6,1,1.5), pos=(0.6,0,0.3))
+        base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+        self.gui.append(self.background)    
     
     def modifyIndustry(self, systemID, amount, industryID):
         """Send an Add or Remove Industry Request to the Server"""

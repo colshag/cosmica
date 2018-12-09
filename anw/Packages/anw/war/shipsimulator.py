@@ -138,10 +138,10 @@ class ShipSimulator(mode.Mode, root.Root):
         mySystem.setMyMode(self)
         mySystem.setMyGame(self.game)
         self.gui.append(mySystem)
-            
+                   
     def setMyBackground(self):
         """Set the Background of mode"""
-        base.setBackgroundColor(globals.colors['guiblack'])
+        base.setBackgroundColor(globals.colors['black'])
             
     def createMainMenu(self, key):
         mode.Mode.createMainMenu(self, key)
