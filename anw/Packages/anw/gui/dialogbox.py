@@ -16,17 +16,17 @@ class DialogBox(RootButton):
         height = 0
         i = 0
         for color in textColors:
-            height += self.createInfoPane(text=texts[i], wordwrap=50,x=x-0.25,z=y-(height/25.0), scale=0.035, textColor=globals.colors[color])
+            height += self.createInfoPane(text=texts[i], wordwrap=40,x=x-0.25,z=y-(height/19.0), scale=0.045, textColor=globals.colors[color])
             i += 1
         self.createButtons(height)
 
     def createButtons(self, height):
         """Create all Buttons"""
-        buttonPosition = (self.posInitX-0.01,0,self.posInitY-(height/25.0))
+        buttonPosition = (self.posInitX-0.01,0,self.posInitY-(height/19.0))
         self.createButton('blank', buttonPosition, geomX=0.5, geomY=0.0525)
         
         if globals.isTutorial and globals.tutorialStep > 1:
-            buttonPosition = (self.posInitX+0.5,0,self.posInitY-(height/25.0))
+            buttonPosition = (self.posInitX+0.5,0,self.posInitY-(height/19.0))
             self.createButton('blankback', buttonPosition, geomX=0.5, geomY=0.0525)            
 
     def pressblank(self):

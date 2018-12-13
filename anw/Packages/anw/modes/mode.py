@@ -689,7 +689,7 @@ class Mode(object):
         """Create a dialog box with text and an ok button"""
         if self.dialogBox == None:
             if globals.isTutorial:
-                texts[0] = "                    ====================== Cosmica Tutorial Step: %s of %s ======================\n\n%s" % (globals.tutorialStep, globals.tutorialTotalSteps, texts[0])
+                texts[0] = "      ====================== Cosmica Tutorial Step: %s of %s ======================\n\n%s" % (globals.tutorialStep, globals.tutorialTotalSteps, texts[0])
             self.dialogBox = dialogbox.DialogBox(path=self.guiMediaPath, x=x, y=y, texts=texts, textColors=textColors)
             self.dialogBox.setMyMode(self)
             self.gui.append(self.dialogBox)
@@ -755,34 +755,43 @@ class Mode(object):
                 gui.setShortcuts()
     
     def tutorial0(self):
-        message = "Welcome to Cosmica!\n\nI see you have selected to go through the tutorial, hence this welcome message, great! \n\nI have setup the tutorial by explaining how Cosmica is played and asking you to complete specific orders by submitting moves to your tutorial game which will activate the next message after you click the help button.\n\nWhen you click ok to remove a message you can always retrieve the message later by clicking the help button, which is always available as one of the top menu buttons.\n\nNormally the help button plays a different role in that it will scan your current situation and give you a quick AI assessment of how you are doing and any areas you might want to focus some thought on. That feature is disabled for this tutorial game.\n\nMy hope is that this tutorial will give you the basics of Cosmica, however, please join the forums on our website at www.playcosmica.com to get more advanced techniques, join multiplayer games, and watch our many developer and user created videos.\n\nI hope you consider joining our growing community of strategy gamers!\n\n -- Chris Lewis (game creator)"
+        message1 = "Welcome to Cosmica, a turn-based strategy game combining elements of strategic board and video games."
+        message2 = "This tutorial will walk you through several turns of a typical game. You will learn how to navigate the interface, develop your planets industry, research technology, build ships and marines, and you will even have a small skirmish to take over a neighbouring planet.\n\nIn order to advance through each stage of the tutorial, you will have to complete the tasks required. At any time, you may click on the HELP button on the Galactic Command Bar to review you current task.\n\nWhen I say <Ok> that means I want you to click the Ok button to advance the tutorial."
+        message3 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2,message3],textColors=['guigreen','orange','cyan'])
     
     def tutorial1(self):
-        message = "Thanks for trying out this tutorial, keep in mind that this tutorial does not limit you in what you can do at any given time. If you want the next step to activate you are going to want to follow the directions exactly. If you start doing other things, that's ok, but it might remove your ability to follow the tutorial steps.\n\nIf you really have trouble feel free to bring it up in our forums at www.playcosmica.com.\n\nAs this is a new indie-game I hope you have some patience with us as we work hard to make Cosmica better every week!"
+        message1 = "This is the galaxy map. You will see several planets. Some of them are under your control (gold) and others are neutral planets (white). The number beside each planet represents how many cities are on each planet. These cities can be put to work.\n\nYour homeworld has 40 cities on it."
+        message2 = "Click on your Homeworld. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial2(self):
-        message = "Ok, lets start with what is Cosmica exactly?\n\nConsider Cosmica a turn-based hybrid strategy game that combines elements of board games like Risk and Diplomacy, with the well established 4X space strategy genre of video games that follow a general game mechanic of:\n\nGrowing an empire (aquiring planets)\nIncreasing your technology (research)\nBuilding a military (ships and troops)\nMaking relationships (diplomacy)\n\nWith the final goal of taking over the provided galactic map, potentially with allies (depending on the map configuration)."
+        message1 = "This is the planets details. Information regarding each planets cities, industries, trade deals, market investments, and ship and marine build orders can be found here by clicking on each of the buttons on the Planetary Command Bar."
+        message2 = "Click Industry. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial3(self):
-        message1 = "Like many strategy games the beginning moves are critical to get your empire off on the right start.\n\nAlthough Cosmica maps can be setup in any configuration, the standard maps will have players on the edge of a galaxy map with a homeworld (usually a 40 city sized planet), and some support planets (3 or 4) to support the homeworld."
-        message2 = "This number of planets gives your empire enough cities (population) to get your economy and research going, as you are going to want to establish a good economy if you want to start building military units and expanding towards other empires."
+        message1 = "Your homeworld is currently using all 40 of its cities in some capacity. Whenever possible, ensure all your cities are assigned to an Industry. Unassigned cities are a drain on your economy and you will be penalized each round for each unassigned city in your empire."
+        message2 = "Click the right mouse button or press escape to go back to the Galaxy Map. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','guigreen'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial4(self):
-        message1 = "Lets start with your economy. Your economy is composed of three resources:\nAlloys (AL) (blue color)\nEnergy (EC) (yellow color)\nArrays (IA) (red color)"
-        message2 = "It is important that you make sure your planets are setup to build these resources early in the game, and that you are transferring these resources where they are needed to support future turns.\n\nYour homeworld which currently starts the game with some shipyards (to build ships)\nmilitary installations (to build marines)\nresearch centers (to build research points)\ndesign centers (to create ship designs)\nsimulation centers (to simulate ship designs)\nand alloy factories (to increase the production of alloys) each turn."
-        message3 = "Notice that in this galaxy your homeworld says 40/40 beside its name. This means all 40 cities are employed, which is what you want.\n\nNotice that your other three planets are not currently working as hard, let's get them working fully over the next few turns."
+        message1 = "In Cosmica, your cities are assigned one of three resources to produce. Alloys (blue), Energy, (yellow), and Arrays (red).\n\nThe coloured arrows under each planet will tell you which of these resources are being produced there."
+        message2 = "Click on Onatarin. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2,message3],textColors=['orange','guigreen','ltpurple'])
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial5(self):
+        message1 = "Lets change the resource focus of the Cities on Onatarin.\n\n"
+        message2 = "Click on Cities. << OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])    
+    
+    def tutorial6(self):
         # check that steps complete
         mySystem = self.game.allSystems['21']
         if mySystem['name'] == 'Onatarin' and mySystem['cityIndustry'] == [0, 20, 0]:
@@ -790,11 +799,12 @@ class Mode(object):
             self.displayTutorialMessage()
             return
         
-        message = "Notice that all your planets have a blue triangle at the bottom, this designates that the planet cities are focused on building alloys currently. There is also a blue number below each planet.\n\nAny colored number represents the exact amount of that type of resource residing on that planet this turn. You can make your planets focus on multiple resources, but it is more efficient to have them focus on one due to the power of resource factories.\n\nIt is important to get your various planets focusing on different resources so that you are generating all three resources early in the game.\n\nClick on your planetary system: Onatarin, Click cities, reduce the alloys(AL) focus to 0, increase the energy(EC) focus to 20, and click submit"
+        message1 = "It is important to create a diverse economy. Since your homeworld is producing Alloys, assign Onatarin to produce Energy. Using the addition/subtraction menu, do the following:"
+        message2 = "Reduce Alloy (AL) production to 0.\nIncrease Energy (EC) production to 20.\nClick Submit."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
     
-    def tutorial6(self):
+    def tutorial7(self):
         # check that steps complete
         mySystem = self.game.allSystems['21']
         if mySystem['name'] == 'Onatarin' and mySystem['myIndustry']['4'] == 4:
@@ -802,11 +812,12 @@ class Mode(object):
             self.displayTutorialMessage()
             return
         
-        message = "Great! You have now focused Onatarin to build energy (yellow) instead of alloys (blue).\n\nThis will be helpful for future military growth in a few turns. Lets now click back on Onatarin, click industry, click on Crystal Mine, choose Basic, and build the max mines you can at 100 Alloys per mine which is 4 (you only have 400 Alloys on your planet), then click submit."
+        message1 = "Now that your cities are focused on producing energy, lets build some industry that will make Onatarin more productive at building the energy resource."
+        message2 = "Click Industries.\nClick on Crystal Mines.\nAdd four basic Crystal Mines.\nClick submit."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
-    
-    def tutorial7(self):
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
+        
+    def tutorial8(self):
         # check that steps complete
         mySystem1 = self.game.allSystems['41']
         mySystem2 = self.game.allSystems['53']
@@ -816,21 +827,24 @@ class Mode(object):
             self.displayTutorialMessage()
             return
         
-        message = "Nice Work! You now have focused 4 of your 20 cities on crystal mines, notice that the output of energy is higher as each mine increases the percentage of crystal production, and since all your cities are focused on energy, the total energy production (yellow) is higher than if you divided a planet into multiple resource types.\n\nChange the city focus to energy on Strig and build 4 simple Cystal Mines.\n\nChange the city focus to arrays (IA) on Cygnus, and build 6 Simple Synthetic Systems on Cygnus as well.\n\nDo this now."
+        message1 = "Now do the following for your other planets:"
+        message2 = "Change Strigs production focus to Energy and build Crystal Mines.\nChange Cyngus production focus to Arrays and build Synthetic Systems."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
-    
-    def tutorial8(self):
-        message = "Excellent! you now have a homeworld focused on alloys(blue), systems Strig and Onatarin focused on energy(yellow), and Cygnus focused on arrays(red). The next thing we want to do is move resources around to where they need to go to accomplish two short term goals:\n\n1) make sure all our planets are fully focused on industry (no idle cities)\n\n2) make sure our homeworld has resources streaming into it via trade routes so that in a few turns we can start building ships and troops to start our expansion into the galaxy. \n\nTo accomplish this we need to leverage trade routes."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.9, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
         
     def tutorial9(self):
-        message = "Trade routes allow an empire to move the three resources (alloys, energy, arrays) from one planet to another. The planets have to either be adjacent to each other (connected via a line designating a warp point), or if two planets have warp gates, trade can warp between them (taking away some warp gate points).\n\nThere are three trade types:\n\nA Gen trade route will allow a planets newly created resources to all be sent towards another planet on the same turn they are generated.\n\nA one-time trade route will send resources from one planet to another one-time only.\n\nA standard trade route will attempt to send trade between planets forever as long as the sending planet has the resources available."
+        message1 = "Excellent! You have now learned the basics of changing a planets production focus and building the correct mines to match. Next, we will look at how trade works between planets."
+        message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['orange'])
-    
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        
     def tutorial10(self):
+        message1 = "Trade is critical to an empires success. Trade routes allow an empire to move the three resources (Alloys, Energy, Arrays) from one adjacent planet to another.\n\nThere are three types of Trade routes:\n\nGen Trade: a reoccurring trade agreement that automatically sends whatever resources the trading planet generates each turn to the receiving planet.\n\nOne-Time Trade: a single trade that sends a specified amount of resources from the trading planet to the receiving planet.\n\nStandard Trade: a trade route that will attempt to continue the route as long as the resource is available each turn."
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+    
+    def tutorial11(self):
         # check that steps complete
         mySystemFrom = self.game.allSystems['40']
         mySystemTo = self.game.allSystems['21']
@@ -841,11 +855,12 @@ class Mode(object):
                 self.displayTutorialMessage()
                 return
             
-        message = "Lets start with creating a one-type trade route to send all the current alloys on our homeworld to Onatarin so that it will have more alloys to build factories in the following turn.\n\nClick on your homeworld, click trade, click on Onatarin, choose alloys, and choose all of the available alloys.\n\n Finally, click the one-time trade button."
+        message1 = "It is important in the early game to ensure your planets are sending their resources back to your homeworld."
+        message2 = "Using your knowledge of trading, do the following:\n\nEstablish a Standard Trade agreement from Onatarin to your homeworld.\n\nEstablish a Standard Trade agreements from Strig to your homeworld.\n\nEstablish a Standard Trade agreements from Cygnus to your homeworld."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
                
-    def tutorial11(self):
+    def tutorial12(self):
         # check that steps complete
         mySystemFrom = self.game.allSystems['40']
         mySystemTo = self.game.allSystems['53']
@@ -854,22 +869,24 @@ class Mode(object):
             self.displayTutorialMessage()
             return
         
-        message = "Great job! Notice that the trade route has been created, feel free to click on it, you could modify it, cancel it, or just leave it there (which is what we want for now).\n\nNow, to expedite alloys going to our feeder planets, lets create a gen trade route from our homeworld (that creates alloys) to Strig.\n\nThis will send whatever our homeworld makes next turn in alloys directly to Strig next round. Click on our homeworld, click on trade, click on Strig, and click gen trade route. Do This Now."
+        message1 = "Since we assigned Onatarin to produce energy, it needs alloys to build more mines."
+        message2 = "DO the following:\nClick on your homeworld.\nClick Trade.\nClick Onatarin.\nClick Alloys.\nClick to add all available alloys to trade.\nClick One Time Trade."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
     
-    def tutorial12(self):
+    def tutorial13(self):
         # check that steps complete
         if '53-40-GEN' in self.game.tradeRoutes.keys() and '21-40-GEN' in self.game.tradeRoutes.keys() and '41-40-GEN' in self.game.tradeRoutes.keys():
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
         
-        message = "Nice work! Notice that this arrow looks different, all gen trade routes have the same look, but if you zoom in you can see what expected resources will go to the receiving planet, which is based on the production of resources from the planet setting up the trade.\n\nNext I want you to setup gen trade routes from Onatarin, Strig, and Cygnus to your homeworld (sending any created EC and IA resources there for future use). energy to your homeworld). Do this now."
+        message1 = "Strig will also need alloys in the future. Create a Gen-Trade route to Strig from your homeworld."
+        message2 = "Do the following:\nClick on your homeworld.\nClick Trade.\nClick Strig.\nClick Gen-Trade Route."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=0.15, y=-0.25, texts=[message],textColors=['orange'])
-        
-    def tutorial13(self):
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
+    
+    def tutorial14(self):
         message = "Our economy has been setup to startup quite nicely, we will continue to build it up next round, in the meantime lets move over to technology.\n\nClick on the tech button at the top to view your technology tree, do this now."
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guigreen'])    
