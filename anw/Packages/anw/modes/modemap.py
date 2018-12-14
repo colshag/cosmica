@@ -972,6 +972,7 @@ class ModeMap(mode.Mode):
         self.updateSystemWarpInfo([fromSystem, toSystem])
         self.clearMouseSelection()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.mainmenu.pressU()
     
     def updateSystemWarpInfo(self, systemList):
@@ -1381,6 +1382,7 @@ class ModeMap(mode.Mode):
         self.updateSystemWarpInfo([fromSystem, toSystem])
         self.clearMouseSelection()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.mainmenu.pressU()        
         
     def addToWarpedArmy(self, systemID, regList):
@@ -1511,6 +1513,7 @@ class ModeMap(mode.Mode):
         self.refreshSystem(systemID)
         self.systems[systemID].refreshGenTradeRoute()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.onSpaceBarClear()
             self.mainmenu.pressU()
         else:
@@ -1548,6 +1551,7 @@ class ModeMap(mode.Mode):
         self.systems[systemID].refreshGenTradeRoute()
         self.refreshCredit()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.onSpaceBarClear()
             self.mainmenu.pressU()
         else:
@@ -1562,6 +1566,7 @@ class ModeMap(mode.Mode):
             self.getSystemUpdate(['AL','EC','IA','usedWGC'], toSystemID)
             self.refreshSystem(toSystemID)
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.onSpaceBarClear()
             self.mainmenu.pressU()
         
@@ -1747,6 +1752,7 @@ class ModeMap(mode.Mode):
         self.refreshSystem(systemID)
         self.refreshCredit()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.onSpaceBarClear()
             self.mainmenu.pressU()
         else:        
@@ -1760,6 +1766,7 @@ class ModeMap(mode.Mode):
         self.refreshSystem(systemID)
         self.refreshCredit()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.onSpaceBarClear()
             self.mainmenu.pressU()
         else:

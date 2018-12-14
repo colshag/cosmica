@@ -192,7 +192,7 @@ class COSMICAGame:
     def processSuccessfulLogin(self, result):
         """Login worked, process the data"""
         self.processLoginInfo(result)
-        startMode = modemap.ModeMap(self)
+        startMode = modemail.ModeMail(self)
         self.enterMode(startMode)
         
     def waitForRoundToEnd(self):

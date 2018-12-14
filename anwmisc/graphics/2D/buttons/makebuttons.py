@@ -192,9 +192,9 @@ def run():
     #createSystemMarketBuyButtons()
     #createSendCreditButtons()
     #createMultiSimButtons()
-    #createQuestionEndRound()
+    createQuestionEndRound()
     #createQuestionSurrender()
-    createHelpButtons()
+    #createHelpButtons()
 
 def createMainButtons():
     myButtons = {'I':'CREDIT', 'E':'END', 'O':'MARKET', 'Q':'QUIT', 'R':'MAP',
@@ -406,8 +406,8 @@ def createMultiSimButtons():
         myCreate.createButtons()        
 
 def createQuestionEndRound():
-    myButtons = {'blankyes':'YES AND WAIT', 
-                 'blankno':'YES AND QUIT', 
+    myButtons = {'blankyes':'END AND WAIT', 
+                 'blankno':'END AND QUIT', 
                  'cancel':'CANCEL END TURN',
                  }
     for key, action in myButtons.iteritems():

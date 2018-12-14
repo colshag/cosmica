@@ -25,7 +25,7 @@ class DialogBox(RootButton):
         buttonPosition = (self.posInitX-0.01,0,self.posInitY-(height/19.0))
         self.createButton('blank', buttonPosition, geomX=0.5, geomY=0.0525)
         
-        if globals.isTutorial and globals.tutorialStep > 1:
+        if globals.isTutorial and globals.tutorialStep > 0:
             buttonPosition = (self.posInitX+0.5,0,self.posInitY-(height/19.0))
             self.createButton('blankback', buttonPosition, geomX=0.5, geomY=0.0525)            
 
@@ -34,6 +34,7 @@ class DialogBox(RootButton):
         self.mode.removeDialogBox()
         if globals.isTutorial and globals.tutorialStepComplete:
             globals.tutorialStep += 1
+            globals.tutorialGoBackDisabled = True
             self.mode.displayTutorialMessage()
         if globals.isTutorial == False:
             self.mode.displayHelpMessage()
@@ -42,8 +43,9 @@ class DialogBox(RootButton):
         """Press go back a step button"""
         self.mode.removeDialogBox()
         if globals.isTutorial:
-            globals.tutorialStep -= 2
+            globals.tutorialStep -= 1
             globals.tutorialStepComplete = True
+            globals.tutorialGoBackDisabled = False
             self.mode.displayTutorialMessage()
                     
 if __name__ == "__main__":

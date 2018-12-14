@@ -31,6 +31,17 @@ class ModeBattle(mode.Mode, root.Root):
         self.captains = {} # stores captain objects
         self.createEmpires()
         
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        try:
+            from direct.gui.OnscreenImage import OnscreenImage
+            # use render2d for front rendering and render2dp for background rendering.
+            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
+            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+            self.gui.append(self.background)
+        except:
+            base.setBackgroundColor(globals.colors['guiblue3'])    
+        
     def createEmpires(self):
         """Create the simulated empires"""
         myEmpire = empire.Empire({'id':'1', 'name':'Sim Empire 1', 

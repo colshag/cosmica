@@ -154,6 +154,7 @@ class MainMenuButtons(RootButton):
         """Ask for Help, or do the tutorial"""
         self.mode.removeDialogBox()
         if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
             self.mode.displayTutorialMessage()
         else:
             self.mode.askForHelp()

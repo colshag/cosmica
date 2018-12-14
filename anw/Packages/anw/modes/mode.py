@@ -615,7 +615,14 @@ class Mode(object):
         
     def setMyBackground(self):
         """Set the Background of mode"""
-        base.setBackgroundColor(globals.colors['guiblue3'])
+        try:
+            from direct.gui.OnscreenImage import OnscreenImage
+            # use render2d for front rendering and render2dp for background rendering.
+            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
+            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+            self.gui.append(self.background)
+        except:
+            base.setBackgroundColor(globals.colors['guiblue3'])    
         
     def setEmpireDefaults(self, clientKey):
         """Read the defaults currently set and change them in the database"""
@@ -757,7 +764,7 @@ class Mode(object):
     def tutorial0(self):
         message1 = "Welcome to Cosmica, a turn-based strategy game combining elements of strategic board and video games."
         message2 = "This tutorial will walk you through several turns of a typical game. You will learn how to navigate the interface, develop your planets industry, research technology, build ships and marines, and you will even have a small skirmish to take over a neighbouring planet.\n\nIn order to advance through each stage of the tutorial, you will have to complete the tasks required. At any time, you may click on the HELP button on the Galactic Command Bar to review you current task.\n\nWhen I say <Ok> that means I want you to click the Ok button to advance the tutorial."
-        message3 = "<< OK >>"
+        message3 = "Press MAP to go to the Galactic Map Screen. << OK >>"
         globals.tutorialStepComplete = True
         self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2,message3],textColors=['guigreen','orange','cyan'])
     
@@ -794,7 +801,7 @@ class Mode(object):
     def tutorial6(self):
         # check that steps complete
         mySystem = self.game.allSystems['21']
-        if mySystem['name'] == 'Onatarin' and mySystem['cityIndustry'] == [0, 20, 0]:
+        if mySystem['name'] == 'Onatarin' and mySystem['cityIndustry'] == [0, 20, 0] and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
@@ -807,13 +814,13 @@ class Mode(object):
     def tutorial7(self):
         # check that steps complete
         mySystem = self.game.allSystems['21']
-        if mySystem['name'] == 'Onatarin' and mySystem['myIndustry']['4'] == 4:
+        if mySystem['name'] == 'Onatarin' and mySystem['myIndustry']['4'] == 4 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
         
         message1 = "Now that your cities are focused on producing energy, lets build some industry that will make Onatarin more productive at building the energy resource."
-        message2 = "Click Industries.\nClick on Crystal Mines.\nAdd four basic Crystal Mines.\nClick submit."
+        message2 = "Click on Onatarin.\nClick Industries.\nClick on Crystal Mines.\nAdd four basic Crystal Mines.\nClick submit."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
         
@@ -822,7 +829,7 @@ class Mode(object):
         mySystem1 = self.game.allSystems['41']
         mySystem2 = self.game.allSystems['53']
         if mySystem1['name'] == 'Cygnus' and mySystem1['cityIndustry'] == [0, 0, 30] and mySystem1['myIndustry']['7'] == 6 and \
-           mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['4'] == 4:
+           mySystem2['name'] == 'Strig' and mySystem2['cityIndustry'] == [0, 20, 0] and mySystem2['myIndustry']['4'] == 4 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
@@ -850,13 +857,13 @@ class Mode(object):
         mySystemTo = self.game.allSystems['21']
         if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Onatarin' and '40-21-REG' in self.game.tradeRoutes.keys():
             myTradeRouteDict = self.game.tradeRoutes['40-21-REG']
-            if myTradeRouteDict['oneTime'] == 1 and myTradeRouteDict['AL'] == 1600 and myTradeRouteDict['EC'] == 0 and myTradeRouteDict['IA'] == 0:
+            if myTradeRouteDict['oneTime'] == 1 and myTradeRouteDict['AL'] == 1600 and myTradeRouteDict['EC'] == 0 and myTradeRouteDict['IA'] == 0 and globals.tutorialGoBackDisabled:
                 globals.tutorialStep += 1
                 self.displayTutorialMessage()
                 return
             
-        message1 = "It is important in the early game to ensure your planets are sending their resources back to your homeworld."
-        message2 = "Using your knowledge of trading, do the following:\n\nEstablish a Standard Trade agreement from Onatarin to your homeworld.\n\nEstablish a Standard Trade agreements from Strig to your homeworld.\n\nEstablish a Standard Trade agreements from Cygnus to your homeworld."
+        message1 = "Since we assigned Onatarin to produce energy, it needs alloys to build more mines. This requires Alloys that you currently have at your homeworld, lets send alloys to Onatarin."
+        message2 = "DO the following:\nClick on your homeworld.\nClick Trade.\nClick Onatarin.\nClick Alloys.\nClick to add all available alloys to trade.\nClick One-Time Trade."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
                
@@ -864,221 +871,181 @@ class Mode(object):
         # check that steps complete
         mySystemFrom = self.game.allSystems['40']
         mySystemTo = self.game.allSystems['53']
-        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Strig' and '40-53-GEN' in self.game.tradeRoutes.keys():
+        if mySystemFrom['name'] == 'Iphameda' and mySystemTo['name'] == 'Strig' and '40-53-GEN' in self.game.tradeRoutes.keys() and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
         
-        message1 = "Since we assigned Onatarin to produce energy, it needs alloys to build more mines."
-        message2 = "DO the following:\nClick on your homeworld.\nClick Trade.\nClick Onatarin.\nClick Alloys.\nClick to add all available alloys to trade.\nClick One Time Trade."
+        message1 = "Strig will also need alloys for its factories, but our homeworld has no more to give from available alloys, however we can send its alloys that it will produce next round as a Gen Trade. Lets create a Gen Trade route to Strig from your homeworld."
+        message2 = "Do the following:\nClick on your homeworld.\nClick Trade.\nClick Strig.\nClick Gen Trade Route."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial13(self):
         # check that steps complete
-        if '53-40-GEN' in self.game.tradeRoutes.keys() and '21-40-GEN' in self.game.tradeRoutes.keys() and '41-40-GEN' in self.game.tradeRoutes.keys():
+        if '53-40-GEN' in self.game.tradeRoutes.keys() and '21-40-GEN' in self.game.tradeRoutes.keys() and '41-40-GEN' in self.game.tradeRoutes.keys() and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
         
-        message1 = "Strig will also need alloys in the future. Create a Gen-Trade route to Strig from your homeworld."
-        message2 = "Do the following:\nClick on your homeworld.\nClick Trade.\nClick Strig.\nClick Gen-Trade Route."
+        message1 = "It is important in the early game to ensure your planets are sending their resources back to your homeworld."
+        message2 = "Using your knowledge of trading, do the following:\n\nEstablish a Gen Trade agreement from Onatarin to your homeworld.\n\nEstablish a Gen Trade agreement from Strig to your homeworld.\n\nEstablish a Gen Trade agreement from Cygnus to your homeworld."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
-    
+        
     def tutorial14(self):
-        message = "Our economy has been setup to startup quite nicely, we will continue to build it up next round, in the meantime lets move over to technology.\n\nClick on the tech button at the top to view your technology tree, do this now."
+        message1 = "Perfect! You now know how to create the three different trade agreements available to you in Cosmica. You can also adjust a trade agreement by clicking on the arrow that represents it on the Galaxy Map."
+        message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guigreen'])    
-
-    def tutorial14(self):
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+    
+    def tutorial15(self):
+        message1 = "Next, we need to develop technology to give our empire the edge in production, ship design, and military."
+        message2 = "Click on Technology. << OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+    
+    
+    def tutorial16(self):
+        message1 = "This is the technology tree. It is divided into three ages of technology, Nuclear, Fusion, and Plasma. It is completely up to you how you advance through the tree and what technology you prioritize."
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+      
+    def tutorial17(self):
         # check that steps complete
-        if self.game.myEmpire['rpAvail'] == 0:
+        if self.game.myEmpire['rpAvail'] == 0 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()            
             return
         
-        message = "Great, in Cosmica the technology tree is faster to develop than your more standard 4X game. Once you build a few research centers you should be gaining technology every round, sometimes you could be gaining 5-10 technologies in one round! In this game setup you are given the first age of technology (the nuclear age).\n\nIn some games you will be given the fusion age as well, but not in this tutorial.\n\nIn order to research the many technologies in the fusion age you first need to research the Fusion Age of Technology tech beaker.\n\nNotice you can click on any technology and gain information about what it does for you. For now, click on the Fusion Age of Technology, and commit all of your available technology points (225) (that you got from your research centers on your homeworld), and click submit. Do this now."
+        message1 = "Your available research points are based on how many research centers you have in your empire. The more points you assign to researching a technology increases your chances of discovering it. This means you can even make discoveries without putting all of the required points into it. Luck often plays a role in research."
+        message2 = "Do the following:\nClick on the Fusion Age of Technology.\nAdd all of your available technology points.\nClick submit."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guigreen'])
-        
-    def tutorial15(self):
-        message = "Nice, notice that you have an 37 percent chance of gaining this technology. When the round ends the game will determine via a random roll if you gained that technology or not. Once you gain that technology you can start researching other technologies and gaining the benefits they offer.\n\nIt is my suggestion that you prioritize on research centers (so you can upgrade them and get more technology points per turn, followed by the alloy, energy, and array factories (so you can upgrade and make more resources and credits).\n\nThen start focusing on your ship components and weapons (so you can make more powerful ships to take over the galaxy)."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guigreen']) 
-        
-    def tutorial16(self):
-        message = "Ok, you have now done almost everything you should do in your first round of play. You will find that the first 5 rounds are very quick as players build out their economy, start some simple research, and maybe play with a few ship designs.\n\nExpansion and combat will not start until enough resources are gathered that a fleet and army can be assembled.\n\nSome players might even avoid expansion and focus on technology early on, other players would take a different approach. It is my suggestion that some light expansion is recommended to give your empire more cities to control allowing more research in the long run. Before we end our turn lets take a quick look at the ship design screen by clicking on it from the main menu above. Do this now."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow']) 
-        
-    def tutorial17(self):
-        message = "Notice that the first thing you have to decide is if you want to design with your current technology or with all technology, or just start a simulation of existing designs.\n\nCosmica was purposely designed to give a player a lot of flexibility in ship design.\n\nAs you play Cosmica you will find that a well-designed fleet of ships will make a big difference in your attempts to dominate opponents in space. As you start to play Cosmica you will learn that critical fleet battles between empires can swing the fortunes of empires quickly.\n\nFor this reason a well-designed and upgraded fleet composed of ship designs that counter other fleet designs, and complement each other is of critical importance. Ship designing and simulating is also a lot of fun, and can take a lot of time for players that want that extra edge."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow']) 
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
         
     def tutorial18(self):
-        message = "First, lets start with the easy part, simulating a ship battle. If ship designing is something that intimidates you, do not worry. Cosmica comes with a set of neutral ship designs that the neutral (white) planets use to defend themselves from aggressive empires such as yours. These designs are generally quite sound, and you could get away with using them without worrying too much about making your own designs.\n\nSince these ship designs are already pre-made and available, lets setup a ship simulation between several ship variants.\n\nIn order to simulate ships you need to have constructed Simulation Centers. Each simulation center you build on a system will provide you will a certain number of simulation points per round. These points do not stack for later use. Think of them as simulation engineers waiting for you to ask them to run some simulations on your behalf. If you do not ask them to do anything they just hang out and drink space coffee all day."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
+        # check that steps complete
+        if self.game.currentRound > 1 and globals.tutorialGoBackDisabled:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()            
+            return
         
+        message1 = "Congratulations! You have completed all of the tasks you will want to consider on your first turn. You have changed your cities production focus, established trade routes, and spent your research points.\n\nCosmica is a turn-based game and you will not see the fruits of your labour until you advance to the next turn. This is true for both single and multiplayer games."
+        message2 = "Click End Round.\nClick End and Wait."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+         
     def tutorial19(self):
         # check that steps complete
-        if self.game.myEmpire['simulationsLeft'] == 0:
-            globals.tutorialStep += 1
-            self.displayTutorialMessage()            
-            return
-        
-        message = "Since you are a new empire and you are focusing on building up your economy you only have one lonely Simple Simulation Center currently on your homeworld.\n\nThis gives you only 1 simulation point, which is enough to simulation one ship design against one other design. The formulae for how many ship simulation points will be required:\n\n  = (the number of ship designs of Team A x (the number of ship designs of Team B)\n\nFor our test feel free to select any ship design, assign a number of the ships to team A, select another design, and assign to Team B. Then click the Simulate button. Do this now and enjoy the Battle!\n\nRemember, you press space-bar to pause and un-pause, use the mouse to navigate and zoom, feel free to select ships to see how they act with each other. Click on any main menu bar to leave the simulation at any time."
-        globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=-0.2, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial20(self):
-        message = "I hope that was entertaining! One good way to learn about ship designs is to use the singleplayer function to build a bunch of simulation centers and play with ship designs, then take that knowledge to your slower (but more important) multiplayer games. Simulations are also critical when we are designing ships as it is a great way to make sure your designs work as you intend.\n\nIt is very common for example to make a ship that does not have the correct ammunition, something you would want to learn from your simulations, not in real battle!"
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial21(self):
-        message = "Ok, lets try to create a ship design. click back on design and choose all technology. Notice that the screen is full of every type of ship hull, and there is a list of every Neutral Ship Design for you to review at any time.\n\nCosmica was designed to give you the option to build any ship design before you have the technology to build your ships.\n\nThe reasoning here is that you can plan out your fleet and research towards those goals.\n\nClick on the Neutral Design with SDN in its name. Notice that it says SHIP PAST TECH LEVEL, this lets you know that you cannot build this ship currently.\n\nNow click the Design button again and click on Current Technology."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial22(self):
-        # check that steps complete
-        if self.game.myEmpire['designsLeft'] == 0:
-            globals.tutorialStep += 1
-            self.displayTutorialMessage()            
-            return
-        
-        message = "Now notice that you have far fewer designs to select from. The only available designs will be ones that you can currently build. Click on a hull type. To build a valid ship design in Cosmica you need to have at least one Engine component, one Rotation Component, and one power component.\n\nNotice that there are 4 quadrants. When a ship takes damage it will go into the quadrant that the weapon hit into. When you place a weapon notice that you can also place its direction.\n\nThis is important as a ship will behave based on the direction its weapons face. Try builing a valid design. Remember to give it a name in the text box to the right. You will have to press enter on the text box in order to enable the submit design button. Do this now."
-        globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])        
-        
-    def tutorial23(self):
-        message = "Good Job, your first Ship Design! I would not build any of these ships without first testing them in the simulator, but since we used our our 1 simulation point we have no idea if this design is any good. The good news is that if you go back to the Designs main screen, click on current technology, click on your new design, and click remove design. This will remove the design from your list of designs.\n\nThis is a nice feature when you have older designs that are no longer being used, but it can only be done if you have no more ships with that design in play.\n\nKeep in mind that you can always upgrade your ships from one design to a new design, and the costs will depend on how many components are different. So when you are making new upgrades, try to keep them as similar to the old design as you can, but with better components, if you want a reasonable upgrade cost."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial24(self):
-        message = "I do recommend that you look on our website forums for more information and videos on ship designs, however I feel I should explain the different ship classes.\n\nShips are divided into several classes:\n\nMost ships are Warships, these ships will attack the nearest ship or drone and shoot at it until it dies with whatever weapons the warship has. Some warship hulls are specialized to target other warship hulls like carriers and assault ships.\n\nConsider any ship that is not a Carrier, Assault Ship, or a Platform to be a Warship of various sizes."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial25(self):
-        message = "Carriers are specialized ships that cannot carry regular weapons, instead you install drones as weapons. Drones are also hull types, but they can only be installed in Carriers or Platforms, not warships.\n\nCarriers are powerful mid to late game ships as they provide a fighter screen that distracts most warships, keeping them from shooting at more valuable ships.\n\nDrones are also expendable as long as the Carrier survives the battle, any drones will be reset for the next battle."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial26(self):
-        message = "Assault ships are specilized ships that cannot carry weapons, instead you want to install marine pods which house special space marines that are trained to board enemy ships. If an assault ship is fast enough and protected enough it will crash into an enemy ship and its space marines will attempt to board and take over the enemy ship, making it your ship, even if it is of a higher technology then what you possess currently."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['guiyellow'])
-        
-    def tutorial27(self):
-        message = "Platforms are defensive ships that cannot be used to attack any enemy planetary systems. They do however have much more flexibility in that they hold a lot of space for anything from drones to large weapons.\n\nPlatforms can also be converted into mobile shipyards by installing engineering stations, a powerful tactic in the mid to late game of Cosmica."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['guiyellow'])
-        
-    def tutorial28(self):
-        # check that steps complete
-        if self.game.currentRound > 1:
-            globals.tutorialStep += 1
-            self.displayTutorialMessage()            
-            return
-        
-        message = "Ok that was a lot of good information, lets move into the next round and build up our forces to take over one of the nearby neutral systems.\n\nTo do this click on the End Round button from the top menu, and choose to End and Wait so that we can start our next round of play. Do this now."
-        globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'])
-        
-    def tutorial29(self):
-        message = "When the round ends, I suggest your first step besides seeing visually on the galactic map how your empire did from a military standpoint would be to click on the Mail button from the top menu. Do this now."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'])
-        
-    def tutorial30(self):
-        message = "Notice that the mail is broken down into rounds, you can click on any past round of play and review any messages in there as well. If you are playing a multiplayer game you will also get all your end-round messages emailed to you as a way both inform you that a new round has started, and to also give you some information on how your empire faired when the round ended.\n\nThis is a good time to explain that Cosmica deals with turn-based strategy differently then many strategy games in that all empire moves are handled at the same time once every player has submitted their turns to the game server.\n\nThe game server will turn-over after a certain limit of time that you can access from to top left corner, or it will end sooner based on players finishing their turn of play.\n\nThe advantage of this system is that players can finish their turn when it works with their schedule and as long as everyone stays engaged with their turns, Cosmica tends to turn into a deep strategy and diplomacy game without the requirement for a ton of player committment time-wise, day-to-day."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['ltpurple'])
-    
-    def tutorial31(self):
-        # check that steps complete
-        if self.game.currentRound > 5:
+        if self.game.currentRound > 5 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()
             return
         
-        message = "Ok, lets try to invade a planet. To do this we are first going to need some resources. Notice your trade routes in Round 2 activated and you now have some alloys (blue) at two of your three sub-systems.\n\nTake this opportunity to build the appropriate factories at these locations so that more resources will be generated each round. Also send some more alloys from your homeworld via a gen trade to your other systems that still need alloys to build factories in round 3. I wont check if you do this, but try to get all your systems fully activated with industry.\n\nYour goal is to build a stockpile of resources on your homeworld.\n\nOne other thing you can try is to buy resources (or sell them) directly on the market. You do this by clicking on your homeowlrd, click market, and buy or sell resources. Generally speaking choose a price one above or below the asking price if you want a better chance of succeeding.\n\nYou do not have to do this now, but I wanted to point it out.\n\nThe market is a great way to make some quick cash by selling extra resources, and it is a great way to build up your fleets and armies quickly at the expense of credits.\n\nI will leave you to this till lets say round 6."
+        message1 = "It is now Round %d and the trades you made and technology you researched will have progressed." % self.game.currentRound
+        message2 = "Continue to build mines on your cities and add research points to the Technology tree each turn.\n\nRepeat these tasks until Round 6."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, text=message,textColor=globals.colors['orange'])
-    
-    def tutorial32(self):
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+
+    def tutorial20(self):
+        message1 = "Congratulations! It is Round 6 and all your cities are working and you have a thriving economy. Your homeworld should have around 4000 Alloys, 5360 Energy, and 2160 Arrays at this point. We will need these resources to build ships and a military to invade a nearby planet."
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+
+    def tutorial21(self):
+        message1 = "In order to successfully invade a planet, an empire must destroy any enemy ships protecting the planet, as well as overwhelm the planets ground defenses using your military."
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+
+    def tutorial22(self):
         # check that steps complete
         for industryID in funcs.sortStringList(self.game.myEmpire['industryOrders'].keys()):
             myOrder = self.game.myEmpire['industryOrders'][industryID]
-            if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.game.currentRound:
+            if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.game.currentRound and globals.tutorialGoBackDisabled:
                 globals.tutorialStep += 1
                 self.displayTutorialMessage()                
                 return
             
-        message = "Great, it is at least round 6 for you and if you are in round 6 and you did not use the market you should have around 4000 alloys (blue), 5360 energy (yellow), and 2160 arrays (red) on your homeworld.\n\nThis assumes you built up your three sub planetary systems with factories and sent any remaining alloys back to your homeworld. In any case you now have enough resources to build some ships and marines!\n\nMarines are easy to build, click on your homeworld, click on Marines, click on Build Marines, choose Light Nuclear Artillery, and build the maximum which would be 6 and click submit. Do this now."
+        message1 = "There are three types of marines: Artillery, Mechanical, and Infantry. Each type has different build requirements and are strong against different types of units."
+        message2 = "Do the following to build marines:\nClick on your homeworld.\nClick Marines.\nClick Build Marines.\nClick Light Nuclear Artillery.\nOrder six marines.\nClick submit."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])    
-    
-    def tutorial33(self):
-        message = "Nice work. In the current version of Cosmica marines are fairly simple. There are three types:\n\nArtillery Marines require energy (EC) resources to build and are strong against Infrantry and Militia Fortresses (what the neutral planets use to defend themselves).\n\nMechanical Marines require alloy (AL) resources to build and are strong against Artillery marines.\n\nInfantry Marines require array (IA) resources and are strong against Mechanical marines. Generally it is a good tactic to focus on Artillery marines early on to make your expansion against neutral systems easier, and then switch to other types depending on what your opponents are building.\n\nLike anything in Cosmica you can change your mind while doing your turn. If you click on your marines you can decide to reduce the number of marines from this order and the server will give you back the appropriate resources and credits. Also notice that near your homeworld there is now a symbol that used to be grey, but now it is yellow. This gives you the tip that your industry is working on building something on that Planetary System.\n\nLets focus on ships next."
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
+  
+    def tutorial23(self):
+        message1 = "Cosmica allows players to build completely custom ship designs. Ingenious ship design can be a significant strategic advantage. This tutorial will use default designs, but it is worth your time to explore that area of the game once you are comfortable with the basics."
+        message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])
-        
-    def tutorial34(self):
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+
+    def tutorial24(self):
         # check that steps complete
-        for industryID in funcs.sortStringList(self.game.myEmpire['industryOrders'].keys()):
-            myOrder = self.game.myEmpire['industryOrders'][industryID]
-            if myOrder['type'] == 'Add Ship' and myOrder['round'] == self.game.currentRound:
-                globals.tutorialStep += 1
-                self.displayTutorialMessage()                
-                return
-        
-        message = "Great. Now lets build some ships. Click on your homeworld, click on Ships, click on Build Ships. You will see a list of ship designs that you are allowed to build based on your current technology. Choose one and the Ship information will pop up including its cost. Choose any ship that you have the resources for, select one and submit. If you cannot add any ships it is because you do not have enough resources. Fast forward a few more rounds and try again. Try this now."
+        if len(self.game.myShips.keys()) > 0 and len(self.game.myArmies.keys()) > 0 and globals.tutorialGoBackDisabled:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()                
+            return
+            
+        message1 = "It is time to build a small fleet of ships."
+        message2 = "Do the following:\nClick on your homeworld.\nClick Ships.\nClick Build Ships.\nClick HCO 11 Neutral Ship Design.\nPlace an order for five ships.\nClick Submit.\nEnd Your Turn."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])    
-    
-    def tutorial35(self):
+        self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])  
+
+    def tutorial25(self):
+        message1 = "Nice! You have now learned the basics of ship and marine building. you should have around six marine regiments and five corvettes. Lets use them!"
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+
+    def tutorial26(self):
+        message1 = "The first planets you will encounter will be neutral (white). Each neutral planet has its own planetary defenses based on its size. Neutral Planets will never attack you and their ships will never repair. The are meant to slow you down, not eliminate you. Your real concern are the other empires in play."
+        message2 = "<< OK >>"
+        globals.tutorialStepComplete = True
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+          
+    def tutorial27(self):
         # check that steps complete
-        if len(self.game.myShips.keys()) > 0 and len(self.game.myArmies.keys()) > 0:
+        if len(self.game.warpedArmadas.keys()) > 0 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()                
             return
         
-        message = "Nice work! If you had an optimal amount of resources you should have been able to build up to 5 HCO-11 Neutral Ships. This is a side note, but in this version of Cosmica the early testers have noticed that the HCO-11 design is quite solid, and I recommend you consider this design if you want to mass up a bunch of ships that will do a lot of damage in the early game against smaller neutral planets (size 10-15-20).\n\nSo at this point you should have put in orders with your military for 6 marine regiments, and up to 5 corvettes, not bad! End the round and lets see what we can do with your new recruits!"
+        message1 = "It is time to launch your attack. Target the 5 city Neutral Planet. Normally, you would send your fleet in to destroy the ships and send your military afterward so you do not expose your defenseless military transports to enemy ships. However, this planet has very weak defense and will pose no threat to your invading force."
+        message2 = "Send your ships to the neutral planet by doing the following:\nClick on the ship icon near your homeworld.\nClick on the Neutral Planet.\nClick Select all.\nClick Warp Ships."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])
-        
-    def tutorial36(self):
-        message = "Looks like you have some ships and some armies which is great, lets give them some a glorious battle!\n\nAll Neutral (white) planets will have a random fleet that is based on the map configuration, but generally goes up in defence as the neutral planets get bigger in size.\n\nYour five HCO11 ships should have a good chance against the neutral planet.\n\nOne important thing you can do to make sure is to build a radar station on a nearby friendly planet. Radar stations once built will provide you with the ability to click on adjacent planets and you will get a report on their strength.\n\nAnother way would be to sacrifice a cheap ship or one marine troop to attack early. Every ship battle is recorded for your later viewing, so you can use this information to determine the exact makeup of the planet defences, which gives you the option to simulate potential solutions as required.\n\nNeutral Planets will never attack you, and their ships will never repair, they are meant to slow you down, your real concern are the other empires in play."
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])    
-        
-    def tutorial37(self):
+        self.createDialogBox(x=0.25, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
+
+    def tutorial28(self):
         # check that steps complete
-        if len(self.game.warpedArmadas.keys()) > 0 and len(self.game.warpedArmies.keys()) > 0:
+        if len(self.game.warpedArmies.keys()) > 0 and globals.tutorialGoBackDisabled:
             globals.tutorialStep += 1
             self.displayTutorialMessage()                
             return
         
-        message = "Ok, lets attack the 5 city Neutral Planet. If you wanted to play it safe you would attack with your Fleet first, wait one round then move in your troops. Lets take a chance and send them in together!\n\nTo move your Ships simply click on the ship icon on the top right corner of your Homeworld. Click on the Neutral 5 Planet, select all the ships, and click WARP SHIPS.\n\nNotice they will show up in the bottom right corner of the Neutral Planet. Any Ships or Armies that have not moved will be in the top right corner, and moved ones in the bottom right.\n\nDo the same thing with your Army. Each Marine Regiments comes with its own transport ship, when you do not move them and they are on a friendly Planet they will defend on the planet surface.\n\nIf you move them however they have to survive the space battle as a troop transport before they are allowed to land on the Planetary System in question. Once they have both moved end the turn and you will notice that there is a bit of a delay.\n\nThis is because the server is resolving all battles, it should not take too long."
+        message1 = "Notice the ship icon has moved from your homeworld to the neutral planet. They are in transit and will attack once you end your turn."
+        message2 = "Do the same thing with your military.\nClick on the tank icon near your homeworld.\nClick on the Neutral Planet.\nClick Select All.\nClick Warp Armies."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['red'])    
-    
-    def tutorial38(self):
-        message = "Ok, well hopefully we took this planet, you will be able to tell if its color changed, but to watch the battle click on the WAR button and click on your battle and watch the results! After that if you go to the MAIL section you can review how the ground battle unfolded. We might have been a bit too agressive here, but by my calculations you should have won this small planet, congrats!"
-        globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['ltpurple'])
+        self.createDialogBox(x=0.25, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
+
+
+    def tutorial29(self):
+        # check that steps complete
+        if len(self.game.shipBattleDict.keys()) > 0 and globals.tutorialGoBackDisabled:
+            globals.tutorialStep += 1
+            self.displayTutorialMessage()                
+            return            
+        message1 = "Congratulations! You have just sent your ships and military to invade a neighbouring planet. Once you end your turn, your battle will resolve and you will be able to watch a replay of the outcome."
+        message2 = "End your turn now to allow the game to resolve your invasion."
+        globals.tutorialStepComplete = False
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
         
-    def tutorial39(self):
-        message = "I think at this point you should have the basic grasp of Cosmica, and everyone here at NeuroJump wants to thank you for considering our indie game.\n\nWe hope you consider joining our community as we build out this game and the many planned improvements in store!\n\nWe Hope to see you online at www.playcosmica.com!\n\nChris, Steve, and Jeremy (NeuroJump) 2018-2019."
+    def tutorial30(self):
+        message1 = "You will notice the neutral planet is now gold! You have taken your first planet and can now use it to produce more resources for your empire. To watch the battle click on the WAR button from the main menu.\n\nYou have now experienced the basics of Cosmica. There is still a lot to learn, technologies to discover, strategies to master, and empires to conquer, but this should give you a strong starting point before entering into multiplayer."
+        message2 = "To learn more about advanced gameplay strategies and tutorials, join our community at playcosmica.com. Thanks for playing!"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message],textColors=['pink'])        
-    
+        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','ltpurple'])
+       
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""
         try:

@@ -30,6 +30,9 @@ class ModeTech(mode.Mode):
         self.createTechLines()
         self.createTechBeakers()
         self.centerCameraOnRecentTech()
+        if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
+            self.mainmenu.pressU()        
         
     def centerCameraOnRecentTech(self):
         """Find the most recent tech and center camera on it"""
@@ -144,6 +147,17 @@ class ModeTech(mode.Mode):
         except:
             self.modeMsgBox('getTechOrders->Connection to Server Lost')
     
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        try:
+            from direct.gui.OnscreenImage import OnscreenImage
+            # use render2d for front rendering and render2dp for background rendering.
+            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
+            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+            self.gui.append(self.background)
+        except:
+            base.setBackgroundColor(globals.colors['guiblue3'])    
+    
     def refreshTechOrder(self, techID):
         """Perform refresh to accomodate tech Order"""
         try:
@@ -154,6 +168,7 @@ class ModeTech(mode.Mode):
             self.beakers[techID].setCurrentTechOrder()
             self.clearMouseSelection()
             if globals.isTutorial:
+                globals.tutorialGoBackDisabled = True
                 self.mainmenu.pressU()            
         except:
             self.modeMsgBox('refreshTechOrder error ')

@@ -74,7 +74,8 @@ initialLogin = True
 isTutorial = False
 tutorialStep = 0
 tutorialStepComplete = False
-tutorialTotalSteps = 39
+tutorialTotalSteps = 30
+tutorialGoBackDisabled = True
 
 marinesPerTransport = 10
 
