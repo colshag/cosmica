@@ -30,6 +30,9 @@ class ModeMail(mode.Mode):
         self.populateMailRound()
         self.populateRoundStatus()
         self.populateMailInfo(self.game.currentRound, 0, None)
+        if globals.isTutorial:
+            globals.tutorialGoBackDisabled = True
+            self.mainmenu.pressU()        
 
     def setMyBackground(self):
         """Set the Background of mode"""

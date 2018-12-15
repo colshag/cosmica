@@ -766,13 +766,13 @@ class Mode(object):
         message2 = "This tutorial will walk you through several turns of a typical game. You will learn how to navigate the interface, develop your planets industry, research technology, build ships and marines, and you will even have a small skirmish to take over a neighbouring planet.\n\nIn order to advance through each stage of the tutorial, you will have to complete the tasks required. At any time, you may click on the HELP button on the Galactic Command Bar to review you current task.\n\nWhen I say <Ok> that means I want you to click the Ok button to advance the tutorial."
         message3 = "Press MAP to go to the Galactic Map Screen. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2,message3],textColors=['guigreen','orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2,message3],textColors=['guigreen','orange','cyan'])
     
     def tutorial1(self):
         message1 = "This is the galaxy map. You will see several planets. Some of them are under your control (gold) and others are neutral planets (white). The number beside each planet represents how many cities are on each planet. These cities can be put to work.\n\nYour homeworld has 40 cities on it."
         message2 = "Click on your Homeworld. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial2(self):
         message1 = "This is the planets details. Information regarding each planets cities, industries, trade deals, market investments, and ship and marine build orders can be found here by clicking on each of the buttons on the Planetary Command Bar."
@@ -790,7 +790,7 @@ class Mode(object):
         message1 = "In Cosmica, your cities are assigned one of three resources to produce. Alloys (blue), Energy, (yellow), and Arrays (red).\n\nThe coloured arrows under each planet will tell you which of these resources are being produced there."
         message2 = "Click on Onatarin. << OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial5(self):
         message1 = "Lets change the resource focus of the Cities on Onatarin.\n\n"
@@ -843,13 +843,13 @@ class Mode(object):
         message1 = "Excellent! You have now learned the basics of changing a planets production focus and building the correct mines to match. Next, we will look at how trade works between planets."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
         
     def tutorial10(self):
         message1 = "Trade is critical to an empires success. Trade routes allow an empire to move the three resources (Alloys, Energy, Arrays) from one adjacent planet to another.\n\nThere are three types of Trade routes:\n\nGen Trade: a reoccurring trade agreement that automatically sends whatever resources the trading planet generates each turn to the receiving planet.\n\nOne-Time Trade: a single trade that sends a specified amount of resources from the trading planet to the receiving planet.\n\nStandard Trade: a trade route that will attempt to continue the route as long as the resource is available each turn."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
     
     def tutorial11(self):
         # check that steps complete
@@ -897,7 +897,7 @@ class Mode(object):
         message1 = "Perfect! You now know how to create the three different trade agreements available to you in Cosmica. You can also adjust a trade agreement by clicking on the arrow that represents it on the Galaxy Map."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
     
     def tutorial15(self):
         message1 = "Next, we need to develop technology to give our empire the edge in production, ship design, and military."
@@ -946,19 +946,19 @@ class Mode(object):
         message1 = "It is now Round %d and the trades you made and technology you researched will have progressed." % self.game.currentRound
         message2 = "Continue to build mines on your cities and add research points to the Technology tree each turn.\n\nRepeat these tasks until Round 6."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
 
     def tutorial20(self):
         message1 = "Congratulations! It is Round 6 and all your cities are working and you have a thriving economy. Your homeworld should have around 4000 Alloys, 5360 Energy, and 2160 Arrays at this point. We will need these resources to build ships and a military to invade a nearby planet."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
 
     def tutorial21(self):
         message1 = "In order to successfully invade a planet, an empire must destroy any enemy ships protecting the planet, as well as overwhelm the planets ground defenses using your military."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
 
     def tutorial22(self):
         # check that steps complete
@@ -978,7 +978,7 @@ class Mode(object):
         message1 = "Cosmica allows players to build completely custom ship designs. Ingenious ship design can be a significant strategic advantage. This tutorial will use default designs, but it is worth your time to explore that area of the game once you are comfortable with the basics."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
 
     def tutorial24(self):
         # check that steps complete
@@ -996,13 +996,13 @@ class Mode(object):
         message1 = "Nice! You have now learned the basics of ship and marine building. you should have around six marine regiments and five corvettes. Lets use them!"
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
 
     def tutorial26(self):
         message1 = "The first planets you will encounter will be neutral (white). Each neutral planet has its own planetary defenses based on its size. Neutral Planets will never attack you and their ships will never repair. The are meant to slow you down, not eliminate you. Your real concern are the other empires in play."
         message2 = "<< OK >>"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','cyan'])
           
     def tutorial27(self):
         # check that steps complete
@@ -1038,13 +1038,13 @@ class Mode(object):
         message1 = "Congratulations! You have just sent your ships and military to invade a neighbouring planet. Once you end your turn, your battle will resolve and you will be able to watch a replay of the outcome."
         message2 = "End your turn now to allow the game to resolve your invasion."
         globals.tutorialStepComplete = False
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['guigreen','cyan'])
         
     def tutorial30(self):
         message1 = "You will notice the neutral planet is now gold! You have taken your first planet and can now use it to produce more resources for your empire. To watch the battle click on the WAR button from the main menu.\n\nYou have now experienced the basics of Cosmica. There is still a lot to learn, technologies to discover, strategies to master, and empires to conquer, but this should give you a strong starting point before entering into multiplayer."
         message2 = "To learn more about advanced gameplay strategies and tutorials, join our community at playcosmica.com. Thanks for playing!"
         globals.tutorialStepComplete = True
-        self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['orange','ltpurple'])
+        self.createDialogBox(x=-0.5, y=0.8, texts=[message1,message2],textColors=['orange','ltpurple'])
        
     def displayTutorialMessage(self):
         """Display the latest tutorial message"""

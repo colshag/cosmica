@@ -94,8 +94,8 @@ class MIBuildMarines(rootsystem.RootSystem):
         
     def createRegimentList(self):
         """List all Available Regiments"""
-        text = 'Choose a Marine Regiment Type to Recruit:'
-        self.regimentList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.55)
+        text = 'Choose Regiment Type:'
+        self.regimentList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.60)
         self.regimentList.setMyPosition(-0.96,0.23)
         self.regimentList.setMyMode(self)
         self.regimentList.setOnClickMethod('regimentTypeSelected')
