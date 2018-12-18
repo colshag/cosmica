@@ -28,7 +28,7 @@ class ModifyIndustryValue(scrollvalue.ScrollValue):
         self.allKeys = ['A','S','D','Z','X','C']
         self.scrollFactor = 1
         self.pressButton('Z')
-        self.myTitle.setText('Choose Amount of Industry to Add or Subtract:')
+        self.myTitle.setText('Choose Industry Amount:')
     
     def pressZ(self):
         """Display Basic Industry Info"""

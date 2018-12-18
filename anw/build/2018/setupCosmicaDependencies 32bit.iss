@@ -5,7 +5,7 @@
 #define MyAppVersion "alpha"
 #define MyAppPublisher "NeuroJump"
 #define MyAppURL "www.playcosmica.com"
-#define MyAppExeName "Cosmica Dependency Setup 64bit.exe"
+#define MyAppExeName "Cosmica Dependency Setup 32bit.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -32,8 +32,10 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Panda3D-SDK-1.10.0pre-df77bac.exe"; DestDir: "{win}"; Flags: ignoreversion
 Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\zope.interface-4.1.3.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Run]
 Filename: "{app}\Panda3D-SDK-1.10.0pre-df77bac.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
 Filename: "{app}\Twisted-15.3.0.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
+Filename: "{app}\zope.interface-4.1.3.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent

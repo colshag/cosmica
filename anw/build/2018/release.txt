@@ -3,6 +3,12 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.15.20181215 Release Notes:
+====================================
+- Tutorial Mode enhanced
+- Dynamic Backgrounds enabled
+- Gui buttons updated
+
 0.14.4.0 Release Notes:
 ====================================
 - Certain Frigates and Cruisers now target carriers or assault ships
