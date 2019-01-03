@@ -615,15 +615,32 @@ class Mode(object):
         
     def setMyBackground(self):
         """Set the Background of mode"""
+        base.setBackgroundColor(globals.colors['guiblack'])
+
+    def endMyTurn(self):
+        """End the players Turn"""
         try:
-            from direct.gui.OnscreenImage import OnscreenImage
-            # use render2d for front rendering and render2dp for background rendering.
-            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
-            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
-            self.gui.append(self.background)
+            result = self.game.server.endEmpireTurn(self.game.authKey)
+            if result == 0:
+                if self.game.myEmpire['roundComplete'] == 1:
+                    self.modeMsgBox('You have now un-ended your turn')
+                    self.game.myEmpire['roundComplete'] = 0
+                else:
+                    self.modeMsgBox('Your turn has been ended, thankyou')
+                    self.game.myEmpire['roundComplete'] = 1
+                self.mainmenu.writeTextRoundEnds()
+            elif type(result) == types.StringType:
+                self.modeMsgBox(result)
+            else:
+                """End Turn and wait for it to end"""
+                result = self.game.server.endRound(self.game.authKey)
+                self.game.server.logout(self.game.authKey)
+                from anw.modes.modelogin import ModeLogin
+                newMode = ModeLogin(self.game, 200)
+                self.game.enterMode(newMode)
         except:
-            base.setBackgroundColor(globals.colors['guiblue3'])    
-        
+            self.modeMsgBox('endMyTurn->Connection to Server Lost')
+
     def setEmpireDefaults(self, clientKey):
         """Read the defaults currently set and change them in the database"""
         try:
@@ -928,7 +945,7 @@ class Mode(object):
             return
         
         message1 = "Congratulations! You have completed all of the tasks you will want to consider on your first turn. You have changed your cities production focus, established trade routes, and spent your research points.\n\nCosmica is a turn-based game and you will not see the fruits of your labour until you advance to the next turn. This is true for both single and multiplayer games."
-        message2 = "Click End Round.\nClick End and Wait."
+        message2 = "Click End Round."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=-0.5, y=0.7, texts=[message1,message2],textColors=['guigreen','cyan'])
          

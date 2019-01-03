@@ -33,7 +33,7 @@ class SystemIndustry(rootsystem.RootSystem):
             self.createProdPerCityBars()
             self.createCurrentProductionBars()
             self.createMySystemResources()
-    
+
     def createMySystemResources(self):
         self.mySystemResources = systemresources.SystemResources(self.path, self.posInitX+1.9, self.posInitY+0.13, 
                                                                  self.mySystemDict, self.myEmpireDict, self.industrydata)

@@ -92,7 +92,7 @@ class DesignSubmit(rootbutton.RootButton):
 
     def enableDesignSubmit(self):
         """Enable the submit design button"""
-        if self.designsLeft > 0 and self.mode.designName != '':
+        if self.designsLeft > 0:
             self.enableButton('submitdesign')
         else:
             self.disableButton('submitdesign')

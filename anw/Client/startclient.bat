@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA3 --empireid 1 --empirepass 5rc21r7l --remoteserver http://localhost:8003 --clientonly
+python run.py --galaxy COSMICA5 --empireid 5 --empirepass 8pz5yxrp --remoteserver http://localhost:8005 --clientonly

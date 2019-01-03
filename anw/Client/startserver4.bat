@@ -1,0 +1,1 @@
+python run.py --galaxy COSMICA4 --map quickstart-2man.map --server 8002

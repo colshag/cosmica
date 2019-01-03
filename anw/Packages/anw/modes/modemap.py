@@ -351,13 +351,12 @@ class ModeMap(mode.Mode):
     def createSendMailText(self):
         self.sendMailText = textentry.TextEntry(self.guiMediaPath, self, command='onSendMailTextEntered',
                                                    initialText='',
-                                                   title='Click Box Below to start, Enter key will enable sending:', lines=16, width=33, 
+                                                   title='Type in a message here:', lines=16, width=33, 
                                                    x=0.1, z=-0.1, titleWidth=80)
         self.gui.append(self.sendMailText)
         
     def onSendMailTextEntered(self, name):
         self.messageText = name
-        self.sendMailButton.enableButton('sendmail')
             
     def createShipList(self, shipList):
         """Create List of Ships to select for details"""
@@ -753,7 +752,7 @@ class ModeMap(mode.Mode):
         if self.sendMailButton == None:
             self.sendMailButton = sendmailbutton.SendMailButton(self.guiMediaPath)
             self.sendMailButton.setMyMode(self)
-            self.sendMailButton.disableButton('sendmail')
+            #self.sendMailButton.disableButton('sendmail')
             self.gui.append(self.sendMailButton)
         else:
             self.removeMyGui('sendMailButton')            
@@ -1522,10 +1521,10 @@ class ModeMap(mode.Mode):
     def setMyBackground(self):
         """Set the Background of mode"""
         # use render2d for front rendering and render2dp for background rendering.
-        #self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))
-        self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1.6,1,1.5), pos=(0.6,0,0.3))
-        base.cam2dp.node().getDisplayRegion(0).setSort(-20)
-        self.gui.append(self.background)    
+        #self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1.6,1,1.5), pos=(0.6,0,0.3))
+        #base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+        #self.gui.append(self.background)        
+        base.setBackgroundColor(globals.colors['guiblack'])
     
     def modifyIndustry(self, systemID, amount, industryID):
         """Send an Add or Remove Industry Request to the Server"""
@@ -1580,10 +1579,11 @@ class ModeMap(mode.Mode):
         
     def refreshSystem(self, systemID):
         mySystem = self.systems[systemID]
-        mySystem.refreshResources()
-        mySystem.refreshIndustrySims()
-        mySystem.writeCitiesUsed()
-        mySystem.writeName()
+        if mySystem.empireID == self.game.myEmpireID:
+            mySystem.refreshResources()
+            mySystem.refreshIndustrySims()
+            mySystem.writeCitiesUsed()
+            mySystem.writeName()
     
     def addTradeRoute(self, tradeRouteDict):
         """Add Trade Route"""

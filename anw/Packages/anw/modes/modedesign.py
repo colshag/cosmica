@@ -75,7 +75,7 @@ class ModeDesign(mode.Mode):
         self.designmenu = designmenu.DesignMenu(self.guiMediaPath)
         self.designmenu.setMyMode(self)
         self.gui.append(self.designmenu)
-    
+            
     def createShipHulls(self, shipHullDict):
         """Create all the ship hulls, group by function type"""
         self.createHullTypeTitles()
@@ -245,8 +245,41 @@ class ModeDesign(mode.Mode):
             else:
                 self.designmenu.setupAllTech()
             (name, hullID, compDict, weapDict) = self.game.currentDesign.getMyDesign()
-            myShipHull = self.shiphulls[hullID]
-            self.shiphullsSelected(myShipHull, compDict, weapDict, name)
+            self.selectedShipHull = self.shiphulls[hullID]
+            self.populateShipHull(compDict, weapDict, name)
+    
+    def onMouse1Down(self):
+        """Allow dynamic picking of an object within mode"""
+        #Check to see if we can access the mouse. We need it to do anything else
+        if base.mouseWatcherNode.hasMouse():
+            #get the mouse position
+            mpos = base.mouseWatcherNode.getMouse()
+         
+            #Set the position of the ray based on the mouse position
+            self.pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+            
+            #Do the actual collision pass (Do it only on the selectable for
+            #efficiency purposes)
+            self.picker.traverse(self.selectable)
+            if self.pq.getNumEntries() > 0:
+                #if we have hit something, sort the hits so that the closest
+                #is first, and highlight that node
+                self.pq.sortEntries()
+                for selectable in self.selectTypes:
+                    name = self.pq.getEntry(0).getIntoNode().getTag(selectable)
+                    if name != '':
+                        self.clearAnyGui()
+                        mySelectedDict = getattr(self, selectable)
+                        mySelected = mySelectedDict[name]
+                        if selectable == 'shiphulls' and self.validateSelection():
+                            self.selectedShipHull = mySelected
+                            self.gui.append(self.selectedShipHull)
+                            self.populateShipHull()
+                        elif selectable == 'dronehulls' and self.validateSelection():
+                            self.selectedShipHull = mySelected
+                            self.gui.append(self.selectedShipHull)
+                            self.populateDroneHull()
+                        break    
     
     def clearCurrentDesign(self):
         self.game.currentDesign = None
@@ -286,10 +319,11 @@ class ModeDesign(mode.Mode):
     def shipDesignSelected(self, designID, index, button):
         """Fill in Ship Design stats to allow for new modifications"""
         self.playSound('beep01')
-        myShipHull = self.shiphulls[self.game.shipDesigns[designID][1]]
-        self.shiphullsSelected(myShipHull, self.game.shipDesigns[designID][2], 
+        self.selectedShipHull = self.shiphulls[self.game.shipDesigns[designID][1]]
+        self.populateShipHull(self.game.shipDesigns[designID][2], 
                                self.game.shipDesigns[designID][3],
                                self.game.shipDesigns[designID][0])
+        self.gui.append(self.selectedShipHull)
         
     def multiShipDesignSelected(self, designID, index, button):
         """Ship Design selected, open gui to allow for number of ships to add to sim"""
@@ -318,10 +352,11 @@ class ModeDesign(mode.Mode):
     def droneDesignSelected(self, designID, index, button):
         """Fill in Drone Design stats to allow for new modifications"""
         self.playSound('beep01')
-        myDroneHull = self.dronehulls[self.game.droneDesigns[designID][1]]
-        self.dronehullsSelected(myDroneHull, self.game.droneDesigns[designID][2], 
+        self.selectedShipHull = self.dronehulls[self.game.droneDesigns[designID][1]]
+        self.populateDroneHull(self.game.droneDesigns[designID][2], 
                                self.game.droneDesigns[designID][3],
                                self.game.droneDesigns[designID][0])
+        self.gui.append(self.selectedShipHull)
         
     def createHullTypeTitles(self):
         for (title, z) in (('Click for a Warship Design Here:', 3.5),
@@ -331,28 +366,26 @@ class ModeDesign(mode.Mode):
             self.writeToScreen(title, x=-6, z=z, scale=0.2, 
                                color=globals.colors['guiwhite'], font=3, wordwrap=40)
     
-    def shiphullsSelected(self, myShipHull, compDict={'fore':[], 'aft':[], 'port':[], 'star':[]}, weapDict={}, name=''):
-        """ShipHull Selected"""
+    def populateShipHull(self, compDict={'fore':[], 'aft':[], 'port':[], 'star':[]}, weapDict={}, name=''):
+        """Populate ShipHull Selected"""
         if self.canSelectFlags['hullSelected'] == 1:
             return
-        if self.setMySelector(myShipHull.sim.getX(), myShipHull.sim.getY(), myShipHull.sim.getZ(), scale=0.6):
+        if self.setMySelector(self.selectedShipHull.sim.getX(), self.selectedShipHull.sim.getY(), self.selectedShipHull.sim.getZ(), scale=0.6):
             self.setCanSelectFlag('hullSelected')
             self.playSound('beep01')
-            self.selectedShipHull = myShipHull
-            myShipHull.setupShipDesign(compDict, weapDict, name)
-            self.centerCameraOnSim(myShipHull.sim)
+            self.selectedShipHull.setupShipDesign(compDict, weapDict, name)
+            self.centerCameraOnSim(self.selectedShipHull.sim)
             self.zoomInCamera()
     
-    def dronehullsSelected(self, myDroneHull, compDict={'fore':[]}, weapDict={}, name=''):
-        """DroneHull Selected"""
+    def populateDroneHull(self, compDict={'fore':[]}, weapDict={}, name=''):
+        """Populate DroneHull Selected"""
         if self.canSelectFlags['hullSelected'] == 1:
             return
-        if self.setMySelector(myDroneHull.sim.getX(), myDroneHull.sim.getY(), myDroneHull.sim.getZ(), scale=0.6):
+        if self.setMySelector(self.selectedShipHull.sim.getX(), self.selectedShipHull.sim.getY(), self.selectedShipHull.sim.getZ(), scale=0.6):
             self.setCanSelectFlag('hullSelected')
             self.playSound('beep01')
-            self.selectedShipHull = myDroneHull
-            myDroneHull.setupShipDesign(compDict, weapDict, name)
-            self.centerCameraOnSim(myDroneHull.sim)
+            self.selectedShipHull.setupShipDesign(compDict, weapDict, name)
+            self.centerCameraOnSim(self.selectedShipHull.sim)
             self.zoomInCamera()
     
     def clearMouseSelection(self):
@@ -405,12 +438,23 @@ class ModeDesign(mode.Mode):
             self.removeMyGui('dronedesignList')
             self.removeMyGui('designInfo')
             
-    def onDesignNameEntered(self, name):
-        self.designName = name
+    def onDesignNameEntered(self):
         self.selectedShipHull.designSubmit.enableDesignSubmit()
+    
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        try:
+            from direct.gui.OnscreenImage import OnscreenImage
+            # use render2d for front rendering and render2dp for background rendering.
+            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
+            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+            self.gui.append(self.background)
+        except:
+            base.setBackgroundColor(globals.colors['guiblue3'])
     
     def submitDesign(self, myShipDesign):
         """Submit the design to server, either ship or drone"""
+        self.designName = self.selectedShipHull.designNameEntry.initial
         (oldName, hullID, compDict, weaponDict) = myShipDesign.getMyDesign()
         dOrder = {'name':string.upper(self.designName), 'hullID':hullID, 'compDict':compDict, 'weaponDict':weaponDict}
         if 'aft' not in compDict.keys():

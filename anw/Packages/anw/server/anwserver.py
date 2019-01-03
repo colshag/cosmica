@@ -926,6 +926,8 @@ class COSMICAServer(xmlrpc.XMLRPC):
                 else:
                     self._Log(result, clientKey)
                 return result
+            elif self._ValidateKey(clientKey) == 19:
+                return 19
             else:
                 s = 'invalid key: cannot endEmpireTurn'
                 self._Log(s, clientKey)
@@ -942,7 +944,7 @@ class COSMICAServer(xmlrpc.XMLRPC):
                 myGalaxy = self.galaxies[clientKey['galaxyName']]
                 return endRound(self, myGalaxy.name)
             else:
-                s = 'invalid key: cannot endEmpireTurn'
+                s = 'invalid key: cannot endRound'
                 self._Log(s, clientKey)
                 return s
         except:
@@ -1433,6 +1435,10 @@ class COSMICAServer(xmlrpc.XMLRPC):
             else:
                 self._Log('Invalid key: empire not in galaxy', myKey)
                 return 0
+            
+            # check if galaxy in a new round since player attempted to submit an action
+            if round != self.galaxies[galaxyName].currentRound:
+                return 19
 
             return 1
         except:

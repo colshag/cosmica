@@ -10,7 +10,7 @@ import sys
 import types
 
 import direct.directbase.DirectStart
-from anw.gui import textonscreen, questionendround
+from anw.gui import textonscreen
 from rootbutton import RootButton
 from anw.func import globals
 
@@ -20,8 +20,8 @@ class MainMenuButtons(RootButton):
     """The Main Button Menu"""
     def __init__(self, path, x=-0.35, y=0.95, name='main'):
         RootButton.__init__(self, path, x, y, name, ignoreShortcutButtons = [])
-        self.allKeys = ['Q','W','E','R','T','Y','U','I','O']
-        self.disableButtonIgnore = ['U']
+        self.allKeys = ['Q','W','R','T','Y','U','I','O']
+        self.disableButtonIgnore = ['U','E']
         self.disableButtonTime = 0
         self.lastDisabledButton = ''
         self.textTitle = None
@@ -29,7 +29,6 @@ class MainMenuButtons(RootButton):
         self.empireSim = None
         self.textEmpireName = None
         self.textCR = None
-        self.questionendround = None
         self.textRound = None
 
     def setMyMode(self, mode):
@@ -132,8 +131,7 @@ class MainMenuButtons(RootButton):
     
     def pressE(self):
         """End player turn"""
-        from anw.modes.modequestion import ModeQuestion
-        self.enterMode(ModeQuestion)
+        self.mode.endMyTurn()
     
     def pressT(self):
         """Enter the Tech Mode"""

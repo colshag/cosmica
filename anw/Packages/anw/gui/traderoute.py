@@ -79,9 +79,10 @@ class TradeRoute(rootsim.RootSim):
         (x,z) = funcs.findOffset(self.x, self.z, self.angle+90, 0.5)
         self.resourceCount = 0
         if self.tradeRouteDict['type'] == 'GEN':
-            (self.tradeRouteDict['AL'],
-             self.tradeRouteDict['EC'],
-             self.tradeRouteDict['IA']) = self.mode.systems[self.tradeRouteDict['fromSystem']].getGenResources()
+            if self.mode.systems[self.tradeRouteDict['fromSystem']].empireID == self.mode.systems[self.tradeRouteDict['toSystem']].empireID:
+                (self.tradeRouteDict['AL'],
+                 self.tradeRouteDict['EC'],
+                 self.tradeRouteDict['IA']) = self.mode.systems[self.tradeRouteDict['fromSystem']].getGenResources()
         for resource in ['AL','EC','IA']:
             value = self.tradeRouteDict[resource]
 

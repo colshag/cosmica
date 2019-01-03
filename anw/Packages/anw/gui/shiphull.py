@@ -5,6 +5,7 @@
 # ---------------------------------------------------------------------------
 # The system represents one Ship Hull object in design mode
 # ---------------------------------------------------------------------------
+from collections import Counter
 import string
 import direct.directbase.DirectStart
 from anw.gui import textonscreen, rootsim, buttonlist, textentry
@@ -68,6 +69,7 @@ class ShipHull(rootsim.RootSim):
         self.createDesignInfo()
         self.createDesignNameEntry()
         self.createDesignSubmit()
+        self.mode.onDesignNameEntered()
     
     def createDesignSubmit(self):
         self.designSubmit = designsubmit.DesignSubmit(self.path, self.mode, self.myShipDesign, x=0.75, z=-0.3)
@@ -341,6 +343,8 @@ class ShipHull(rootsim.RootSim):
     def populateQuadInfo(self, quad):
         """Fill the appropriate QuadInfo Listbox with component info"""
         myQuad = getattr(self, '%sQuadInfo' % quad)
+        myComponentList = []
+        myComponentDict = {}
         for weaponID, myWeapon in self.myShipDesign.quads[quad].weapons.iteritems():
             if myWeapon.myWeaponData.abr[2:]  == 'L':
                 myDroneDesign = self.mode.game.droneDesignObjects[myWeapon.droneID]
@@ -352,9 +356,15 @@ class ShipHull(rootsim.RootSim):
                                               textColorName=self.getAgeColor(myWeapon.myWeaponData.techReq))
         for myComponent in funcs.sortDictByChildObjValue(self.myShipDesign.quads[quad].components, 'type'):
             if myComponent.weaponID == '':
-                myQuad.myScrolledList.addItem(text=self.componentdata[myComponent.type].name,
-                                              extraArgs=myComponent.type, 
-                                              textColorName=self.getAgeColor(myComponent.myComponentData.techReq))
+                myComponentDict[myComponent.type] = myComponent
+                myComponentList.append(myComponent.type)
+                
+        
+        c = Counter(myComponentList)
+        for (componentType,amount) in c.items():
+            myQuad.myScrolledList.addItem(text='[%d] %s' % (amount, self.componentdata[componentType].name),
+                                          extraArgs=componentType, 
+                                          textColorName=self.getAgeColor(myComponentDict[componentType].myComponentData.techReq))            
 
     def getWeaponFacing(self, facing):
         if facing in globals.angleQuads:
@@ -491,6 +501,7 @@ class DroneHull(ShipHull):
         self.createDesignInfo()
         self.createDesignNameEntry()
         self.createDesignSubmit()
+        self.mode.onDesignNameEntered()
     
     def createDesignNameEntry(self):
         self.designNameEntry = textentry.TextEntry(self.path, self.mode, command='onDesignNameEntered',

@@ -500,8 +500,9 @@ class System(rootsim.RootSim):
         self.writeResources()
     
     def refreshIndustrySims(self):
-        self.clearIndustrySims()
-        self.createIndustrySims()
+        if self.empireID == self.mode.game.myEmpireID:
+            self.clearIndustrySims()
+            self.createIndustrySims()
         
     def getGenResources(self):
         """Return future generation of resources as (AL,EC,IA)"""
