@@ -53,7 +53,6 @@ class ShipHull(rootsim.RootSim):
         self.x = x
         self.y = 20
         self.z = z
-        self.ageColor = ['guigreen','guiyellow','orange']
         self.createMySim()
     
     def setupShipDesign(self, compDict, weapDict, name):
@@ -229,7 +228,7 @@ class ShipHull(rootsim.RootSim):
                         myWeaponData.abr[2:] != 'L'):
                         self.weaponlist.myScrolledList.addItem(text=myWeaponData.name,
                                                                extraArgs='W' + myWeaponData.id, 
-                                                               textColorName=self.ageColor[count])
+                                                               textColorName=self.getWeapAgeColor(myWeaponData.techReq))
             count += 1
         self.populateDronesToList()
     
@@ -277,12 +276,12 @@ class ShipHull(rootsim.RootSim):
                             myComponentData.abr not in ['CSE','CRT']):
                             self.componentlist.myScrolledList.addItem(text=myComponentData.name,
                                                                       extraArgs='%s' % myComponentData.id, 
-                                                                      textColorName=self.ageColor[count])
+                                                                      textColorName=self.getCompAgeColor(myComponentData.techReq))
                         elif (myComponentData.abr not in globals.componentLimitations[self.myShipHull.function] and
                               self.id in ['8','9','10','11','12'] ):
                             self.componentlist.myScrolledList.addItem(text=myComponentData.name,
                                                                   extraArgs='%s' % myComponentData.id, 
-                                                                  textColorName=self.ageColor[count])
+                                                                  textColorName=self.getCompAgeColor(myComponentData.techReq))
             count += 1
     
     def getTextFromQuad(self, quad):
@@ -353,7 +352,7 @@ class ShipHull(rootsim.RootSim):
             else:
                 myQuad.myScrolledList.addItem(text='%s(%.2f)%s' % (self.getWeaponFacing(myWeapon.facing), myWeapon.maxLock, self.weapondata[myWeapon.type].name),
                                               extraArgs='W' + myWeapon.type,
-                                              textColorName=self.getAgeColor(myWeapon.myWeaponData.techReq))
+                                              textColorName=self.getWeapAgeColor(myWeapon.myWeaponData.techReq))
         for myComponent in funcs.sortDictByChildObjValue(self.myShipDesign.quads[quad].components, 'type'):
             if myComponent.weaponID == '':
                 myComponentDict[myComponent.type] = myComponent
@@ -364,7 +363,7 @@ class ShipHull(rootsim.RootSim):
         for (componentType,amount) in c.items():
             myQuad.myScrolledList.addItem(text='[%d] %s' % (amount, self.componentdata[componentType].name),
                                           extraArgs=componentType, 
-                                          textColorName=self.getAgeColor(myComponentDict[componentType].myComponentData.techReq))            
+                                          textColorName=self.getCompAgeColor(myComponentDict[componentType].myComponentData.techReq))            
 
     def getWeaponFacing(self, facing):
         if facing in globals.angleQuads:
@@ -372,16 +371,27 @@ class ShipHull(rootsim.RootSim):
         else:
             return '%d' % facing
 
-    def getAgeColor(self, techReq):
+    def getWeapAgeColor(self, techReq):
         try:
             if int(techReq) < 100:
-                return self.ageColor[2]
+                return 'blood'
             elif int(techReq) < 200:
-                return self.ageColor[1]
+                return 'dkyellow'
             else:
-                return self.ageColor[0]
+                return 'dkgreen'
         except:
             return 'guiwhite'
+        
+    def getCompAgeColor(self, techReq):
+        try:
+            if int(techReq) < 100:
+                return 'red'
+            elif int(techReq) < 200:
+                return 'guiyellow'
+            else:
+                return 'green'
+        except:
+            return 'guiwhite'    
         
     def createMySim(self):
         """Create The Sim"""

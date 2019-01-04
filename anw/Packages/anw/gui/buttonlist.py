@@ -18,7 +18,8 @@ from direct.gui.DirectGui import DirectFrame,DirectButton,DirectScrolledFrame
 from direct.gui.DirectGui import DGG, DirectLabel
 from direct.interval.IntervalGlobal import Sequence
 from direct.task import Task
-from direct.showbase.PythonUtil import clampScalar
+from anw.func import funcs
+#from direct.showbase.PythonUtil import clampScalar
 from types import IntType
 from anw.func import globals
 from anw.gui import textonscreen
@@ -330,7 +331,7 @@ class ScrolledButtonsList(DirectObject):
         self.__updateCanvasZpos(self.canvas.getZ()+scroll)
   
     def __updateCanvasZpos(self,Zpos):
-        newZ=clampScalar(Zpos, .0, self.canvasLen-self.frameHeight+.015)
+        newZ=funcs.clampScalar(Zpos, .0, self.canvasLen-self.frameHeight+.015)
         self.canvas.setZ(newZ)
         thumbZ=-newZ*self.canvasRatio
         self.vertSliderThumb.setZ(thumbZ)

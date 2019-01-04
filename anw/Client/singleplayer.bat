@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA2 --map quickstart-4man.map
+python run.py --galaxy COSMICA2 --map 8man-2v2v2v2.map

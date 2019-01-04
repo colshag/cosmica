@@ -19,6 +19,24 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 from random import randrange
 
+def clampScalar(value, a, b):
+    # calling this ought to be faster than calling both min and max
+    # This is from Panda3d which was not recognized in 1.9.4 so i put it into here
+    if a < b:
+        if value < a:
+            return a
+        elif value > b:
+            return b
+        else:
+            return value
+    else:
+        if value < b:
+            return b
+        elif value > a:
+            return a
+        else:
+            return value
+
 def getTrueOrFalse(value):
     """return a True or False based on value given"""
     if value in (1,'1','True','yes','Yes','Y'):

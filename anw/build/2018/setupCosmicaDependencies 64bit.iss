@@ -20,9 +20,9 @@ AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 CreateAppDir=no
-OutputDir=C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018
+OutputDir=E:\development\COSMICA\anw\build\2018
 OutputBaseFilename=Cosmica Dependency Setup
-SetupIconFile=C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\app.ico
+SetupIconFile=E:\development\COSMICA\anw\build\2018\app.ico
 Compression=lzma
 SolidCompression=yes
 
@@ -30,12 +30,12 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Panda3D-SDK-1.10.0pre-df77bac-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
-Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
-Source: "C:\Users\colsh\Downloads\development\COSMICA\anw\build\2018\zope.interface-4.1.3.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "E:\development\COSMICA\anw\build\2018\Panda3D-SDK-1.9.4-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "E:\development\COSMICA\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "E:\development\COSMICA\anw\build\2018\zope.interface-4.1.3.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Run]
-Filename: "{app}\Panda3D-SDK-1.10.0pre-df77bac-x64.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
+Filename: "{app}\Panda3D-SDK-1.9.4-x64.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
 Filename: "{app}\Twisted-15.3.0.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
 Filename: "{app}\zope.interface-4.1.3.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
