@@ -41,6 +41,19 @@ class GenerateGalaxy(object):
         self.genNeutralShips()
         self.myGalaxy.serverPort = serverPort
         self.saveClientData()
+        if self.myGalaxy.speedstart == 1:
+            # special setup where map is zoomed ahead 5 turns with AI doing the moves
+            oldAI = {}
+            for empireID, myEmpire in self.myGalaxy.empires.iteritems():
+                oldAI[empireID] = myEmpire.ai
+                myEmpire.ai = 1
+            i = 0
+            while i < 4:
+                self.myGalaxy.endRound(doAITurn=1)
+                i += 1
+            for empireID, myEmpire in self.myGalaxy.empires.iteritems():
+                myEmpire.ai = oldAI[empireID]
+            self.myGalaxy.endRound(doAITurn=1)
     
     def saveClientData(self):
         """Save the client Data"""

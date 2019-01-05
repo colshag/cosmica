@@ -10,6 +10,7 @@
 numEmpires = 7
 maxPlayersToAlly = 2
 startingAllies = []
+speedstart = 0
 
 startingCredits = 400000
 marketOrderVolume = 2000
