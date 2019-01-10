@@ -9,9 +9,9 @@ try:
     from panda3d.core import Vec4
 except:
     pass
-currentVersion = '0.15.0'
+currentVersion = '0.16.0'
 currentVersionShort = 'master'
-currentVersionTag = '.20181215'
+currentVersionTag = '.20190110'
 serverMode = 0
 
 maxShipsPerBattle = 120

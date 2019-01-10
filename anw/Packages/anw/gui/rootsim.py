@@ -34,7 +34,7 @@ class RootSim(DirectObject):
         self.angle = 0
         self.width = 1
         self.height = 1
-        self.glow = 1
+        self.glow = 0
         self.sim = None
         self.mode = None
         self.game = None

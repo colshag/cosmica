@@ -1,1 +1,0 @@
-python run.py --galaxy COSMICA4 --empireid 1 --empirepass 3d38t79a --remoteserver http://localhost:8002 --clientonly

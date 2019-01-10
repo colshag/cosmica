@@ -1,1 +1,0 @@
-python run.py --galaxy COSMICA4 --empireid 2 --empirepass mcah16dc --remoteserver http://localhost:8002 --clientonly

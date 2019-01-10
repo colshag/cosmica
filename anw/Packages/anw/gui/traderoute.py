@@ -18,7 +18,7 @@ class TradeRoute(rootsim.RootSim):
         self.id = tradeRouteDict['id']
         rootsim.RootSim.__init__(self, path, texture=tradeRouteDict['imageFile'], 
                            type='plane', transparent=1, scale=1)
-        self.glow = 1
+        self.glow = 0
         self.textWarpReq = None
         self.x1 = fromSystemDict['x']
         self.z1 = fromSystemDict['y']
