@@ -3,6 +3,14 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+
+0.16.20190113 Release Notes:
+====================================
+- ai fixes
+- new steve.map
+- removed glow for planets and many objects
+- fast-forward mode in map
+
 0.15.20181215 Release Notes:
 ====================================
 - Tutorial Mode enhanced

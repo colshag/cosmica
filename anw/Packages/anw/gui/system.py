@@ -123,6 +123,14 @@ class System(rootsim.RootSim):
         z = self.z-0.25
         return (x,z)
         
+    def setColor(self):
+        """Set the color of the sim"""
+        pass
+ 
+    def setGlow(self):
+        """Does the object glow"""
+        pass
+        
     def createMySim(self):
         """Create The Sim"""
         self.registerMySim()

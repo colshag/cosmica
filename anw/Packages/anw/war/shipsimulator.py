@@ -139,20 +139,20 @@ class ShipSimulator(mode.Mode, root.Root):
         mySystem.setMyGame(self.game)
         self.gui.append(mySystem)
                    
-    #def setMyBackground(self):
-        #"""Set the Background of mode"""
-        #base.setBackgroundColor(globals.colors['black'])
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        base.setBackgroundColor(globals.colors['black'])
         
-    #def setMyBackground(self):
-        #"""Set the Background of mode"""
-        #try:
-            #from direct.gui.OnscreenImage import OnscreenImage
-            ## use render2d for front rendering and render2dp for background rendering.
-            #self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
-            #base.cam2dp.node().getDisplayRegion(0).setSort(-20)
-            #self.gui.append(self.background)
-        #except:
-            #base.setBackgroundColor(globals.colors['guiblue3'])    
+    def setMyBackground(self):
+        """Set the Background of mode"""
+        try:
+            from direct.gui.OnscreenImage import OnscreenImage
+            # use render2d for front rendering and render2dp for background rendering.
+            self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mov", scale=(1.1,1,1.9), pos=(0.05,0,0.9))            
+            base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+            self.gui.append(self.background)
+        except:
+            base.setBackgroundColor(globals.colors['guiblue4'])    
             
     def createMainMenu(self, key):
         mode.Mode.createMainMenu(self, key)
