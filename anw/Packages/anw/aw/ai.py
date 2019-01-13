@@ -17,9 +17,9 @@ ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2},
 ai_builds_techreq = {'misc': [ ['1'], ['107','111'] ],
                      'depot': [ ['1'], ['107', '111'] ],
                      'defence': [ ['1'], ['101'] ],
-                     'alloy': [ ['1'], ['111'] ],
                      'energy': [ ['1'], ['118'] ],
                      'array': [ ['1'], ['129'] ],
+                     'alloy': [ ['1'], ['111'] ],
                      }
                       
 
@@ -39,13 +39,13 @@ ai_builds = {'misc0':{10:['2-RC'],
                          15:['1-FA','1-MA','2-SY','2-MI','2-WG','3-AF'],
                          20:['1-FA','1-MA','3-SY','2-MI','3-WG','5-AF'],
                          30:['2-FA','5-RC','2-MA','3-SY','3-MI','10-AF'],
-                         40:['3-SY','3-MI','20-RC','1-FA','1-MA','6-AF'],
+                         40:['2-SY','2-MI','10-RC','1-FA','1-MA','20-AF'],
                          50:['28-AF','6-RC','2-FA','2-MA','3-SY','3-MI']},
              'depot1':{10:['1-FA','1-MA','1-SY','1-MI','2-WG','2-AF'],
                          15:['1-FA','1-MA','2-SY','2-MI','2-WG','3-AF'],
                          20:['1-FA','1-MA','3-SY','2-MI','3-WG','5-AF'],
                          30:['2-FA','5-RC','2-MA','3-SY','3-MI','9-AF'],
-                         40:['3-SY','3-MI','1-FA','1-MA','26-AF'],
+                         40:['2-SY','2-MI','10-RC','1-FA','1-MA','20-AF'],
                          50:['25-AF','6-RC','2-FA','2-MA','3-SY','3-MI']},
              'defence0':{10:['1-RS'],
                          15:['1-RS'],
@@ -83,18 +83,18 @@ ai_builds = {'misc0':{10:['2-RC'],
                          30:['30-CM'],
                          40:['40-CM'],
                          50:['50-CM']},
-             'array0':{10:['10-RS'],
-                         15:['15-RS'],
-                         20:['20-RS'],
-                         30:['30-RS'],
-                         40:['40-RS'],
-                         50:['50-RS']},
+             'array0':{10:['10-SS'],
+                         15:['15-SS'],
+                         20:['20-SS'],
+                         30:['30-SS'],
+                         40:['40-SS'],
+                         50:['50-SS']},
              'array1':{10:['10-RS'],
-                         15:['15-RS'],
-                         20:['20-RS'],
-                         30:['30-RS'],
-                         40:['40-RS'],
-                         50:['50-RS']}
+                         15:['15-SS'],
+                         20:['20-SS'],
+                         30:['30-SS'],
+                         40:['40-SS'],
+                         50:['50-SS']}
              }
 
 class AIPlayer(root.Root):
@@ -440,7 +440,7 @@ class AIPlayer(root.Root):
             depotID = lConnect[0]
         self.mySystemOrders[depotID]['tobuild'] = 'depot'
         lCities.remove(depotID)
-        assignOrder = ['alloy','energy','array','energy','array','misc','alloy','misc']
+        assignOrder = ['energy','array','alloy','energy','array','misc','alloy','misc']
         count = 0
         for systemID in lCities:
             self.mySystemOrders[systemID]['tobuild'] = assignOrder[count]

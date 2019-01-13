@@ -39,6 +39,7 @@ try:
           'guiblue1':Vec4(0,0.4,0.91,1),
           'guiblue2':Vec4(0,0.255,0.58,1),
           'guiblue3':Vec4(0,0.114,0.255,1),
+          'guiblue4':Vec4(0,0.02,0.1,1),
           'guigrey':Vec4(0.549,0.549,0.549,1),
           'guiyellow':Vec4(0.922,0.910,0.047,1),
           'guired':Vec4(1,0,0,1),

@@ -1519,10 +1519,10 @@ class ModeMap(mode.Mode):
             self.systemmenu.press1()
     
     def setMyBackground(self):
-        """Set the Background of mode"""
-        # use render2d for front rendering and render2dp for background rendering.
-        #self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1.6,1,1.5), pos=(0.6,0,0.3))
-        #base.cam2dp.node().getDisplayRegion(0).setSort(-20)
+        #"""Set the Background of mode"""
+        ## use render2d for front rendering and render2dp for background rendering.
+        ##self.background = OnscreenImage(parent=render2dp, image=self.guiMediaPath+"backgroundspace.mp4", scale=(1.6,1,1.5), pos=(0.6,0,0.3))
+        ##base.cam2dp.node().getDisplayRegion(0).setSort(-20)
         #self.gui.append(self.background)        
         base.setBackgroundColor(globals.colors['guiblack'])
     

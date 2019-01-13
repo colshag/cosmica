@@ -23,7 +23,7 @@ class MyArmada(rootsim.RootSim):
         rootsim.RootSim.__init__(self, path, texture=self.myImage, 
                            type='plane', transparent=1, scale=1)
         self.mode = mode
-        self.glow = 1
+        self.glow = 0
         self.y = 20.2
         self.setMyPosition()
         self.width = 0.3
@@ -91,7 +91,7 @@ class OtherArmada(MyArmada):
         rootsim.RootSim.__init__(self, path, texture=self.myImage, 
                            type='plane', transparent=1, scale=1)
         self.mode = mode
-        self.glow = 1
+        self.glow = 0
         self.y = 20.2
         self.setMyPosition()
         self.width = 0.3

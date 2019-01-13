@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# Cosmica
+# commonmap.data
+# Written by Chris Lewis
+# ---------------------------------------------------------------------------
+# This represents the common data that all maps share
+# maps can override this data by having the same attributes with
+# different values.
+# ---------------------------------------------------------------------------
+numEmpires = 5
+maxPlayersToAlly = 2
+startingAllies = []
+speedstart = 1
+
+genSystemsLegend = {'Y': ('0', 5),
+                    'T': ('0', 10),
+                    'R': ('0', 15),
+                    'E': ('0', 20),
+		    'W': ('0', 30),
+                    'Q': ('0', 40),
+                    'A': ('1', 40),
+                    'a': ('1', 30),
+                    'B': ('2', 40),
+                    'b': ('2', 30),
+                    'C': ('3', 40),
+		    'c': ('3', 30),
+                    'D': ('4', 40),
+                    'd': ('4', 30),
+                    '.': (None, None)
+                    }
+
+genSystemsData = ['.a.YEY.b.',
+                  'aAT.E.TBb',
+                  '.T.R.R.T.',
+                  'Y.EW.WE.Y',
+                  'ER..Q..RE',
+                  'Y.EW.WE.Y',
+                  '.T.R.R.T.',
+                  'cCT.E.TDd',
+                  '.c.YEY.d.',
+                  ]
+
+defaultIndustry = {'14':1,# advanced design center (1)
+       '11':1,# advanced simulation center (1)
+       '41':10,# advanced research center(10)
+       '32':3,# advanced shipyard (6)
+       '35':3,# advanced marine installation (6)
+       '2':15, #advanced alloy factory(15)
+       '26':1, #advanced fleet academy (1)
+       } #total (40/40)
+
+# this sets technology to start in the third age
+startingTech = []
+for i in range(170):    
+ startingTech.append(i)
+
+ 
+# Neutral ships
+## include commonmap.data

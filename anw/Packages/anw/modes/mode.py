@@ -615,7 +615,7 @@ class Mode(object):
         
     def setMyBackground(self):
         """Set the Background of mode"""
-        base.setBackgroundColor(globals.colors['guiblack'])
+        base.setBackgroundColor(globals.colors['guiblue4'])
 
     def endMyTurn(self):
         """End the players Turn"""
