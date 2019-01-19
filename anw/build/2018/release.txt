@@ -3,6 +3,11 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.16.20190119
+===================================
+- make a fast forward map create a simulation and design center for homeworld
+- make zoom a bit smoother and limit zoom in and out settings for mousewheel zoom
+- more planet effect changes (brightness and texture)
 
 0.16.20190113 Release Notes:
 ====================================
@@ -10,6 +15,15 @@ NeuroJump (2018) all rights reserved
 - new steve.map
 - removed glow for planets and many objects
 - fast-forward mode in map
+- bug fix on trade routes between players
+- end turn toggle not disabled
+- enter key being needed for messages and ship design disabled
+- dark blue screen for ship battles and technology
+- lan mode
+- ship design gui persistanece bug removed
+- ship design components combine similar components
+- ship design weapons are a darker shade
+- new planet skin
 
 0.15.20181215 Release Notes:
 ====================================

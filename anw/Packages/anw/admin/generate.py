@@ -103,7 +103,10 @@ class GenerateGalaxy(object):
         if playerList[0] <> 'singleplayer':
             random.shuffle(playerList)
         self.genEmpire(0)
+        #s = range(1,8) #maxEmpires is 8
+        #random.shuffle(s)
         for i in range(1,self.myGalaxy.numEmpires):
+            #self.genEmpire(s.pop(0), playerList.pop(0))
             self.genEmpire(i, playerList.pop(0))
     
     def insertAIPlayers(self, playerList):

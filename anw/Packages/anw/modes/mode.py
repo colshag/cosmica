@@ -40,7 +40,7 @@ class Mode(object):
         self.depth = 20.0
         self.zoomCameraDepth = 10.0
         self.zoomCameraOutDepth = -10.0
-        self.zoomSpeed = 5
+        self.zoomSpeed = 5.0
         self.panSpeed = 1.0
         self.runningTasks = []
         if globals.serverMode == 0:
@@ -186,7 +186,6 @@ class Mode(object):
             self.game.app.enableMouseCamControl()
     
     def zoomInCamera(self):
-        
         if camera.getY() <= self.zoomCameraDepth:
             self.game.app.disableMouseCamControl()
             taskMgr.add(self.zoomInCameraTask, 'zoomInCameraTask', extraArgs=[self.zoomCameraDepth])
@@ -578,16 +577,18 @@ class Mode(object):
                         break
                     
     def onMouseWheelUp(self):
-        """ zoom out """
-        if self.enableScrollWheelZoom:
-            self.stopCameraTasks()
-            self.zoomInCameraAmount(20.0)
+        """ zoom in """
+        if camera.getY() <= 5:
+            if self.enableScrollWheelZoom:
+                self.stopCameraTasks()
+                self.zoomInCameraAmount(10.0)
         
     def onMouseWheelDown(self):
-        """ zoom in """
-        if self.enableScrollWheelZoom:
-            self.stopCameraTasks()
-            self.zoomOutCameraAmount(20.0)
+        """ zoom out """
+        if camera.getY() >= -100:
+            if self.enableScrollWheelZoom:
+                self.stopCameraTasks()
+                self.zoomOutCameraAmount(10.0)
         
     def onMouse2Down(self):
         """clear"""

@@ -11,7 +11,7 @@ except:
     pass
 currentVersion = '0.16.0'
 currentVersionShort = 'master'
-currentVersionTag = '.20190113'
+currentVersionTag = '.20190119'
 serverMode = 0
 
 maxShipsPerBattle = 120

@@ -7,3 +7,7 @@
 .pydevproject
 anw/Database/*.*
 
+
+anw/Client/tutorial\.data
+
+*.exe
