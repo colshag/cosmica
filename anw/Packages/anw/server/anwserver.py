@@ -971,7 +971,7 @@ class COSMICAServer(xmlrpc.XMLRPC):
             if result == 1:
                 myGalaxy = self.galaxies[loginKey['galaxyName']]
                 myEmpire = myGalaxy.empires[loginKey['empireID']]
-
+    
                 # update empire login info
                 myEmpire.ip = loginKey['ip']
                 myEmpire.key = self._generateKey()

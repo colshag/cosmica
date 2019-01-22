@@ -89,6 +89,7 @@ class DesignSubmit(rootbutton.RootButton):
         self.disableButton('submitdesign')
         self.enableSimulateSubmit()
         self.enableRemoveDesign()
+        self.enableDesignSubmit()
 
     def enableDesignSubmit(self):
         """Enable the submit design button"""

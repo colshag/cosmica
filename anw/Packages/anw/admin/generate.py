@@ -14,6 +14,8 @@ from anw.func import funcs, globals, names, storedata
 from anw.aw import galaxy, empire, system, tech, industrydata, ai
 from anw.war import regimentdata, componentdata, shiphulldata, weapondata
 
+randomEmpires = {'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8}
+
 class GenerateGalaxy(object):
     """Generate a galaxy object"""
     def __init__(self):
@@ -22,7 +24,7 @@ class GenerateGalaxy(object):
         self.generateSystems = None
         self.generateTech = None
         self.path = os.getcwd()
-        self.galaxyName = "COSMICA1"        
+        self.galaxyName = "COSMICA1"
 
     def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "COSMICA1", serverPort=8000):
         """Generate a Galaxy Object given data path, and star Map data file"""
@@ -100,14 +102,23 @@ class GenerateGalaxy(object):
     def genEmpires(self, playerList=[]):
         if len(playerList) < self.myGalaxy.numEmpires:
             playerList = self.insertAIPlayers(playerList)
-        if playerList[0] <> 'singleplayer':
+        if playerList[0] == 'singleplayer':
+            self.genEmpire(0)
+            for i in range(1,self.myGalaxy.numEmpires):
+                self.genEmpire(i, playerList.pop(0))            
+        else:
+            # shuffle colors of starting empires
             random.shuffle(playerList)
-        self.genEmpire(0)
-        #s = range(1,8) #maxEmpires is 8
-        #random.shuffle(s)
-        for i in range(1,self.myGalaxy.numEmpires):
-            #self.genEmpire(s.pop(0), playerList.pop(0))
-            self.genEmpire(i, playerList.pop(0))
+            self.genEmpire(0)
+            s = range(1,8) #maxEmpires is 8
+            random.shuffle(s)
+        
+            for i in range(1,self.myGalaxy.numEmpires):
+                randomEmpires[str(i)] = s.pop(0)
+                self.genEmpire(randomEmpires[str(i)], playerList.pop(0))
+                
+        for empireid, myEmpire in self.myGalaxy.empires.iteritems():
+            myEmpire.setInitialDiplomacy()
     
     def insertAIPlayers(self, playerList):
         """add AI players if the number of human players is less then the number required from the map layout"""
@@ -124,7 +135,7 @@ class GenerateGalaxy(object):
         d['experience'] = 100.0
         myEmpire = empire.Empire(d)
         myEmpire.setMyGalaxy(self.myGalaxy)
-        myEmpire.setInitialDiplomacy()
+        #myEmpire.setInitialDiplomacy()
         myEmpire.CR = self.myGalaxy.startingCredits
         self.genTech(myEmpire.id)
         self.genAIPlayer(myEmpire)
@@ -250,7 +261,12 @@ class GenerateSystems(object):
     def setSystemData(self, line):
         """Set System Data by parsing the datafile given (eg. starMap4A.map)"""
         for character in line:
-            (self.empireID, self.cityNum) = self.myGalaxy.genSystemsLegend[character]
+            # when parsing map file keep in mind that empires are randomized
+            (empireID, self.cityNum) = self.myGalaxy.genSystemsLegend[character]
+            if empireID == None:
+                self.empireID = None
+            else:
+                self.empireID = str(randomEmpires[empireID])
             self.setupSystem()
     
     def setupSystem(self):

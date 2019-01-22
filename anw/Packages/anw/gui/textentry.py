@@ -40,7 +40,7 @@ class TextEntry(object):
         self.myTitle.setTitleStyle()
         
     def setMyEntry(self):
-        self.myEntry = DirectEntry(text='', scale=self.scale, command=self.onCommand,
+        self.myEntry = DirectEntry(text='', scale=self.scale, command=None,
                                    numLines=self.lines, width=self.width,
                                    pos=(self.x,self.y,self.z),entryFont=self.myFont,
                                    focusInCommand=self.onFocus, focusOutCommand=self.onOutFocus,

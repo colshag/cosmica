@@ -68,14 +68,13 @@ class ShipHull(rootsim.RootSim):
         self.createDesignInfo()
         self.createDesignNameEntry()
         self.createDesignSubmit()
-        self.mode.onDesignNameEntered()
     
     def createDesignSubmit(self):
         self.designSubmit = designsubmit.DesignSubmit(self.path, self.mode, self.myShipDesign, x=0.75, z=-0.3)
         self.myWidgets.append(self.designSubmit)
     
     def createDesignNameEntry(self):
-        self.designNameEntry = textentry.TextEntry(self.path, self.mode, command='onDesignNameEntered',
+        self.designNameEntry = textentry.TextEntry(self.path, self.mode, command=None,
                                                    initialText=self.mode.designName,
                                                    title='Enter Ship Design Below:', lines=1, width=18, 
                                                    x=0.7, z=0.07, font=5, titleWidth=20, textDelta=0.075)
@@ -511,10 +510,9 @@ class DroneHull(ShipHull):
         self.createDesignInfo()
         self.createDesignNameEntry()
         self.createDesignSubmit()
-        self.mode.onDesignNameEntered()
     
     def createDesignNameEntry(self):
-        self.designNameEntry = textentry.TextEntry(self.path, self.mode, command='onDesignNameEntered',
+        self.designNameEntry = textentry.TextEntry(self.path, self.mode, command=None,
                                                    initialText=self.mode.designName,
                                                    title='Enter Drone Design Name:', lines=1, width=18, 
                                                    x=0.7, z=0.11)

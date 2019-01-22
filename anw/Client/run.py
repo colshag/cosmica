@@ -38,6 +38,7 @@ class COSMICARunner(object):
         process = None
         serverCommQueue = None
         if self.singlePlayer and self.startSinglePlayerServer:
+            funcs.globals.bSinglePlayer = True
             logging.info("Running in single player mode. Generate map if required.")
             self.generateSinglePlayer()
 

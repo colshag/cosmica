@@ -437,9 +437,6 @@ class ModeDesign(mode.Mode):
             self.removeMyGui('shipdesignList')
             self.removeMyGui('dronedesignList')
             self.removeMyGui('designInfo')
-            
-    def onDesignNameEntered(self):
-        self.selectedShipHull.designSubmit.enableDesignSubmit()
     
     def setMyBackground(self):
         """Set the Background of mode"""
@@ -454,7 +451,7 @@ class ModeDesign(mode.Mode):
     
     def submitDesign(self, myShipDesign):
         """Submit the design to server, either ship or drone"""
-        self.designName = self.selectedShipHull.designNameEntry.initial
+        self.designName = self.selectedShipHull.designNameEntry.myEntry.get()
         (oldName, hullID, compDict, weaponDict) = myShipDesign.getMyDesign()
         dOrder = {'name':string.upper(self.designName), 'hullID':hullID, 'compDict':compDict, 'weaponDict':weaponDict}
         if 'aft' not in compDict.keys():

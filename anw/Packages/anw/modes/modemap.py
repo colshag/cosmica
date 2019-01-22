@@ -43,7 +43,6 @@ class ModeMap(mode.Mode):
         self.diplomacyEmpireID = ''
         self.sendMailText = None
         self.sendMailButton = None
-        self.messageText = ''
         self.diplomacyTitle = None
         self.diplomacyDescription1 = None
         self.diplomacyDescription2 = None
@@ -196,7 +195,6 @@ class ModeMap(mode.Mode):
         self.removeMyGui('increaseDiplomacyButton')
         self.removeMyGui('decreaseDiplomacyButton')
         self.removeMyGui('sendcreditsgui')
-        self.messageText = ''
         self.diplomacyEmpireID = ''
  
     def onMouse1Down(self):
@@ -349,14 +347,11 @@ class ModeMap(mode.Mode):
                                                         extraArgs=otherEmpireID)
     
     def createSendMailText(self):
-        self.sendMailText = textentry.TextEntry(self.guiMediaPath, self, command='onSendMailTextEntered',
+        self.sendMailText = textentry.TextEntry(self.guiMediaPath, self, command=None,
                                                    initialText='',
                                                    title='Type in a message here:', lines=16, width=33, 
                                                    x=0.1, z=-0.1, titleWidth=80)
         self.gui.append(self.sendMailText)
-        
-    def onSendMailTextEntered(self, name):
-        self.messageText = name
             
     def createShipList(self, shipList):
         """Create List of Ships to select for details"""
@@ -1993,15 +1988,18 @@ class ModeMap(mode.Mode):
     
     def sendMail(self):
         """Send another Empire a message"""
-        try:
-            serverResult = self.game.server.sendMail(self.game.authKey, self.diplomacyEmpireID, self.messageText)
-            if serverResult != 1:
-                self.modeMsgBox(serverResult)
-                return
-            self.modeMsgBox('Message Sent Successfully')
-            self.onSpaceBarClear()
-        except:
-            self.modeMsgBox('sendMail->Connection to Server Lost, Login Again')
+        if funcs.globals.bSinglePlayer == False:
+            try:
+                serverResult = self.game.server.sendMail(self.game.authKey, self.diplomacyEmpireID, self.sendMailText.myEntry.get())
+                if serverResult != 1:
+                    self.modeMsgBox(serverResult)
+                    return
+                self.modeMsgBox('Message Sent Successfully')
+                self.onSpaceBarClear()
+            except:
+                self.modeMsgBox('sendMail->Connection to Server Lost, Login Again')
+        else:
+            self.modeMsgBox('it is not possible to send messages in single player mode')
     
     def increaseDiplomacy(self):
         """Send an Increase Diplomacy Request to the Server"""

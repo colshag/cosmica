@@ -1172,8 +1172,10 @@ class Empire(root.Root):
     
     def setInitialDiplomacy(self):
         """Set the initial Diplomacy of Empire to no relations"""
-        for i in range(self.myGalaxy.numEmpires):
-            self.setDiplomacy(str(i), 2)
+        for (empireID, myEmpire) in self.myGalaxy.empires.iteritems(): 
+        #for i in range(self.myGalaxy.numEmpires):
+            #self.setDiplomacy(str(i), 2)
+            self.setDiplomacy(empireID, 2)
         for diplomacyGroup in self.myGalaxy.startingAllies:
             if self.id in diplomacyGroup:
                 for otherID in diplomacyGroup:

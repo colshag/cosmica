@@ -3,6 +3,12 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.17.20190121
+===================================
+- fixed bug in ship design, game would not allow player to label ship design properly
+- fixed bug in sending diplomacy in single player mode giving an error
+- in multiplayer games empires are randomized
+
 0.16.20190119
 ===================================
 - make a fast forward map create a simulation and design center for homeworld
