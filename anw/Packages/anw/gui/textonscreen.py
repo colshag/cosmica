@@ -62,10 +62,12 @@ class TextOnScreen(object):
         """remove text"""
         self.textNodePath.remove_node()
     
-    def setTitleStyle(self):
-        self.setCardColor(globals.colors['guiblue3'])
-        self.setFrameColor(globals.colors['guiblue2'])
-        self.myText.setTextColor(globals.colors['guiwhite'])
+    def setTitleStyle(self, cardColor='guiblue3',
+                      frameColor='guiblue2',
+                      textColor='guiwhite'):
+        self.setCardColor(globals.colors[cardColor])
+        self.setFrameColor(globals.colors[frameColor])
+        self.myText.setTextColor(globals.colors[textColor])
         self.myText.setFrameLineWidth(3)
     
     def startFade(self, amount=2.0):

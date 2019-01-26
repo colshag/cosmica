@@ -351,6 +351,9 @@ class ModeMap(mode.Mode):
                                                    initialText='',
                                                    title='Type in a message here:', lines=16, width=33, 
                                                    x=0.1, z=-0.1, titleWidth=80)
+        self.sendMailText.myTitle.setTitleStyle(cardColor='orange',
+                                                   frameColor='guiblack',
+                                                   textColor='guiblack')         
         self.gui.append(self.sendMailText)
             
     def createShipList(self, shipList):

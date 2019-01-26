@@ -75,10 +75,27 @@ class ShipDesignValue(scrollvalue.ScrollValue):
     
     def createButtons(self):
         """Create all Buttons"""
-        for key in ['Z','X','C','V']:
-            buttonPosition = ((self.posInitX+self.x*.10),0,(self.posInitY+self.y*.10))
-            self.createButton(key, buttonPosition)
-            self.x += 1
+        #fore weapon location
+        buttonPosition = (0.2,0,0.75)
+        self.createButton('Z', buttonPosition)        
+        
+        #aft weapon location
+        buttonPosition = (0.16,0,-0.35)
+        self.createButton('X', buttonPosition)        
+        
+        #port weapon location
+        buttonPosition = (-0.15,0,0.2)
+        self.createButton('C', buttonPosition)        
+        
+        #star weapon location
+        buttonPosition = (0.55,0,0.2)
+        self.createButton('V', buttonPosition) 
+        
+        
+        #for key in ['Z','X','C','V']:
+            #buttonPosition = ((self.posInitX+self.x*.10),0,(self.posInitY+self.y*.10))
+            #self.createButton(key, buttonPosition)
+            #self.x += 1
         self.x = 0
         self.y = 1
         for key in ['A','S','D']:

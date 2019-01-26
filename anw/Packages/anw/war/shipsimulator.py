@@ -32,6 +32,7 @@ class ShipSimulator(mode.Mode, root.Root):
         self.myGalaxy = myGalaxy
         self.pause = 0
         self.textPause = None
+        self.textSpacebar = None
         self.stat0 = None
         self.stat1 = None
         self.stat2 = None
@@ -241,6 +242,15 @@ class ShipSimulator(mode.Mode, root.Root):
         color = globals.empires[int(self.game.myEmpireID)]['color1']
         self.textPause.setColor(globals.colors[color])
         self.gui.append(self.textPause)
+        
+        text = 'PRESS SPACEBAR TO START AND STOP SIMULATION'
+        
+        self.textSpacebar = textonscreen.TextOnScreen(self.guiMediaPath, text,
+                                                   scale=0.08, font=5, parent=aspect2d)
+        self.textSpacebar.writeTextToScreen(x=-1.3, y=0, z=0, wordwrap=40)
+        self.textSpacebar.setColor(globals.colors['cyan'])
+        self.gui.append(self.textSpacebar)        
+        
         self.writeStats()
         
     def writeStats(self):
@@ -569,6 +579,7 @@ class ShipSimulator(mode.Mode, root.Root):
             self.pause = 0
             if globals.serverMode == 0:
                 self.removeMyGui('textPause')
+                self.removeMyGui('textSpacebar')
                 for i in range(9):
                     self.removeMyGui('stat%s' % i)
             self.resumeGameLoop()

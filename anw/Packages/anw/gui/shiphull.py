@@ -76,8 +76,11 @@ class ShipHull(rootsim.RootSim):
     def createDesignNameEntry(self):
         self.designNameEntry = textentry.TextEntry(self.path, self.mode, command=None,
                                                    initialText=self.mode.designName,
-                                                   title='Enter Ship Design Below:', lines=1, width=18, 
-                                                   x=0.7, z=0.07, font=5, titleWidth=20, textDelta=0.075)
+                                                   title='Name your design:', lines=1, width=18, 
+                                                   x=0.7, z=0.11)
+        self.designNameEntry.myTitle.setTitleStyle(cardColor='orange',
+                                                   frameColor='guiblack',
+                                                   textColor='guiblack')        
         self.myWidgets.append(self.designNameEntry)
     
     def getShipDesignName(self):
@@ -160,9 +163,9 @@ class ShipHull(rootsim.RootSim):
         
     def createQuads(self):
         """Create the 4 Quadrant lists displaying design component info"""
-        for (quad, (x,z)) in {'fore':(0.03,0.5),'aft':(0.03,-0.7),'port':(-0.32,-0.1),'star':(0.38,-0.1)}.iteritems():
+        for (quad, (x,z)) in {'fore':(0.03,0.5),'aft':(0.03,-0.6),'port':(-0.32,-0.05),'star':(0.38,-0.05)}.iteritems():
             text = self.getTextFromQuad(quad)
-            setattr(self, '%sQuadInfo' % quad, buttonlist.ButtonList(self.path, text, width=0.6, height=0.50))
+            setattr(self, '%sQuadInfo' % quad, buttonlist.ButtonList(self.path, text, width=0.6, height=0.40))
             myQuad = getattr(self, '%sQuadInfo' % quad)
             myQuad.setMyPosition(x,z)
             myQuad.setMyMode(self)
@@ -485,6 +488,7 @@ class ShipHull(rootsim.RootSim):
         myQuadList.myScrolledList.clear()
         self.populateQuadInfo(quad)
         self.updateDesignInfo()
+        self.designSubmit.enableSubmit()
     
     def ignoreShortcuts(self):
         if self.shipdesignvalue != None:
@@ -514,8 +518,11 @@ class DroneHull(ShipHull):
     def createDesignNameEntry(self):
         self.designNameEntry = textentry.TextEntry(self.path, self.mode, command=None,
                                                    initialText=self.mode.designName,
-                                                   title='Enter Drone Design Name:', lines=1, width=18, 
+                                                   title='Name your design:', lines=1, width=18, 
                                                    x=0.7, z=0.11)
+        self.designNameEntry.myTitle.setTitleStyle(cardColor='orange',
+                                                   frameColor='guiblack',
+                                                   textColor='guiblack')        
         self.myWidgets.append(self.designNameEntry)
     
     def createQuads(self):

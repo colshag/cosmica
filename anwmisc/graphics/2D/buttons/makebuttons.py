@@ -170,32 +170,32 @@ class CreateDesignButtonImages(CreateIndustryButtonImages):
     
 
 def run():
-    createMainButtons()
-    createScrollButtons()
-    createCityButtons()
-    createIndustryButtons()
-    createAgeButtons()
-    createSystemButtons()
-    createTradeButtons()
+    #createMainButtons()
+    #createScrollButtons()
+    #createCityButtons()
+    #createIndustryButtons()
+    #createAgeButtons()
+    #createSystemButtons()
+    #createTradeButtons()
     createDesignButtons()
-    createShipyardButtons()
-    createMapMoveButtons()
-    createBVButtons()
-    createMIButtons()
-    createLeverageButtons()
-    createMapButtons()
-    createOrderButtons()
-    createDiplomacyButtons()
-    createMoveArmyButtons()
-    createMoveArmadaButtons()
-    createSystemMarketSellButtons()
-    createMarketButtons()
-    createSystemMarketBuyButtons()
-    createSendCreditButtons()
-    createMultiSimButtons()
-    createQuestionEndRound()
-    createQuestionSurrender()
-    createHelpButtons()
+    #createShipyardButtons()
+    #createMapMoveButtons()
+    #createBVButtons()
+    #createMIButtons()
+    #createLeverageButtons()
+    #createMapButtons()
+    #createOrderButtons()
+    #createDiplomacyButtons()
+    #createMoveArmyButtons()
+    #createMoveArmadaButtons()
+    #createSystemMarketSellButtons()
+    #createMarketButtons()
+    #createSystemMarketBuyButtons()
+    #createSendCreditButtons()
+    #createMultiSimButtons()
+    #createQuestionEndRound()
+    #createQuestionSurrender()
+    #createHelpButtons()
 
 def createMainButtons():
     myButtons = {'I':'CREDIT', 'E':'END', 'O':'MARKET', 'Q':'QUIT', 'R':'MAP',
@@ -271,8 +271,8 @@ def createLeverageButtons():
         
 def createDesignButtons():
     myButtons = {'A':'REMOVE', 'S':'SUBMIT', 'D':'ADD', 
-                 'Z':'FORE', 'X':'AFT', 'C':'PORT', 'V':'STAR',
-                 '1':'FORE', '2':'AFT', '3':'PORT', '4':'STAR'}
+                 'Z':'+', 'X':'+', 'C':'+', 'V':'+',
+                 '1':'v', '2':'^', '3':'>', '4':'<'}
     for key, action in myButtons.iteritems():
         myCreate = CreateButtonImages(guiPath, 'design', key, action)
         myCreate.createButtons()

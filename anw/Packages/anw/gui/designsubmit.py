@@ -26,11 +26,11 @@ class DesignSubmit(rootbutton.RootButton):
         x = self.posInitX-0.03
         z = self.posInitY+0.30
         self.createTitleCard('scrollTitle1','Remaining Ship Designs this Round:',
-                         12,x,z)
-        self.createTextCard(x+0.33,z-0.04)
+                         12,x,z+0.06)
+        self.createTextCard(x+0.30,z+0.01)
         self.createTitleCard2('scrollTitle2','Remaining Ship Simulation Points:',
-                         12,x,z-0.12)
-        self.createTextCard2(x+0.33,z-0.16)
+                         12,x,z-0.06)
+        self.createTextCard2(x+0.30,z-0.11)
         self.actualDesignID = ''
         self.isDroneDesign = 0
         self.enableSubmit()
@@ -87,13 +87,13 @@ class DesignSubmit(rootbutton.RootButton):
     def enableSubmit(self):
         """setup enabled buttons"""
         self.disableButton('submitdesign')
+        self.enableDesignSubmit()
         self.enableSimulateSubmit()
         self.enableRemoveDesign()
-        self.enableDesignSubmit()
 
     def enableDesignSubmit(self):
         """Enable the submit design button"""
-        if self.designsLeft > 0:
+        if self.designsLeft > 0 and self.isValidForSimulation() == 1:
             self.enableButton('submitdesign')
         else:
             self.disableButton('submitdesign')
@@ -125,24 +125,23 @@ class DesignSubmit(rootbutton.RootButton):
         self.disableButton('removedesign')
     
     def enableSimulateSubmit(self):
-        if (self.simulationsLeft > 0 and 'aft' in self.myDesign.quads.keys() and 
-            self.isValidForSimulation() == 1):
+        if (self.simulationsLeft > 0 and 'aft' in self.myDesign.quads.keys() and self.isValidForSimulation() == 1):
             self.enableButton('simulatedesign')
         else:
             self.disableButton('simulatedesign')
     
     def isValidForSimulation(self):
         """Is the design valid for a simulation"""
-        for position, myQuad in self.myDesign.quads.iteritems():
-            if myQuad.components != {}:
-                return 1
-        return 0
+        if self.myDesign.thrust > 0 and self.myDesign.rotation > 0 and self.myDesign.maxPower > 0:
+            return 1
+        else:
+            return 0
             
     def createButtons(self):
         """Create all Buttons"""
         y = 0
         for key in ['submitdesign','simulatedesign','removedesign','cancel']:
-            buttonPosition = (self.posInitX+0.21,0,(self.posInitY+0.08+y*.09))
+            buttonPosition = (self.posInitX+0.21,0,(self.posInitY+0.14+y*.09))
             self.createButton(key, buttonPosition, geomX=0.5, geomY=0.045)
             y -= 0.5
 

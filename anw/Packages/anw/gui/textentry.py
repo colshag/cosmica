@@ -44,7 +44,7 @@ class TextEntry(object):
                                    numLines=self.lines, width=self.width,
                                    pos=(self.x,self.y,self.z),entryFont=self.myFont,
                                    focusInCommand=self.onFocus, focusOutCommand=self.onOutFocus,
-                                   frameColor=(0,0,0,.7), text_fg=(1,1,1,1), initialText=self.initial, 
+                                   frameColor=(0.996, 0.359, 0,.7), text_fg=(0,0,0,1), initialText=self.initial, 
                                    clickSound=self.mode.game.app.beep01Sound,
                                    rolloverSound=None)
     
