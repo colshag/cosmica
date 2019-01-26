@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA3 --map quickstart-4man.map --server 8001
+python run.py --galaxy COSMICA6 --map steven.map --server 8006

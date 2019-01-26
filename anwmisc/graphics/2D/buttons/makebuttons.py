@@ -79,7 +79,7 @@ class CreateButtonImages(object):
         actionFont = ImageFont.truetype("star3.ttf", self.actionSize)
         imBack = self.blankImage.copy()
         imAction = self.blankImage.copy()
-        if self.key in ['A','S','D','Z','X','C']:
+        if self.key in ['A','S','D','Z','X','C','V','1','2','3','4']:
             draw = ImageDraw.Draw(imBack)
             draw.text(self.backPosition, self.key, font=self.backFont, fill=self.backColor)
             im.paste(imBack,(0,0),imBack)
@@ -271,8 +271,8 @@ def createLeverageButtons():
         
 def createDesignButtons():
     myButtons = {'A':'REMOVE', 'S':'SUBMIT', 'D':'ADD', 
-                 'Z':'+', 'X':'+', 'C':'+', 'V':'+',
-                 '1':'v', '2':'^', '3':'>', '4':'<'}
+                 'Z':'PLACE', 'X':'PLACE', 'C':'PLACE', 'V':'PLACE',
+                 '1':'POINT', '2':'POINT', '3':'POINT', '4':'POINT'}
     for key, action in myButtons.iteritems():
         myCreate = CreateButtonImages(guiPath, 'design', key, action)
         myCreate.createButtons()
