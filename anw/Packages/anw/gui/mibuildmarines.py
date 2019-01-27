@@ -52,7 +52,7 @@ class MIBuildMarines(rootsystem.RootSystem):
         self.removeRegimentInfo()
         myRegimentData = self.mode.game.regimentdata[regimentDataID]
         self.regimentInfo = regimentinfo.RegimentInfo(self.path, self.mode.game.myEmpireID, None,
-                                                      myRegimentData, -0.20, 0.84)
+                                                      myRegimentData, -1.3, 0.2)
         self.regimentInfo.setMyMode(self.mode)
         self.regimentInfo.writeAttributes()
         self.myWidgets.append(self.regimentInfo)
@@ -95,8 +95,8 @@ class MIBuildMarines(rootsystem.RootSystem):
     def createRegimentList(self):
         """List all Available Regiments"""
         text = 'Choose Regiment Type:'
-        self.regimentList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.60)
-        self.regimentList.setMyPosition(-0.96,0.23)
+        self.regimentList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.30)
+        self.regimentList.setMyPosition(-0.96,0.35)
         self.regimentList.setMyMode(self)
         self.regimentList.setOnClickMethod('regimentTypeSelected')
         self.myWidgets.append(self.regimentList)
@@ -104,17 +104,18 @@ class MIBuildMarines(rootsystem.RootSystem):
         self.regimentList.myScrolledList.scrollToBottom()
     
     def populateRegimentList(self):
-        """Fill the list with available regiments"""
-        for regimentdataID in funcs.sortStringList(self.mode.game.regimentdata.keys()):
-            myRegimentData = self.mode.game.regimentdata[regimentdataID]
-            if (self.mode.game.myTech[myRegimentData.techReq].complete == 1 and 
-                myRegimentData.abr[2] != 'L'):
-                self.regimentList.myScrolledList.addItem(text=myRegimentData.name, extraArgs=regimentdataID)
-        
+        """Fill the list with available regiments"""      
+        for (regType,color) in [('A',globals.resourceColors['EC']),('M',globals.resourceColors['AL']),('I',globals.resourceColors['IA'])]:
+            for regimentdataID in funcs.sortStringList(self.mode.game.regimentdata.keys(),reverse=1):
+                myRegimentData = self.mode.game.regimentdata[regimentdataID]
+                if (self.mode.game.myTech[myRegimentData.techReq].complete == 1 and myRegimentData.abr[2] != 'L' and myRegimentData.abr[2] == regType):
+                    self.regimentList.myScrolledList.addItem(text=myRegimentData.name, extraArgs=regimentdataID,textColorName=color)
+                    break
+                
     def createRegimentBuildList(self):
         """List all Regiments to be built"""
         text = 'Choose a Build Order to Reduce:'
-        self.regimentBuildList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.55)
+        self.regimentBuildList = buttonlist.ButtonList(self.path, text, width=0.6, height=0.3)
         self.regimentBuildList.setMyPosition(-0.96,-0.5)
         self.regimentBuildList.setMyMode(self)
         self.regimentBuildList.setOnClickMethod('regimentOrderSelected')
@@ -125,13 +126,15 @@ class MIBuildMarines(rootsystem.RootSystem):
     
     def populateRegimentBuildList(self):
         """Fill the list with Regiment Build Orders"""
+        color = {'M':globals.resourceColors['AL'], 'A':globals.resourceColors['EC'], 'I':globals.resourceColors['IA']}
         for industryID in funcs.sortStringList(self.mode.game.myEmpire['industryOrders'].keys()):
             myOrder = self.mode.game.myEmpire['industryOrders'][industryID]
             if myOrder['type'] == 'Add Regiment' and myOrder['round'] == self.mode.game.currentRound and myOrder['system'] == self.mySystemDict['id']:
                 (amount,regimentDataID) = string.split(myOrder['value'],'-')
                 self.cadetsNeeded += int(amount)
                 myRegimentData = self.mode.game.regimentdata[regimentDataID]
-                self.regimentBuildList.myScrolledList.addItem(text='Add %s %s' % (amount, myRegimentData.name), extraArgs=industryID)
+                myColor = color[myRegimentData.abr[2]]
+                self.regimentBuildList.myScrolledList.addItem(text='Add %s %s' % (amount, myRegimentData.name), extraArgs=industryID, textColorName=myColor)
     
     def regimentOrderSelected(self, orderID, index, button):
         """Regiment Order Selected for cancellation/modification"""

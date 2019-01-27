@@ -138,7 +138,7 @@ def returnDictFromString(s, numChars):
     
     return d
 
-def sortStringList(list):
+def sortStringList(list, reverse=0):
     """Sort a list of strings properly when the strings are numbers in str form"""
     try:
         i = 0
@@ -157,6 +157,8 @@ def sortStringList(list):
             i += 1
             
         list.sort()
+        if reverse == 1:
+            list.reverse()
         i = 0
         
         for item in list:
