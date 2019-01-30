@@ -50,7 +50,7 @@ class FadingText(object):
         self.textNodePath.setScale(self.scale)
         self.textNodePath.setPos(Vec3(self.x, 0, self.y))
         self.textNodePath.setTransparency(1)
-        self.textNodePath.setColor(globals.colors['guiyellow'])
+        self.textNodePath.setColor(globals.colors['orange'])
         taskMgr.add(self.fadeMessage, 'fadeMessageTask')
     
     def removeMessage(self):

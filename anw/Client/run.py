@@ -3,7 +3,7 @@
 # run.py
 # Written by Chris Lewis
 # ---------------------------------------------------------------------------
-# This is runs the main client in COSMICA
+# This runs the main client in COSMICA
 # ---------------------------------------------------------------------------
 import os
 import sys
