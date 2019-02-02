@@ -134,6 +134,8 @@ class DesignSubmit(rootbutton.RootButton):
         """Is the design valid for a simulation"""
         if self.myDesign.thrust > 0 and self.myDesign.rotation > 0 and self.myDesign.maxPower > 0:
             return 1
+        elif self.mode.selectedShipHull.aftQuadInfo == None and self.myDesign.maxPower > 0:
+            return 1
         else:
             return 0
             

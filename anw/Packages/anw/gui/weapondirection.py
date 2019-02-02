@@ -15,19 +15,10 @@ class WeaponDirection(rootbutton.RootButton):
         self.disableButtonTime = -1
         self.disableButtonIgnore = []
         self.direction = 0
-        #self.createTitleCard('weapdirection','Weapon Direction:',
-                             #30,self.posInitX-0.04,self.posInitY+0.07)
         self.press1()
     
     def createButtons(self):
         """Create all Buttons"""
-        #for key in ['1','2','3','4']:
-            #buttonPosition = ((self.posInitX+self.x*.10),0,(self.posInitY+self.y*.10))
-            #self.createButton(key, buttonPosition)
-            #self.x += 1
-        #self.x = 0
-        
-        
         #fore weapon direction
         buttonPosition = (0.3,0,0.75)
         self.createButton('1', buttonPosition)        
@@ -42,10 +33,7 @@ class WeaponDirection(rootbutton.RootButton):
         
         #star weapon direction
         buttonPosition = (0.65,0,0.2)
-        self.createButton('4', buttonPosition)        
-        
-        
-        
+        self.createButton('4', buttonPosition)      
     
     def press1(self):
         """Press Fore Quad"""

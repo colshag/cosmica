@@ -30,6 +30,26 @@ class ShipyardScrollValue(scrollvalue.ScrollValue):
         else:
             self.mode.modifyShipOrder(self.currentValue, self.id)
         self.disableButton('S')
+        
+    def validateValue(self, value):
+        """Validate that value can be set"""
+        if value > self.maxValue:
+            self.giveInformativeMessageForMaxReached(value)
+            return 0
+        if value < self.minValue:
+            return 0
+        return 1
+    
+    def giveInformativeMessageForMaxReached(self, value):
+        """Tell player why max value was reached"""
+        reason = ""
+        max = self.myParent.getMaxFromFundsAvail()
+        max2 = self.myParent.getMaxFromAvailSYC()
+        if max2 < max:
+            reason = "you do not have enough Shipyard Capacity"
+        else:
+            reason = "you do not have enough resources"
+        self.myParent.game.mode.createMessage(reason)
     
 if __name__ == "__main__":
     myScrollValue = ShipyardScrollValue('media', -0.3, -0.17, 'scroll', addShips=0, myParent=None)

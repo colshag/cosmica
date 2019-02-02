@@ -32,7 +32,7 @@ class MIBuildMarines(rootsystem.RootSystem):
         self.createRegimentBuildList()
     
     def createScrollValue(self, id, min, max):
-        """Create the scrollValue gui to allow for ship build/cancel orders"""
+        """Create the scrollValue gui to allow for marine build/cancel orders"""
         self.removeMyWidget(self.scrollvaluegui)
         if min < 0:
             addRegiments = 0
@@ -177,4 +177,4 @@ class MIBuildMarines(rootsystem.RootSystem):
         e = self.myEmpireDict
         d = self.mySystemDict
         return [e['CR'], d['AL'],d['EC'],d['IA']]
-    
+        

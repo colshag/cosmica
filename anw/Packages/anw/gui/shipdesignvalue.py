@@ -75,33 +75,45 @@ class ShipDesignValue(scrollvalue.ScrollValue):
     
     def createButtons(self):
         """Create all Buttons"""
-        #fore weapon location
-        buttonPosition = (0.2,0,0.75)
-        self.createButton('Z', buttonPosition)        
+        if self.myParent.game.mode.selectedShipHull.aftQuadInfo != None:
+            #fore weapon location
+            buttonPosition = (0.2,0,0.75)
+            self.createButton('Z', buttonPosition)        
+            
+            #aft weapon location
+            buttonPosition = (0.16,0,-0.35)
+            self.createButton('X', buttonPosition)
+            
+            #port weapon location
+            buttonPosition = (-0.15,0,0.2)
+            self.createButton('C', buttonPosition)        
+            
+            #star weapon location
+            buttonPosition = (0.55,0,0.2)
+            self.createButton('V', buttonPosition) 
         
-        #aft weapon location
-        buttonPosition = (0.16,0,-0.35)
-        self.createButton('X', buttonPosition)        
-        
-        #port weapon location
-        buttonPosition = (-0.15,0,0.2)
-        self.createButton('C', buttonPosition)        
-        
-        #star weapon location
-        buttonPosition = (0.55,0,0.2)
-        self.createButton('V', buttonPosition) 
-        
-        
-        #for key in ['Z','X','C','V']:
-            #buttonPosition = ((self.posInitX+self.x*.10),0,(self.posInitY+self.y*.10))
-            #self.createButton(key, buttonPosition)
-            #self.x += 1
         self.x = 0
         self.y = 1
         for key in ['A','S','D']:
             buttonPosition = ((self.posInitX+self.x*.10),0,(self.posInitY+self.y*.10))
             self.createButton(key, buttonPosition)
             self.x += 1
+    
+    def disableButton(self, key):
+        """disable the button"""
+        if self.myParent.game.mode.selectedShipHull.aftQuadInfo != None:
+            myButton = getattr(self, 'button_%s' % key)
+            myButton.guiItem.setActive(0)
+            if key not in self.disabledButtons:
+                self.disabledButtons.append(key)
+    
+    def enableButton(self, key):
+        """enable the button"""
+        if self.myParent.game.mode.selectedShipHull.aftQuadInfo != None:
+            myButton = getattr(self, 'button_%s' % key)
+            myButton.guiItem.setActive(1)
+            if key in self.disabledButtons:
+                self.disabledButtons.remove(key)    
     
     def pressZ(self):
         """Press Fore Quad"""
