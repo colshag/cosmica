@@ -1994,11 +1994,13 @@ class ModeMap(mode.Mode):
         if funcs.globals.bSinglePlayer == False:
             try:
                 serverResult = self.game.server.sendMail(self.game.authKey, self.diplomacyEmpireID, self.sendMailText.myEntry.get())
+                self.onSpaceBarClear()
+                self.setShortcuts()
                 if serverResult != 1:
                     self.modeMsgBox(serverResult)
                     return
                 self.modeMsgBox('Message Sent Successfully')
-                self.onSpaceBarClear()
+                
             except:
                 self.modeMsgBox('sendMail->Connection to Server Lost, Login Again')
         else:
