@@ -16,6 +16,10 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         super(self.__class__, self).__init__()
         self.setupUi(self)
         self.btnRegister.clicked.connect(self.register_user)
+        self.btnLogin.clicked.connect(self.login_user)
+        self.id = 0
+        self.email = ''
+        self.nickname = ''
 
     #def browse_folder(self):
         #self.listWidget.clear() # In case there are any existing elements in the list
@@ -32,6 +36,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         server = ServerProxy('http://localhost:8090/')
         result = server.register_new_player(myInfo)
         if result == 1:
+            self.mainMenu.setCurrentIndex(1)
             msg = QtGui.QMessageBox()
             msg.setIcon(QtGui.QMessageBox.Information)
             msg.setText("Welcome to Cosmica %s" % str(self.txtNickname.text()))
@@ -40,6 +45,25 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             msg = QtGui.QMessageBox()
             msg.setIcon(QtGui.QMessageBox.Information)
             msg.setText("Error in Registration: %s" % result)
+            msg.exec_()        
+            
+    def login_user(self):
+        myInfo = {'email':str(self.txtEmail.text()), 'password':str(self.txtPassword.text())}
+        server = ServerProxy('http://localhost:8090/')
+        result = server.login_player(myInfo)
+        if len(result) == 4:
+            self.id = result[0]
+            self.email = result[1]
+            self.nickname = result[2]
+            self.mainMenu.setCurrentIndex(1)
+            msg = QtGui.QMessageBox()
+            msg.setIcon(QtGui.QMessageBox.Information)
+            msg.setText('Welcome to Cosmica %s' % self.nickname)
+            msg.exec_()
+        else:
+            msg = QtGui.QMessageBox()
+            msg.setIcon(QtGui.QMessageBox.Information)
+            msg.setText('Login Error:%s' % result)
             msg.exec_()
 
 def main():

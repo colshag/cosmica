@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Fri Feb 01 19:46:13 2019
+# Created: Sun Feb 03 15:20:34 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,6 +32,9 @@ class Ui_MainWindow(object):
 "    background-color: rgb(202, 202, 202);\n"
 "}\n"
 "\n"
+"#choose_option {\n"
+"    background-color: rgb(202, 202, 202);\n"
+"}\n"
 "#centralwidget {\n"
 "    background-image: url(:/images/background.png);\n"
 "}\n"
@@ -41,9 +44,9 @@ class Ui_MainWindow(object):
         self.formLayout = QtGui.QFormLayout(self.centralwidget)
         self.formLayout.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
-        self.stackedWidget = QtGui.QStackedWidget(self.centralwidget)
-        self.stackedWidget.setMinimumSize(QtCore.QSize(0, 0))
-        self.stackedWidget.setObjectName(_fromUtf8("stackedWidget"))
+        self.mainMenu = QtGui.QStackedWidget(self.centralwidget)
+        self.mainMenu.setMinimumSize(QtCore.QSize(0, 0))
+        self.mainMenu.setObjectName(_fromUtf8("mainMenu"))
         self.login_register = QtGui.QWidget()
         self.login_register.setObjectName(_fromUtf8("login_register"))
         self.formLayout_2 = QtGui.QFormLayout(self.login_register)
@@ -145,11 +148,32 @@ class Ui_MainWindow(object):
         self.label_6.setFont(font)
         self.label_6.setObjectName(_fromUtf8("label_6"))
         self.formLayout_2.setWidget(5, QtGui.QFormLayout.FieldRole, self.label_6)
-        self.stackedWidget.addWidget(self.login_register)
-        self.page_2 = QtGui.QWidget()
-        self.page_2.setObjectName(_fromUtf8("page_2"))
-        self.stackedWidget.addWidget(self.page_2)
-        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.stackedWidget)
+        self.mainMenu.addWidget(self.login_register)
+        self.choose_option = QtGui.QWidget()
+        self.choose_option.setObjectName(_fromUtf8("choose_option"))
+        self.formLayout_3 = QtGui.QFormLayout(self.choose_option)
+        self.formLayout_3.setObjectName(_fromUtf8("formLayout_3"))
+        self.label_5 = QtGui.QLabel(self.choose_option)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(16)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.formLayout_3.setWidget(0, QtGui.QFormLayout.LabelRole, self.label_5)
+        self.pushButton = QtGui.QPushButton(self.choose_option)
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.formLayout_3.setWidget(1, QtGui.QFormLayout.LabelRole, self.pushButton)
+        self.pushButton_2 = QtGui.QPushButton(self.choose_option)
+        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.formLayout_3.setWidget(3, QtGui.QFormLayout.LabelRole, self.pushButton_2)
+        self.pushButton_3 = QtGui.QPushButton(self.choose_option)
+        self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
+        self.formLayout_3.setWidget(4, QtGui.QFormLayout.LabelRole, self.pushButton_3)
+        self.pushButton_4 = QtGui.QPushButton(self.choose_option)
+        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
+        self.formLayout_3.setWidget(2, QtGui.QFormLayout.LabelRole, self.pushButton_4)
+        self.mainMenu.addWidget(self.choose_option)
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.mainMenu)
         self.label_3 = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Terminator Two"))
@@ -159,7 +183,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(0)
+        self.mainMenu.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -173,6 +197,11 @@ class Ui_MainWindow(object):
         self.label_9.setText(_translate("MainWindow", "Enter Password:", None))
         self.btnRegister.setText(_translate("MainWindow", "Register to NeuroJump", None))
         self.label_6.setText(_translate("MainWindow", "Register:", None))
+        self.label_5.setText(_translate("MainWindow", "Welcome Player, Please choose an option", None))
+        self.pushButton.setText(_translate("MainWindow", "Start a new Single Player Game", None))
+        self.pushButton_2.setText(_translate("MainWindow", "Join a Multiplayer Game", None))
+        self.pushButton_3.setText(_translate("MainWindow", "Host a Multiplayer Game", None))
+        self.pushButton_4.setText(_translate("MainWindow", "Continue an existing Single Player Game", None))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:48pt; color:#ffaa00;\">C O S M I C A</span></p></body></html>", None))
 
 import resources_rc
