@@ -1,6 +1,5 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
     <file>images/background.png</file>
-    <file>images/cosmica.png</file>
 </qresource>
 </RCC>
