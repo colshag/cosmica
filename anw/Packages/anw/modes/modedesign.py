@@ -416,7 +416,8 @@ class ModeDesign(mode.Mode):
         self.removeAllGui()
         self.setMyBackground()
         self.createMainMenu('U')
-        self.createDesignMenu()        
+        self.createDesignMenu()
+        self.setShortcuts()
     
     def setMyBackground(self):
         """Set the Background of mode"""
