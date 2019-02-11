@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA3 --map quickstart-4man.map --server 8003
+python run.py --galaxy COSMICA3 --map quickstart-4man.map --server 8003 --playerList="email1@email.com,email2@email.com"

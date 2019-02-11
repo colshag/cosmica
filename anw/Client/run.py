@@ -21,7 +21,7 @@ from servermain import serverMain
 from anw.func import storedata, globals
 
 class COSMICARunner(object):
-    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", mapfile="testai2man.map"):
+    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", mapfile="testai2man.map", playerList=""):
         self.singlePlayer = singlePlayer
         self.startSinglePlayerServer = startSinglePlayerServer
         self.remoteServer = remoteServer
@@ -33,6 +33,7 @@ class COSMICARunner(object):
         self.fullscreen = fullscreen
         self.resolution = resolution
         self.mapfile = mapfile
+        self.playerList = playerList.split(',')
 
     def performSinglePlayerSetup(self):
         process = None
@@ -102,15 +103,13 @@ class COSMICARunner(object):
         if self.mapfile == "":
             logging.info("No mapfile provided in arguments")
             return
-        setupFile = "%s-setup.txt" % self.galaxy
-        if os.path.isdir(setupFile):
-            logging.info("Please create a player list to create game: %s" % setupFile)
+        if self.playerList == []:
+            logging.info("Please provide playerList argument")
             return        
-        myPlayerList = [line.rstrip('\n') for line in open(setupFile)]
         logging.info("Generate new Galaxy instance since none detected.")
         os.makedirs(os.path.join("..", "Database", self.galaxy))
         generateGalaxy = generate.GenerateGalaxy()
-        generateGalaxy.genGalaxy(dataPath = absDataPath + "/", starMapFile=self.mapfile, playerList = myPlayerList, doAI = 1, galaxyName = self.galaxy, serverPort=self.serverPort)
+        generateGalaxy.genGalaxy(dataPath = absDataPath + "/", starMapFile=self.mapfile, playerList = self.playerList, doAI = 1, galaxyName = self.galaxy, serverPort=self.serverPort)
         workingGalaxy = generateGalaxy.getGalaxy()
 
         storedata.saveToFile(workingGalaxy, os.path.join("..", "Database", self.galaxy, self.galaxy + ".anw"))
@@ -188,12 +187,17 @@ if __name__ == '__main__':
     parser.add_argument("--clientonly", action="store_true", default=False)
     parser.add_argument('--map', '-m', metavar="MAPFILE", type=str, default="testai2man.map", choices=getMapList(), help="MAPFILE can be one of {}".format(getMapList()))
     parser.add_argument("--tutorial", action="store_true", default=False)
+    parser.add_argument("--playerList", default="", help="list of players, show as a string comma seperated -> player1email, player2email, player3email", type=str)
     args = parser.parse_args()
 
     if args.tutorial == True:
         globals.isTutorial = True
 
-    runner = COSMICARunner(singlePlayer=not args.server, startSinglePlayerServer=not args.clientonly, remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, password=args.empirepass, sound=not args.disableSound,fullscreen=args.fullscreen, resolution=args.resolution, serverPort=args.server, mapfile=args.map)
+    runner = COSMICARunner(singlePlayer=not args.server, startSinglePlayerServer=not args.clientonly, 
+                           remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, 
+                           password=args.empirepass, sound=not args.disableSound,
+                           fullscreen=args.fullscreen, resolution=args.resolution, 
+                           serverPort=args.server, mapfile=args.map, playerList=args.playerList)
     runner.start()
 
 

@@ -1,1 +1,1 @@
-python run.py --galaxy COSMICA3 --empireid 6 --empirepass teg47odh --remoteserver http://localhost:8003 --clientonly
+python run.py --galaxy COSMICA3 --empireid 3 --empirepass mwzbvzvc --remoteserver http://localhost:8003 --clientonly
