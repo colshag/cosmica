@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Sun Feb 10 19:37:47 2019
+# Created: Mon Feb 11 17:44:53 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -339,7 +339,7 @@ class Ui_MainWindow(object):
         self.label_14.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.label_14.setObjectName(_fromUtf8("label_14"))
         self.verticalLayout_6.addWidget(self.label_14)
-        self.lstChooseGameContSingle = QtGui.QListWidget(self.continue_single)
+        self.lstChooseGameContSingle = QtGui.QListView(self.continue_single)
         self.lstChooseGameContSingle.setObjectName(_fromUtf8("lstChooseGameContSingle"))
         self.verticalLayout_6.addWidget(self.lstChooseGameContSingle)
         self.btnContSingle = QtGui.QPushButton(self.continue_single)
@@ -508,7 +508,7 @@ class Ui_MainWindow(object):
         self.label_28.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.label_28.setObjectName(_fromUtf8("label_28"))
         self.verticalLayout_9.addWidget(self.label_28)
-        self.lstChooseServerContMulti = QtGui.QListWidget(self.continue_multi)
+        self.lstChooseServerContMulti = QtGui.QListView(self.continue_multi)
         self.lstChooseServerContMulti.setObjectName(_fromUtf8("lstChooseServerContMulti"))
         self.verticalLayout_9.addWidget(self.lstChooseServerContMulti)
         self.btnContMulti = QtGui.QPushButton(self.continue_multi)

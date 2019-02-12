@@ -563,7 +563,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="lstChooseGameContSingle"/>
+             <widget class="QListView" name="lstChooseGameContSingle"/>
             </item>
             <item>
              <widget class="QPushButton" name="btnContSingle">
@@ -857,7 +857,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="lstChooseServerContMulti"/>
+           <widget class="QListView" name="lstChooseServerContMulti"/>
           </item>
           <item>
            <widget class="QPushButton" name="btnContMulti">

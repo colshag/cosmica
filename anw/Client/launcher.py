@@ -11,6 +11,8 @@ import design
 import os
 from xmlrpclib import ServerProxy
 import run
+import glob
+import re
 
 class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
@@ -41,30 +43,104 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.btnStartNewMulti.clicked.connect(self.start_new_multi_game)
         self.btnContMulti.clicked.connect(self.cont_multi_game)
         
+        # main listbox clicked
+        self.lstChooseMapNewSingle.clicked.connect(self.lstChooseMapNewSingle_clicked)
+        self.lstChooseGameContSingle.clicked.connect(self.lstChooseGameContSingle_clicked)
+        self.selectedMapName = None
+        self.selectedDBOnDisk = None
+        
         self.id = 0
         self.email = ''
         self.nickname = ''
+        self.myInfo = {}
 
     def load_main_menu(self):
         self.mainMenu.setCurrentIndex(1)
 
     def load_new_single(self):
         self.mainMenu.setCurrentIndex(2)
+        self.selectedMapName = None
+        entries = self.getAvailableMapNames()
+        if entries == []:
+            return
+        
+        model = QtGui.QStandardItemModel()
+        self.lstChooseMapNewSingle.setModel(model)
+        
+        for i in entries:
+            item = QtGui.QStandardItem(i)
+            model.appendRow(item)        
+    
+    def getAvailableMapNames(self):
+        myList = glob.glob('../Data/*.map')
+        myNewList = []
+        for line in myList:
+            line = line[8:]
+            myNewList.append(line)   
+        return myNewList
+    
+    def getCurrentGamesOnDisk(self):
+        myList = glob.glob('../Database/COSMICA*')
+        myNewList = []
+        for line in myList:
+            line = line[12:]
+            myNewList.append(line)
+        return myNewList
+    
+    def getAvailableDatabaseNameOnDisk(self):
+        currentNames = self.getCurrentGamesOnDisk()
+        for i in range(1,9):
+            if 'COSMICA%d' % i not in currentNames:
+                return 'COSMICA%d' % i
+        return None
+    
+    def lstChooseMapNewSingle_clicked(self, index):
+        self.selectedMapName = str(index.data().toString())
+        
+    def lstChooseGameContSingle_clicked(self, index):
+        self.selectedDBOnDisk = str(index.data().toString())
     
     def start_new_single_game(self):
-        runner = run.COSMICARunner(galaxy='COSMICA2', serverPort=None, mapfile="quickstart-4man.map", 
+        if self.selectedMapName == None:
+            self.message('Please select a map')
+            return
+        dataBaseName = self.getAvailableDatabaseNameOnDisk()
+        if dataBaseName == None:
+            self.message('Please delete some of your existing games from your Database folder')
+            return
+        runner = run.COSMICARunner(galaxy=dataBaseName, serverPort=None, mapfile=self.selectedMapName, 
                                    remoteServer='http://localhost:8000', password='singleplayer')
         runner.start()
         self.exit_launcher()
+    
+    def message(self, text):
+        msg = QtGui.QMessageBox()
+        msg.setIcon(QtGui.QMessageBox.Information)
+        msg.setText(text)
+        msg.exec_()
     
     def load_cont_single(self):
         self.mainMenu.setCurrentIndex(3)
+        self.selectedDBOnDisk = None
+        entries = self.getCurrentGamesOnDisk()
+        if entries == []:
+            return
+        
+        model = QtGui.QStandardItemModel()
+        self.lstChooseGameContSingle.setModel(model)
+        
+        for i in entries:
+            item = QtGui.QStandardItem(i)
+            model.appendRow(item)        
         
     def cont_single_game(self):
-        runner = run.COSMICARunner(galaxy='COSMICA2', serverPort=None, mapfile="quickstart-4man.map", 
+        if self.selectedDBOnDisk == None:
+            self.message('Please select an existing game')
+            return
+        runner = run.COSMICARunner(galaxy=self.selectedDBOnDisk, serverPort=None, mapfile="quickstart-4man.map", 
                                    remoteServer='http://localhost:8000', password='singleplayer')
         runner.start()
-        self.exit_launcher()
+        self.exit_launcher()        
     
     def load_join_multi(self):
         self.mainMenu.setCurrentIndex(4)
@@ -93,41 +169,26 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         runner.start()
         self.exit_launcher()
         
-    #def browse_folder(self):
-        #self.listWidget.clear() # In case there are any existing elements in the list
-        #directory = QtGui.QFileDialog.getExistingDirectory(self,
-                                                           #"Pick a folder")
-        ## execute getExistingDirectory dialog and set the directory variable to be equal
-        ## to the user selected directory
-
-        #if directory: # if user didn't pick a directory don't continue
-            #for file_name in os.listdir(directory): # for all files, if any, in the directory
-                #self.listWidget.addItem(file_name)  # add file to the listWidget
     def register_user(self):
-        myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNickname.text()), 'password':str(self.txtNewPassword.text())}
+        self.myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNickname.text()), 'password':str(self.txtNewPassword.text())}
         server = ServerProxy('http://localhost:8090/')
-        result = server.register_new_player(myInfo)
+        result = server.register_new_player(self.myInfo)
         if result == 1:
             self.mainMenu.setCurrentIndex(1)
-            msg = QtGui.QMessageBox()
-            msg.setIcon(QtGui.QMessageBox.Information)
-            msg.setText("Welcome to Cosmica %s" % str(self.txtNickname.text()))
-            msg.exec_()
+            self.message("Welcome to Cosmica %s" % str(self.txtNickname.text()))
         else:
-            msg = QtGui.QMessageBox()
-            msg.setIcon(QtGui.QMessageBox.Information)
-            msg.setText("Error in Registration: %s" % result)
-            msg.exec_()        
+            self.message("Error in Registration: %s" % result)      
             
     def login_user(self):
-        myInfo = {'email':str(self.txtEmail.text()), 'password':str(self.txtPassword.text())}
+        self.myInfo = {'email':str(self.txtEmail.text()), 'password':str(self.txtPassword.text())}
         server = ServerProxy('http://localhost:8090/')
-        result = server.login_player(myInfo)
+        result = server.login_player(self.myInfo)
         if len(result) == 4:
             self.id = result[0]
             self.email = result[1]
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
+            self.myInfo['nickname'] = self.nickname
             msg = QtGui.QMessageBox()
             msg.setIcon(QtGui.QMessageBox.Information)
             msg.setText('Welcome to Cosmica %s' % self.nickname)
