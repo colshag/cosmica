@@ -46,6 +46,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         # main listbox clicked
         self.lstChooseMapNewSingle.clicked.connect(self.lstChooseMapNewSingle_clicked)
         self.lstChooseGameContSingle.clicked.connect(self.lstChooseGameContSingle_clicked)
+        self.lstChooseMapNewMulti.clicked.connect(self.lstChooseMapNewMulti_clicked)
         self.selectedMapName = None
         self.selectedDBOnDisk = None
         
@@ -53,6 +54,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.email = ''
         self.nickname = ''
         self.myInfo = {}
+        self.serverAddress = 'http://localhost:8090/'
 
     def load_main_menu(self):
         self.mainMenu.setCurrentIndex(1)
@@ -96,7 +98,10 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     
     def lstChooseMapNewSingle_clicked(self, index):
         self.selectedMapName = str(index.data().toString())
-        
+    
+    def lstChooseMapNewMulti_clicked(self, index):
+        self.selectedMapName = str(index.data().toString())
+    
     def lstChooseGameContSingle_clicked(self, index):
         self.selectedDBOnDisk = str(index.data().toString())
     
@@ -153,17 +158,49 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
 
     def load_host_multi(self):
         self.mainMenu.setCurrentIndex(5)
+        self.selectedMapName = None
+        entries = self.getAvailableMapNames()
+        if entries == []:
+            return
+        
+        model = QtGui.QStandardItemModel()
+        self.lstChooseMapNewMulti.setModel(model)
+        
+        for i in entries:
+            item = QtGui.QStandardItem(i)
+            model.appendRow(item)
         
     def start_new_multi_game(self):
-        # insert player list into startup code, change arguments to include player list, instead of txt file.
-        runner = run.COSMICARunner(galaxy='COSMICA3', serverPort=8003, mapfile="quickstart-4man.map", 
-                                   singlePlayer=False, playerList='colshag@gmail.com,email2@email.ca')
-        runner.start()
-        self.exit_launcher()      
+        if self.selectedMapName == None:
+            self.message('Please select a map')
+            return
+        if str(self.txtAddressNewMulti.text()) == '':
+            self.message('Please provide a server address and port for your players to connect to, (http://address:port)')
+            return
+        
+        # check that players are valid from neurojump servers
+        nicknames = [str(self.txtPlayer1.text()),str(self.txtPlayer2.text()),str(self.txtPlayer3.text()),str(self.txtPlayer4.text()),
+                     str(self.txtPlayer5.text()),str(self.txtPlayer6.text()),str(self.txtPlayer7.text()),str(self.txtPlayer8.text())]
+        nicknames = filter(None, nicknames)
+        nicknames = list(set(nicknames))
+        if len(nicknames) > int(self.selectedMapName[:1]):
+            self.message('You have chosen %d players for a map of max size of %d players, choose a larger map or remove some players' % (len(nicknames), int(self.selectedMapName[:1])))
+            return
+        server = ServerProxy(self.serverAddress)
+        result = server.create_new_game(self.myInfo, nicknames, str(self.txtAddressNewMulti.text()), self.selectedMapName)
+        # result should return ('GALAXYNAME', 'email1@email.com,email2@email.com,...')
+        # if successful server will submit game into system and store players and server address into database
+        if isinstance(result, list):
+            runner = run.COSMICARunner(galaxy=result[0], serverPort=int(str(self.txtAddressNewMulti.text())[-4:]), mapfile=self.selectedMapName, 
+                                           remoteServer=str(self.txtAddressNewMulti.text()), singlePlayer=False, playerList=result[1])
+            runner.start()
+            self.exit_launcher()
+        else:
+            self.message('Start New Game Error:%s' % result)   
 
     def load_cont_multi(self):
         self.mainMenu.setCurrentIndex(6)
-        
+    
     def cont_multi_game(self):
         runner = run.COSMICARunner(galaxy='COSMICA3', serverPort=8003, singlePlayer=False)
         runner.start()
@@ -171,7 +208,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         
     def register_user(self):
         self.myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNickname.text()), 'password':str(self.txtNewPassword.text())}
-        server = ServerProxy('http://localhost:8090/')
+        server = ServerProxy(self.serverAddress)
         result = server.register_new_player(self.myInfo)
         if result == 1:
             self.mainMenu.setCurrentIndex(1)
@@ -181,7 +218,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             
     def login_user(self):
         self.myInfo = {'email':str(self.txtEmail.text()), 'password':str(self.txtPassword.text())}
-        server = ServerProxy('http://localhost:8090/')
+        server = ServerProxy(self.serverAddress)
         result = server.login_player(self.myInfo)
         if len(result) == 4:
             self.id = result[0]
@@ -189,15 +226,9 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
             self.myInfo['nickname'] = self.nickname
-            msg = QtGui.QMessageBox()
-            msg.setIcon(QtGui.QMessageBox.Information)
-            msg.setText('Welcome to Cosmica %s' % self.nickname)
-            msg.exec_()
+            self.message('Welcome to Cosmica %s' % self.nickname)
         else:
-            msg = QtGui.QMessageBox()
-            msg.setIcon(QtGui.QMessageBox.Information)
-            msg.setText('Login Error:%s' % result)
-            msg.exec_()
+            self.message('Login Error:%s' % result)
     
     def exit_launcher(self):
         self.close()

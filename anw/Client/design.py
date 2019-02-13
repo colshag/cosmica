@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Mon Feb 11 17:44:53 2019
+# Created: Mon Feb 11 19:45:31 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -464,6 +464,17 @@ class Ui_MainWindow(object):
         self.lstChooseMapNewMulti = QtGui.QListView(self.new_multi)
         self.lstChooseMapNewMulti.setObjectName(_fromUtf8("lstChooseMapNewMulti"))
         self.verticalLayout_5.addWidget(self.lstChooseMapNewMulti)
+        self.lblAddressNewMulti = QtGui.QLabel(self.new_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblAddressNewMulti.setFont(font)
+        self.lblAddressNewMulti.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
+        self.lblAddressNewMulti.setObjectName(_fromUtf8("lblAddressNewMulti"))
+        self.verticalLayout_5.addWidget(self.lblAddressNewMulti)
+        self.txtAddressNewMulti = QtGui.QLineEdit(self.new_multi)
+        self.txtAddressNewMulti.setObjectName(_fromUtf8("txtAddressNewMulti"))
+        self.verticalLayout_5.addWidget(self.txtAddressNewMulti)
         self.btnStartNewMulti = QtGui.QPushButton(self.new_multi)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("RowdyHeavy"))
@@ -576,6 +587,7 @@ class Ui_MainWindow(object):
         self.label_16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Join a</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))
         self.label_26.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Request Players</span></p><p align=\"center\"><span style=\" color:#00aaff;\">(neuroJump Nicknames)</span></p></body></html>", None))
         self.label_23.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Choose a Map</span></p></body></html>", None))
+        self.lblAddressNewMulti.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Address:</span></p><p align=\"center\"><span style=\" color:#00aaff;\">(http://address:port)</span></p></body></html>", None))
         self.btnStartNewMulti.setText(_translate("MainWindow", "Start New Multiplayer Server", None))
         self.btnBackNewMulti.setText(_translate("MainWindow", "Go Back", None))
         self.label_22.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Start a New </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">MultiPlayer </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))

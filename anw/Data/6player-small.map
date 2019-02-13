@@ -1,13 +1,14 @@
 # ---------------------------------------------------------------------------
 # Cosmica
-# Small-4man
-# Written by Shawn Thomas (Dec, 2011)
+# 6player-small.map
+# Written by Shawn Thomas (Dec 27, 2011)
 # ---------------------------------------------------------------------------
 # Small map with limited resources - based on the Quickstart map, which was
 # determined to be too small during testing.
 # ---------------------------------------------------------------------------
-numEmpires = 5
+numEmpires = 7
 #Credits & Market settings from commonmap.data
+
 genSystemsLegend = {
   'a': ('0', 10), # neutral player
   'b': ('0', 15),
@@ -27,23 +28,32 @@ genSystemsLegend = {
   'J': ('4', 40), # player 4
   'K': ('4', 30),
   'L': ('4', 30),
+  'M': ('5', 40), # player 5
+  'N': ('5', 30),
+  'O': ('5', 30),
+  'P': ('6', 40), # player 6
+  'Q': ('6', 30),
+  'R': ('6', 30),
   '.': (None, None),
   }
 genSystemsData = [
-  '......B......',
-  '......A......',
-  '.....C.C.....',
-  '.....bab.....',
-  '....dc.cd....',
-  '..Lbc.e.cbF..',
-  'KJ.a.efe.a.DE',
-  '..Lbc.e.cbF..',
-  '....dc.cd....',
-  '.....bab.....',
-  '.....I.I.....',
-  '......G......',
-  '......H......',
-]
+   '......B......',
+   '......A......',
+   '.....C.C.....',
+   '.....bab.....',
+   '....cb.bc....',
+   '..Lbc.d.bbF..',
+   'KJ.a.ded.a.DE',
+   '..Lbb.d.cbF..',
+   '....cdfdc....',
+   '..Obc.d.bbR..',
+   'NM.a.ded.a.PQ',
+   '..Obb.d.cbR..',
+   '.....bab.....',
+   '.....I.I.....',
+   '......G......',
+   '......H......',
+   ]
 defaultIndustry = {
   '14':1, # advanced design center (1)
  '11':1, # advanced simulation center (1)
@@ -55,6 +65,6 @@ defaultIndustry = {
  } #total (40/40)
 
 #startingTech - include commonmap.data
-
+ 
 # Neutral ships
 ## include commonmap.data

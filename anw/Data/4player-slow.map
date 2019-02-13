@@ -1,42 +1,61 @@
 # ---------------------------------------------------------------------------
 # Cosmica
-# slow2man.map
+# 4player-slow.map
 # Written by Shawn Thomas
-# Updated Jan 16, 2012 - changed odd-ball planes out for base-5
+# Updated Jan 16, 2011 - removed oddball planets (7,9,11,13) and reworked
+#                        the layout to work with replacements.
 # ---------------------------------------------------------------------------
 # Slow start with only basic tech, but the closest planets are ripe for the picking.
 # Decide to risk attacking stronger planets early, or take the easier route
 # along the outside
 # ---------------------------------------------------------------------------
-numEmpires = 3
+numEmpires = 5
 startingCredits = 200000
-#Credits & Market settings from commonmap.data
+#Market settings from commonmap.data
 
 genSystemsLegend = {
   'a': ('0', 5), # neutral player
   'b': ('0', 10),
-  'c': ('0', 10),
-  'g': ('0', 15),
+  'c': ('0', 15),
+  'g': ('0', 20),
   'h': ('0', 20),
   'i': ('0', 30),
   'j': ('0', 40),
   'k': ('0', 50),
-  'D': ('1', 40), # player 2
-  'E': ('1', 30),
-  'F': ('1', 20),
-  'J': ('2', 40), # player 4
-  'K': ('2', 30),
-  'L': ('2', 20),
+  'A': ('1', 40), # player 1
+  'B': ('1', 30),
+  'C': ('1', 20),
+  'D': ('2', 40), # player 2
+  'E': ('2', 30),
+  'F': ('2', 20),
+  'G': ('3', 40), # player 3
+  'H': ('3', 30),
+  'I': ('3', 20),
+  'J': ('4', 40), # player 4
+  'K': ('4', 30),
+  'L': ('4', 20),
   '.': (None, None),
   }
 genSystemsData = [
-   '....bbc.....cbb....',
-   '....a..g...g..a....',
+   '.........j.........',
+   '........hHh........',
+   '........iGi........',
+   '........IaI........',
+   '......bababab......',
+   '.....cb.bcb.bc.....',
+   '....bbc..g..cbb....',
+   '....a..g.h.g..a....',
    '.hiLbb..hih..bbFih.',
    'jKJaacghikihgcaaDEj',
    '.hiLbb..hih..bbFih.',
-   '....a..g...g..a....',
-   '....bbc.....cbb....',
+   '....a..g.h.g..a....',
+   '....bbc..g..cbb....',
+   '.....cb.bcb.bc.....',
+   '......bababab......',
+   '........BaB........',
+   '........iAi........',
+   '........hBh........',
+   '.........j.........',
    ]
 defaultIndustry = {
  '13':1, # basic design center (1)
@@ -47,12 +66,8 @@ defaultIndustry = {
  '1':10, # basic alloy factory(10)
  '25':1, # basic fleet academy (1)
  } #total (40/40)
-#Starting Tech:
-#  Basic = 73 
-#  Advanced = 171
-#  Intellegent = 274
 
 #startingTech - include commonmap.data
-
+ 
 # Neutral ships
 ## include commonmap.data
