@@ -21,7 +21,9 @@ from servermain import serverMain
 from anw.func import storedata, globals
 
 class COSMICARunner(object):
-    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", mapfile="testai2man.map", playerList=""):
+    def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, 
+                 galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", 
+                 mapfile="testai2man.map", playerList=[], playerGenData = {}):
         self.singlePlayer = singlePlayer
         self.startSinglePlayerServer = startSinglePlayerServer
         self.remoteServer = remoteServer
@@ -33,7 +35,8 @@ class COSMICARunner(object):
         self.fullscreen = fullscreen
         self.resolution = resolution
         self.mapfile = mapfile
-        self.playerList = playerList.split(',')
+        self.playerList = playerList
+        self.playerGenData = playerGenData
 
     def performSinglePlayerSetup(self):
         process = None
@@ -109,7 +112,7 @@ class COSMICARunner(object):
         logging.info("Generate new Galaxy instance since none detected.")
         os.makedirs(os.path.join("..", "Database", self.galaxy))
         generateGalaxy = generate.GenerateGalaxy()
-        generateGalaxy.genGalaxy(dataPath = absDataPath + "/", starMapFile=self.mapfile, playerList = self.playerList, doAI = 1, galaxyName = self.galaxy, serverPort=self.serverPort)
+        generateGalaxy.genGalaxy(dataPath = absDataPath + "/", starMapFile=self.mapfile, playerList = self.playerList, doAI = 1, galaxyName = self.galaxy, serverPort=self.serverPort,playerGenData=self.playerGenData)
         workingGalaxy = generateGalaxy.getGalaxy()
 
         storedata.saveToFile(workingGalaxy, os.path.join("..", "Database", self.galaxy, self.galaxy + ".anw"))
@@ -197,7 +200,7 @@ if __name__ == '__main__':
                            remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, 
                            password=args.empirepass, sound=not args.disableSound,
                            fullscreen=args.fullscreen, resolution=args.resolution, 
-                           serverPort=args.server, mapfile=args.map, playerList=args.playerList)
+                           serverPort=args.server, mapfile=args.map, playerList=args.playerList.split(','))
     runner.start()
 
 

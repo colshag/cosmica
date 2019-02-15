@@ -21,6 +21,33 @@
 	background-image: url(:/images/background.png);
 }
 
+#login_register{
+	background-color: rgb(134, 134, 134);
+}
+#single_or_multi{
+	background-color: rgb(134, 134, 134);
+}
+#new_single{
+	background-color: rgb(134, 134, 134);
+}
+#continue_single{
+	background-color: rgb(134, 134, 134);
+}
+#join_multi{
+	background-color: rgb(134, 134, 134);
+}
+#new_multi{
+	background-color: rgb(134, 134, 134);
+}
+
+#continue_multi{
+	background-color: rgb(134, 134, 134);
+}
+
+#txtNewEmail{
+    border: 1px solid #CCC;
+}
+
 
 
 </string>
@@ -51,7 +78,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(108, 108, 108);</string>
+       <string notr="true"/>
       </property>
       <property name="currentIndex">
        <number>0</number>

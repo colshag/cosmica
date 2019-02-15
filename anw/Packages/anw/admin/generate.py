@@ -26,9 +26,10 @@ class GenerateGalaxy(object):
         self.path = os.getcwd()
         self.galaxyName = "COSMICA1"
 
-    def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "COSMICA1", serverPort=8000):
+    def genGalaxy(self, dataPath, starMapFile, playerList=[], doAI=0, galaxyName = "COSMICA1", serverPort=8000, playerGenData={}):
         """Generate a Galaxy Object given data path, and star Map data file"""
         self.galaxyName = galaxyName
+        self.playerGenData = playerGenData
         self.setDataPath(dataPath)
         self.genInitialGalaxy()
         self.setTemplateData('commonmap.data')
@@ -107,15 +108,22 @@ class GenerateGalaxy(object):
             for i in range(1,self.myGalaxy.numEmpires):
                 self.genEmpire(i, playerList.pop(0))            
         else:
-            # shuffle colors of starting empires
-            random.shuffle(playerList)
             self.genEmpire(0)
-            s = range(1,8) #maxEmpires is 8
+            s = range(1,8)
             random.shuffle(s)
-        
+            empireList = self.playerGenData.keys()
             for i in range(1,self.myGalaxy.numEmpires):
-                randomEmpires[str(i)] = s.pop(0)
-                self.genEmpire(randomEmpires[str(i)], playerList.pop(0))
+                email = playerList.pop(0)
+                if email == 'ai':
+                    while s <> []:
+                        myID = s.pop(0)
+                        if myID not in self.playerGenData.keys():
+                            empireID = str(myID)
+                            break
+                else:
+                    empireID = empireList.pop(0)
+                randomEmpires[str(i)] = int(empireID)
+                self.genEmpire(int(empireID), email)               
                 
         for empireid, myEmpire in self.myGalaxy.empires.iteritems():
             myEmpire.setInitialDiplomacy()
@@ -128,6 +136,7 @@ class GenerateGalaxy(object):
         
     def genEmpire(self, id, player=''):
         """Create an Empire"""
+        id = int(id)
         d = globals.empires[id]
         d['player'] = player
         d['delay'] = 0
@@ -144,13 +153,7 @@ class GenerateGalaxy(object):
             myEmpire.player = '%s%s' % (myEmpire.myAIPlayer.name, myEmpire.myAIPlayer.id)
             myEmpire.password = 'ai4thewin'
         elif myEmpire.name != 'Neutral':
-            chars = string.ascii_lowercase + string.digits
-            pw = ''.join( random.choice(chars) for _ in range(8) )
-            myEmpire.password = pw
-            empireFile = open('%s.players' % self.galaxyName, 'a')
-            message = "%s: EmpireID %s: %s : password: %s\n" % (myEmpire.name, myEmpire.id, player, pw)
-            empireFile.write(message)
-            empireFile.close()
+            myEmpire.password = self.playerGenData[str(id)]['password']
     
     def genAIPlayer(self, myEmpire):
         """Create an AI Player in a galaxy, assign it to a random Empire"""

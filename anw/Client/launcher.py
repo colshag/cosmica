@@ -13,6 +13,8 @@ from xmlrpclib import ServerProxy
 import run
 import glob
 import re
+import random
+import string
 
 class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
@@ -188,13 +190,35 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             return
         server = ServerProxy(self.serverAddress)
         result = server.create_new_game(self.myInfo, nicknames, str(self.txtAddressNewMulti.text()), self.selectedMapName)
-        # result should return ('GALAXYNAME', 'email1@email.com,email2@email.com,...')
-        # if successful server will submit game into system and store players and server address into database
+        # result should return ('GALAXYNAME', [email1@email.com,email2@email.com,...])
+        # determine which players will be in what empireID and what password, send to server so players can log in properly.
+        
         if isinstance(result, list):
-            runner = run.COSMICARunner(galaxy=result[0], serverPort=int(str(self.txtAddressNewMulti.text())[-4:]), mapfile=self.selectedMapName, 
-                                           remoteServer=str(self.txtAddressNewMulti.text()), singlePlayer=False, playerList=result[1])
-            runner.start()
-            self.exit_launcher()
+            # shuffle colors of starting empires
+            playerGenData = {}
+            playerList = result[1]
+            random.shuffle(playerList)
+            s = range(1,8) #maxEmpires is 8
+            random.shuffle(s)
+            for email in playerList:
+                # assign player to random empireID from 1-8
+                empireID = str(s.pop(0))
+                # assign sever passwords for each player
+                chars = string.ascii_lowercase + string.digits
+                pw = ''.join( random.choice(chars) for _ in range(8) )
+                playerGenData[empireID] = {'email': email, 'password': pw}
+            
+            # with player empireID and passwords assigned insert player data into neurojump servers so players can log in later
+            server = ServerProxy(self.serverAddress)
+            result2 = server.register_players_into_game(self.myInfo, self.id, result[0], playerGenData)
+            
+            if result2 == 1: # successfully registered players into neurojump servers
+                runner = run.COSMICARunner(galaxy=result[0], serverPort=int(str(self.txtAddressNewMulti.text())[-4:]), mapfile=self.selectedMapName, 
+                                           remoteServer=str(self.txtAddressNewMulti.text()), singlePlayer=False, playerList=result[1], playerGenData=playerGenData)
+                runner.start()
+                self.exit_launcher()
+            else:
+                self.message('Registering Players Error:%s' % result2)
         else:
             self.message('Start New Game Error:%s' % result)   
 

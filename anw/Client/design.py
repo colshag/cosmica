@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Mon Feb 11 19:45:31 2019
+# Created: Wed Feb 13 20:18:08 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -32,6 +32,32 @@ class Ui_MainWindow(object):
 "    background-image: url(:/images/background.png);\n"
 "}\n"
 "\n"
+"#login_register{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"#single_or_multi{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"#new_single{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"#continue_single{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"#join_multi{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"#new_multi{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"\n"
+"#continue_multi{\n"
+"    background-color: rgb(134, 134, 134);\n"
+"}\n"
+"\n"
+"#txtNewEmail{\n"
+"    border: 1px solid #CCC;\n"
+"}\n"
 "\n"
 "\n"
 ""))
@@ -48,7 +74,7 @@ class Ui_MainWindow(object):
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.label_3)
         self.mainMenu = QtGui.QStackedWidget(self.centralwidget)
         self.mainMenu.setMinimumSize(QtCore.QSize(0, 0))
-        self.mainMenu.setStyleSheet(_fromUtf8("background-color: rgb(108, 108, 108);"))
+        self.mainMenu.setStyleSheet(_fromUtf8(""))
         self.mainMenu.setObjectName(_fromUtf8("mainMenu"))
         self.login_register = QtGui.QWidget()
         self.login_register.setObjectName(_fromUtf8("login_register"))
