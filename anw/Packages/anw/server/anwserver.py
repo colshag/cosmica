@@ -18,6 +18,7 @@ from twisted.web import xmlrpc
 import sys
 from anw.util.Injection import Services
 from anw.mail.sending import Email
+from xmlrpclib import ServerProxy
 
 class COSMICAServer(xmlrpc.XMLRPC):
     """The COSMICAServer maintains the state of various COSMICA galaxies at once
@@ -38,6 +39,7 @@ class COSMICAServer(xmlrpc.XMLRPC):
         self.savingGalaxyFlag = [] # keep track of galaxies saving to disk
         self.endRoundGalaxyFlag = [] # keep track of galaxies going through endRound  
         self.lp = None
+        self.serverAddress = 'http://localhost:8090/' 
 
     def runServer(self, port, galaxyName=None, singleplayer=0):
         """run the Server"""
@@ -919,9 +921,15 @@ class COSMICAServer(xmlrpc.XMLRPC):
                     self._Log('endEmpireTurn Success', clientKey)
                     return 2
                 elif result == 0:
-                    # write status to website
+                    # update neurojump servers
                     if self.singleplayer == 0:
-                        self.writeGameStatus()
+                        #self.writeGameStatus()
+                        try:
+                            server = ServerProxy(self.serverAddress)
+                            result = server.end_empire_turn(myGalaxy.name, myEmpire.id)
+                            self._Log('empire %s has logged turn end in Neurojump servers for %s' % (myEmpire.id, myGalaxy.name))
+                        except:
+                            pass   
                 else:
                     self._Log(result, clientKey)
                 return result

@@ -116,9 +116,9 @@ class GenerateGalaxy(object):
                 email = playerList.pop(0)
                 if email == 'ai':
                     while s <> []:
-                        myID = s.pop(0)
+                        myID = str(s.pop(0))
                         if myID not in self.playerGenData.keys():
-                            empireID = str(myID)
+                            empireID = myID
                             break
                 else:
                     empireID = empireList.pop(0)

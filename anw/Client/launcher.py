@@ -49,6 +49,8 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.lstChooseMapNewSingle.clicked.connect(self.lstChooseMapNewSingle_clicked)
         self.lstChooseGameContSingle.clicked.connect(self.lstChooseGameContSingle_clicked)
         self.lstChooseMapNewMulti.clicked.connect(self.lstChooseMapNewMulti_clicked)
+        self.lstChooseGameJoinMulti.clicked.connect(self.lstChooseGameJoinMulti_clicked)
+        self.lstChooseServerContMulti.clicked.connect(self.lstChooseServerContMulti_clicked)
         self.selectedMapName = None
         self.selectedDBOnDisk = None
         
@@ -57,6 +59,10 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.nickname = ''
         self.myInfo = {}
         self.serverAddress = 'http://localhost:8090/'
+        self.gamesICanJoin = []
+        self.selectedGameToJoin = 0
+        self.serversIAmHosting = []
+        self.selectedServerToCont = 0
 
     def load_main_menu(self):
         self.mainMenu.setCurrentIndex(1)
@@ -106,6 +112,50 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     
     def lstChooseGameContSingle_clicked(self, index):
         self.selectedDBOnDisk = str(index.data().toString())
+        
+    def lstChooseGameJoinMulti_clicked(self, index):
+        # load selected game info
+        self.selectedGameToJoin = index.row()
+        gameInfo = self.gamesICanJoin[index.row()]
+        # turn status
+        if gameInfo[8] == 1:
+            turnStatus = 'You have Ended your Turn'
+        else:
+            turnStatus = 'Please end your turn'
+        
+        # player color
+        empireName = ['Neutral','Yellow Empire','Brown Empire','Green Empire','Blue Empire','Pink Empire','Red Empire','Cyan Empire','Fire Empire']
+        
+        self.lblGalaxyNameJoinMulti.setText(gameInfo[1])
+        self.lblGalaxyNameJoinMulti.setStyleSheet('color: red, background-color: rgb(0, 0, 0)')
+        self.lblMapNameJoinMulti.setText(gameInfo[2])
+        self.lblMapNameJoinMulti.setStyleSheet('color: yellow')
+        self.lblAddressJoinMulti.setText(gameInfo[3])
+        self.lblAddressJoinMulti.setStyleSheet('color: yellow')
+        self.lblRoundNumJoinMulti.setText('ROUND: %s' % gameInfo[4])
+        self.lblRoundNumJoinMulti.setStyleSheet('color: orange')
+        self.lblVersionJoinMulti.setText(gameInfo[5])
+        self.lblVersionJoinMulti.setStyleSheet('color: cyan')
+        self.lblEmpireNameJoinMulti.setText(empireName[int(gameInfo[6])])
+        self.lblEmpireNameJoinMulti.setStyleSheet('color: white')
+        self.lblTurnStatusJoinMulti.setText(turnStatus)
+        self.lblTurnStatusJoinMulti.setStyleSheet('color: white')
+    
+    def lstChooseServerContMulti_clicked(self, index):
+        # load selected game info
+        # G.id, G.galaxyname, G.mapname, G.ipaddress, G.roundnum, G.version
+        self.selectedServerToCont = index.row()
+        gameInfo = self.serversIAmHosting[index.row()]
+        
+        self.lblGalaxyNameContMulti.setText(gameInfo[1])
+        self.lblGalaxyNameContMulti.setStyleSheet('lblGalaxyNameContMulti { background-color : red; color : blue; }')
+        self.lblMapNameContMulti.setText(gameInfo[2])
+        self.lblMapNameContMulti.setStyleSheet('color: yellow')
+        self.txtAddressContMulti.setText(gameInfo[3])
+        self.lblRoundNumContMulti.setText('ROUND: %s' % gameInfo[4])
+        self.lblRoundNumContMulti.setStyleSheet('color: orange')
+        self.lblVersionContMulti.setText(gameInfo[5])
+        self.lblVersionContMulti.setStyleSheet('color: cyan')
     
     def start_new_single_game(self):
         if self.selectedMapName == None:
@@ -135,7 +185,6 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         
         model = QtGui.QStandardItemModel()
         self.lstChooseGameContSingle.setModel(model)
-        
         for i in entries:
             item = QtGui.QStandardItem(i)
             model.appendRow(item)        
@@ -151,12 +200,38 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     
     def load_join_multi(self):
         self.mainMenu.setCurrentIndex(4)
+        server = ServerProxy(self.serverAddress)
+        result = server.request_active_multiplayer_games(self.myInfo)
+        
+        # result should return list of games that player is currently playing in
+        if isinstance(result, list):
+            # list all the games and store information for selection and launching purposes
+            model = QtGui.QStandardItemModel()
+            self.lstChooseGameJoinMulti.setModel(model)            
+            self.gamesICanJoin = result
+            for gameInfo in self.gamesICanJoin:
+                item = QtGui.QStandardItem(gameInfo[1])
+                model.appendRow(item)           
+        else:
+            self.message('Join Multiplayer Error: %s' % result)
 
     def join_multi_game(self):
-        runner = run.COSMICARunner(galaxy='COSMICA6', serverPort=None, empire=5, password='fvuu7ojm',
-                                   remoteServer='http://192.168.1.69:8006', startSinglePlayerServer=False)
-        runner.start()
-        self.exit_launcher()
+        try:
+            gameInfo = self.gamesICanJoin[self.selectedGameToJoin]
+            # gameInfo valid, update user stats to server
+            gameID = gameInfo[0]
+            server = ServerProxy(self.serverAddress)
+            result = server.join_multiplayer_game(self.myInfo, gameID)
+            if result == 1:
+                # run game
+                runner = run.COSMICARunner(galaxy=gameInfo[1], serverPort=None, empire=gameInfo[6], password=gameInfo[7],
+                                       remoteServer=gameInfo[3], startSinglePlayerServer=False)
+                runner.start()
+                self.exit_launcher()
+            else:
+                self.message('Join Multiplayer Error: %s' % result)
+        except:
+            pass
 
     def load_host_multi(self):
         self.mainMenu.setCurrentIndex(5)
@@ -167,7 +242,6 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         
         model = QtGui.QStandardItemModel()
         self.lstChooseMapNewMulti.setModel(model)
-        
         for i in entries:
             item = QtGui.QStandardItem(i)
             model.appendRow(item)
@@ -218,17 +292,44 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
                 runner.start()
                 self.exit_launcher()
             else:
-                self.message('Registering Players Error:%s' % result2)
+                self.message('Registering Players Error: %s' % result2)
         else:
-            self.message('Start New Game Error:%s' % result)   
+            self.message('Start New Game Error: %s' % result)   
 
     def load_cont_multi(self):
         self.mainMenu.setCurrentIndex(6)
+        server = ServerProxy(self.serverAddress)
+        result = server.request_my_active_servers(self.myInfo)
     
-    def cont_multi_game(self):
-        runner = run.COSMICARunner(galaxy='COSMICA3', serverPort=8003, singlePlayer=False)
-        runner.start()
-        self.exit_launcher()
+        # result should return list of servers that player is currently hosting for others
+        if isinstance(result, list):
+            # list all the servers and store information for selection and launching purposes
+            model = QtGui.QStandardItemModel()
+            self.lstChooseServerContMulti.setModel(model)            
+            self.serversIAmHosting = result
+            for gameInfo in self.serversIAmHosting:
+                item = QtGui.QStandardItem(gameInfo[1])
+                model.appendRow(item)           
+        else:
+            self.message('Continue Server Error: %s' % result)
+    
+    def cont_multi_game(self):             
+        try:
+            gameInfo = self.serversIAmHosting[self.selectedServerToCont]
+            # gameInfo valid, update server stats and server address to neurojump servers
+            gameID = gameInfo[0]
+            server = ServerProxy(self.serverAddress)
+            newAddress = str(self.txtAddressContMulti.text())
+            result = server.cont_multiplayer_server(self.myInfo, gameID, newAddress)
+            if result == 1:
+                # run server
+                runner = run.COSMICARunner(galaxy=gameInfo[1], serverPort=int(newAddress[-4:]), singlePlayer=False)
+                runner.start()
+                self.exit_launcher()
+            else:
+                self.message('Continue Server Error: %s' % result)
+        except:
+            pass
         
     def register_user(self):
         self.myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNickname.text()), 'password':str(self.txtNewPassword.text())}
@@ -252,7 +353,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.myInfo['nickname'] = self.nickname
             self.message('Welcome to Cosmica %s' % self.nickname)
         else:
-            self.message('Login Error:%s' % result)
+            self.message('Login Error: %s' % result)
     
     def exit_launcher(self):
         self.close()

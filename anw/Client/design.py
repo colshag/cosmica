@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Wed Feb 13 20:18:08 2019
+# Created: Fri Feb 15 17:36:11 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -31,33 +31,31 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(_fromUtf8("#centralwidget {\n"
 "    background-image: url(:/images/background.png);\n"
 "}\n"
-"\n"
 "#login_register{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
 "#single_or_multi{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
 "#new_single{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
 "#continue_single{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
 "#join_multi{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
 "#new_multi{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
-"\n"
 "#continue_multi{\n"
-"    background-color: rgb(134, 134, 134);\n"
+"    background-color: rgb(75, 75, 75);\n"
 "}\n"
-"\n"
 "#txtNewEmail{\n"
 "    border: 1px solid #CCC;\n"
 "}\n"
+"\n"
 "\n"
 "\n"
 ""))
@@ -133,6 +131,7 @@ class Ui_MainWindow(object):
         font.setBold(False)
         font.setWeight(50)
         self.btnLogin.setFont(font)
+        self.btnLogin.setDefault(True)
         self.btnLogin.setObjectName(_fromUtf8("btnLogin"))
         self.formLayout_2.setWidget(6, QtGui.QFormLayout.FieldRole, self.btnLogin)
         self.label_15 = QtGui.QLabel(self.login_register)
@@ -394,14 +393,70 @@ class Ui_MainWindow(object):
         self.join_multi.setObjectName(_fromUtf8("join_multi"))
         self.horizontalLayout_6 = QtGui.QHBoxLayout(self.join_multi)
         self.horizontalLayout_6.setObjectName(_fromUtf8("horizontalLayout_6"))
-        self.lblMapJoinMulti = QtGui.QLabel(self.join_multi)
-        self.lblMapJoinMulti.setMinimumSize(QtCore.QSize(300, 0))
-        self.lblMapJoinMulti.setText(_fromUtf8(""))
-        self.lblMapJoinMulti.setObjectName(_fromUtf8("lblMapJoinMulti"))
-        self.horizontalLayout_6.addWidget(self.lblMapJoinMulti)
+        self.verticalLayout_10 = QtGui.QVBoxLayout()
+        self.verticalLayout_10.setObjectName(_fromUtf8("verticalLayout_10"))
+        self.lblGalaxyNameJoinMulti = QtGui.QLabel(self.join_multi)
+        self.lblGalaxyNameJoinMulti.setMinimumSize(QtCore.QSize(300, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(12)
+        self.lblGalaxyNameJoinMulti.setFont(font)
+        self.lblGalaxyNameJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
+        self.lblGalaxyNameJoinMulti.setObjectName(_fromUtf8("lblGalaxyNameJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblGalaxyNameJoinMulti)
+        self.lblVersionJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblVersionJoinMulti.setFont(font)
+        self.lblVersionJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblVersionJoinMulti.setObjectName(_fromUtf8("lblVersionJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblVersionJoinMulti)
+        self.lblMapNameJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblMapNameJoinMulti.setFont(font)
+        self.lblMapNameJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblMapNameJoinMulti.setObjectName(_fromUtf8("lblMapNameJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblMapNameJoinMulti)
+        self.lblAddressJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Microsoft PhagsPa"))
+        font.setPointSize(8)
+        self.lblAddressJoinMulti.setFont(font)
+        self.lblAddressJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblAddressJoinMulti.setObjectName(_fromUtf8("lblAddressJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblAddressJoinMulti)
+        self.lblRoundNumJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblRoundNumJoinMulti.setFont(font)
+        self.lblRoundNumJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblRoundNumJoinMulti.setObjectName(_fromUtf8("lblRoundNumJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblRoundNumJoinMulti)
+        self.lblEmpireNameJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblEmpireNameJoinMulti.setFont(font)
+        self.lblEmpireNameJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblEmpireNameJoinMulti.setObjectName(_fromUtf8("lblEmpireNameJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblEmpireNameJoinMulti)
+        self.lblTurnStatusJoinMulti = QtGui.QLabel(self.join_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblTurnStatusJoinMulti.setFont(font)
+        self.lblTurnStatusJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(48, 48, 48);"))
+        self.lblTurnStatusJoinMulti.setObjectName(_fromUtf8("lblTurnStatusJoinMulti"))
+        self.verticalLayout_10.addWidget(self.lblTurnStatusJoinMulti)
+        self.horizontalLayout_6.addLayout(self.verticalLayout_10)
         self.verticalLayout_7 = QtGui.QVBoxLayout()
         self.verticalLayout_7.setObjectName(_fromUtf8("verticalLayout_7"))
         self.label_21 = QtGui.QLabel(self.join_multi)
+        self.label_21.setMinimumSize(QtCore.QSize(300, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Terminator Two"))
         font.setPointSize(12)
@@ -530,14 +585,43 @@ class Ui_MainWindow(object):
         self.continue_multi.setObjectName(_fromUtf8("continue_multi"))
         self.horizontalLayout_8 = QtGui.QHBoxLayout(self.continue_multi)
         self.horizontalLayout_8.setObjectName(_fromUtf8("horizontalLayout_8"))
-        self.lblMapContMulti = QtGui.QLabel(self.continue_multi)
-        self.lblMapContMulti.setMinimumSize(QtCore.QSize(300, 0))
-        self.lblMapContMulti.setText(_fromUtf8(""))
-        self.lblMapContMulti.setObjectName(_fromUtf8("lblMapContMulti"))
-        self.horizontalLayout_8.addWidget(self.lblMapContMulti)
+        self.verticalLayout_11 = QtGui.QVBoxLayout()
+        self.verticalLayout_11.setObjectName(_fromUtf8("verticalLayout_11"))
+        self.lblGalaxyNameContMulti = QtGui.QLabel(self.continue_multi)
+        self.lblGalaxyNameContMulti.setMinimumSize(QtCore.QSize(300, 0))
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(12)
+        self.lblGalaxyNameContMulti.setFont(font)
+        self.lblGalaxyNameContMulti.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
+        self.lblGalaxyNameContMulti.setObjectName(_fromUtf8("lblGalaxyNameContMulti"))
+        self.verticalLayout_11.addWidget(self.lblGalaxyNameContMulti)
+        self.lblVersionContMulti = QtGui.QLabel(self.continue_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblVersionContMulti.setFont(font)
+        self.lblVersionContMulti.setObjectName(_fromUtf8("lblVersionContMulti"))
+        self.verticalLayout_11.addWidget(self.lblVersionContMulti)
+        self.lblMapNameContMulti = QtGui.QLabel(self.continue_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblMapNameContMulti.setFont(font)
+        self.lblMapNameContMulti.setObjectName(_fromUtf8("lblMapNameContMulti"))
+        self.verticalLayout_11.addWidget(self.lblMapNameContMulti)
+        self.lblRoundNumContMulti = QtGui.QLabel(self.continue_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.lblRoundNumContMulti.setFont(font)
+        self.lblRoundNumContMulti.setObjectName(_fromUtf8("lblRoundNumContMulti"))
+        self.verticalLayout_11.addWidget(self.lblRoundNumContMulti)
+        self.horizontalLayout_8.addLayout(self.verticalLayout_11)
         self.verticalLayout_9 = QtGui.QVBoxLayout()
         self.verticalLayout_9.setObjectName(_fromUtf8("verticalLayout_9"))
         self.label_28 = QtGui.QLabel(self.continue_multi)
+        self.label_28.setMinimumSize(QtCore.QSize(300, 0))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Terminator Two"))
         font.setPointSize(12)
@@ -548,6 +632,17 @@ class Ui_MainWindow(object):
         self.lstChooseServerContMulti = QtGui.QListView(self.continue_multi)
         self.lstChooseServerContMulti.setObjectName(_fromUtf8("lstChooseServerContMulti"))
         self.verticalLayout_9.addWidget(self.lstChooseServerContMulti)
+        self.label_29 = QtGui.QLabel(self.continue_multi)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Terminator Two"))
+        font.setPointSize(10)
+        self.label_29.setFont(font)
+        self.label_29.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
+        self.label_29.setObjectName(_fromUtf8("label_29"))
+        self.verticalLayout_9.addWidget(self.label_29)
+        self.txtAddressContMulti = QtGui.QLineEdit(self.continue_multi)
+        self.txtAddressContMulti.setObjectName(_fromUtf8("txtAddressContMulti"))
+        self.verticalLayout_9.addWidget(self.txtAddressContMulti)
         self.btnContMulti = QtGui.QPushButton(self.continue_multi)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("RowdyHeavy"))
@@ -607,6 +702,13 @@ class Ui_MainWindow(object):
         self.label_14.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Choose a Game</span></p></body></html>", None))
         self.btnContSingle.setText(_translate("MainWindow", "Continue Single Player Game", None))
         self.btnBackContSingle.setText(_translate("MainWindow", "Go Back", None))
+        self.lblGalaxyNameJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">GALAXY NAME</span></p></body></html>", None))
+        self.lblVersionJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#55ff7f;\">Version:</span></p></body></html>", None))
+        self.lblMapNameJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffaaff;\">map name</span></p></body></html>", None))
+        self.lblAddressJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffff00;\">connection info</span></p></body></html>", None))
+        self.lblRoundNumJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00ffff;\">Round Number:</span></p></body></html>", None))
+        self.lblEmpireNameJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffffff;\">You are Playing Empire:</span></p></body></html>", None))
+        self.lblTurnStatusJoinMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffffff;\">Your Turn Status:</span></p></body></html>", None))
         self.label_21.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Choose an Active Game</span></p></body></html>", None))
         self.btnJoinMulti.setText(_translate("MainWindow", "Join Multiplayer Game", None))
         self.btnBackJoinMulti.setText(_translate("MainWindow", "Go Back", None))
@@ -617,7 +719,12 @@ class Ui_MainWindow(object):
         self.btnStartNewMulti.setText(_translate("MainWindow", "Start New Multiplayer Server", None))
         self.btnBackNewMulti.setText(_translate("MainWindow", "Go Back", None))
         self.label_22.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Start a New </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">MultiPlayer </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))
+        self.lblGalaxyNameContMulti.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Galaxy Name</span></p></body></html>", None))
+        self.lblVersionContMulti.setText(_translate("MainWindow", "Version", None))
+        self.lblMapNameContMulti.setText(_translate("MainWindow", "Map Name", None))
+        self.lblRoundNumContMulti.setText(_translate("MainWindow", "Round:", None))
         self.label_28.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Choose Server</span></p></body></html>", None))
+        self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">CHANGE Address:</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">(http://address:port)</span></p></body></html>", None))
         self.btnContMulti.setText(_translate("MainWindow", "Continue Multiplayer Server", None))
         self.btnBackContMulti.setText(_translate("MainWindow", "Go Back", None))
         self.label_27.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Continue</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Running</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">a Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">ServeR</span></p></body></html>", None))

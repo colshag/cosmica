@@ -1,1 +1,0 @@
-python run.py --galaxy COSMICA3 --empireid 3 --empirepass mwzbvzvc --remoteserver http://localhost:8003 --clientonly

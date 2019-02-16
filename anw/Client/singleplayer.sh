@@ -1,1 +1,0 @@
-python run.py --galaxy COSMICA2 --map quickstart-4man.map
