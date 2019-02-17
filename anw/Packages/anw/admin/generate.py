@@ -106,7 +106,7 @@ class GenerateGalaxy(object):
         if playerList[0] == 'singleplayer':
             self.genEmpire(0)
             for i in range(1,self.myGalaxy.numEmpires):
-                self.genEmpire(i, playerList.pop(0))            
+                self.genEmpire(i, playerList.pop(0), singleplayer=1)            
         else:
             self.genEmpire(0)
             s = range(1,8)
@@ -123,7 +123,7 @@ class GenerateGalaxy(object):
                 else:
                     empireID = empireList.pop(0)
                 randomEmpires[str(i)] = int(empireID)
-                self.genEmpire(int(empireID), email)               
+                self.genEmpire(int(empireID), email, singleplayer=0)               
                 
         for empireid, myEmpire in self.myGalaxy.empires.iteritems():
             myEmpire.setInitialDiplomacy()
@@ -134,7 +134,7 @@ class GenerateGalaxy(object):
             playerList.append('ai')
         return playerList
         
-    def genEmpire(self, id, player=''):
+    def genEmpire(self, id, player='',singleplayer=0):
         """Create an Empire"""
         id = int(id)
         d = globals.empires[id]
@@ -153,7 +153,10 @@ class GenerateGalaxy(object):
             myEmpire.player = '%s%s' % (myEmpire.myAIPlayer.name, myEmpire.myAIPlayer.id)
             myEmpire.password = 'ai4thewin'
         elif myEmpire.name != 'Neutral':
-            myEmpire.password = self.playerGenData[str(id)]['password']
+            if singleplayer == 1:
+                myEmpire.password = 'singleplayer'
+            else:
+                myEmpire.password = self.playerGenData[str(id)]['password']
     
     def genAIPlayer(self, myEmpire):
         """Create an AI Player in a galaxy, assign it to a random Empire"""

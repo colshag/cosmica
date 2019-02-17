@@ -393,7 +393,7 @@ class Mode(object):
             self.setLogout(self.game.authKey)
         self.alive = 0
         if globals.isTutorial:
-            tutorialInfo = {'tutorialStep':globals.tutorialStep, 'tutorialStepComplete':globals.tutorialStepComplete}
+            tutorialInfo = {'tutorialGame':self.game.myGalaxy['name'], 'tutorialStep':globals.tutorialStep, 'tutorialStepComplete':globals.tutorialStepComplete}
             storedata.saveToFile(tutorialInfo, '%s/tutorial.data' % self.game.app.path)        
         self.game.app.quit()
     
@@ -982,7 +982,7 @@ class Mode(object):
                 return
             
         message1 = "There are three types of marines: Artillery, Mechanical, and Infantry. Each type has different build requirements and are strong against different types of units."
-        message2 = "Do the following to build marines:\nClick on your homeworld.\nClick Marines.\nClick Build Marines.\nClick Light Nuclear Artillery.\nOrder six marines.\nClick submit."
+        message2 = "Do the following to build marines:\nClick on your homeworld.\nClick Marines.\nClick Build Marines.\nClick Heavy Nuclear Artillery.\nOrder six marines.\nClick submit."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
   

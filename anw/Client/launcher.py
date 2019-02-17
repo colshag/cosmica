@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------
 # This is main cosmica launcher
 # ---------------------------------------------------------------------------
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 import sys
 import design
 import os
@@ -20,6 +20,30 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
+        # load the resolutions
+        resolutions = ['640x480', '800x600', '960x720', '1024x768', '1280x960', '1400x1050', '1440x1080', '1600x1200', '1856x1392', '1920x1440', '2048x1536', '1280x800', '1440x900', '1680x1050', '1920x1200', '1920x1080', '2560x1600']
+        self.cboResolution.clear()
+        self.cboResolution.addItems(resolutions)
+        self.fullscreen = False
+        self.resolution = ''
+        self.tutorial = False
+        try:
+            f = open("resolution.txt", "r")
+            resolution = f.read()
+            if resolution == '':
+                self.fullscreen = False
+            else:
+                self.chkFullScreenMode.toggle()
+                self.fullscreen = True
+                self.resolution = resolution
+            self.cboResolution.setCurrentIndex(resolutions.index(resolution))
+        except:
+            pass
+        
+        self.cboResolution.currentIndexChanged.connect(self.cboResolution_clicked)
+        self.chkFullScreenMode.stateChanged.connect(self.chkFullScreenMode_clicked)
+        self.chkTutorialMode.stateChanged.connect(self.chkTutorialMode_clicked)
+        
         # login or register (0)
         self.btnRegister.clicked.connect(self.register_user)
         self.btnLogin.clicked.connect(self.login_user)
@@ -64,6 +88,37 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.serversIAmHosting = []
         self.selectedServerToCont = 0
 
+    def cboResolution_clicked(self, index):
+        if self.chkFullScreenMode.isChecked():
+            self.chkFullScreenMode.toggle()           
+            self.fullscreen = False
+
+    def chkFullScreenMode_clicked(self, state):
+        if state == QtCore.Qt.Checked:
+            text_file = open("resolution.txt", "w")
+            text_file.write(self.cboResolution.currentText())
+            text_file.close()
+            self.fullscreen = True
+            self.resolution = self.cboResolution.currentText()
+        else:
+            text_file = open("resolution.txt", "w")
+            text_file.write('')
+            text_file.close() 
+            self.fullscreen = False
+    
+    def chkTutorialMode_clicked(self, state):
+        if state == QtCore.Qt.Checked:
+            self.tutorial = True
+        else:
+            self.tutorial = False
+           
+    def clickBox(self, state):
+
+        if state == QtCore.Qt.Checked:
+            print('Checked')
+        else:
+            print('Unchecked')    
+        
     def load_main_menu(self):
         self.mainMenu.setCurrentIndex(1)
 
@@ -127,19 +182,19 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         empireName = ['Neutral','Yellow Empire','Brown Empire','Green Empire','Blue Empire','Pink Empire','Red Empire','Cyan Empire','Fire Empire']
         
         self.lblGalaxyNameJoinMulti.setText(gameInfo[1])
-        self.lblGalaxyNameJoinMulti.setStyleSheet('color: red, background-color: rgb(0, 0, 0)')
+        self.lblGalaxyNameJoinMulti.setStyleSheet('color: #FFFFFF; background-color: #4075CC;')
         self.lblMapNameJoinMulti.setText(gameInfo[2])
-        self.lblMapNameJoinMulti.setStyleSheet('color: yellow')
+        self.lblMapNameJoinMulti.setStyleSheet('color: cyan; background-color: black;')
         self.lblAddressJoinMulti.setText(gameInfo[3])
-        self.lblAddressJoinMulti.setStyleSheet('color: yellow')
+        self.lblAddressJoinMulti.setStyleSheet('color: yellow; background-color: black;')
         self.lblRoundNumJoinMulti.setText('ROUND: %s' % gameInfo[4])
-        self.lblRoundNumJoinMulti.setStyleSheet('color: orange')
+        self.lblRoundNumJoinMulti.setStyleSheet('color: yellow; background-color: black;')
         self.lblVersionJoinMulti.setText(gameInfo[5])
-        self.lblVersionJoinMulti.setStyleSheet('color: cyan')
+        self.lblVersionJoinMulti.setStyleSheet('color: orange; background-color: black;')
         self.lblEmpireNameJoinMulti.setText(empireName[int(gameInfo[6])])
-        self.lblEmpireNameJoinMulti.setStyleSheet('color: white')
+        self.lblEmpireNameJoinMulti.setStyleSheet('color: white; background-color: black;')
         self.lblTurnStatusJoinMulti.setText(turnStatus)
-        self.lblTurnStatusJoinMulti.setStyleSheet('color: white')
+        self.lblTurnStatusJoinMulti.setStyleSheet('color: white; background-color: black;')
     
     def lstChooseServerContMulti_clicked(self, index):
         # load selected game info
@@ -148,14 +203,14 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         gameInfo = self.serversIAmHosting[index.row()]
         
         self.lblGalaxyNameContMulti.setText(gameInfo[1])
-        self.lblGalaxyNameContMulti.setStyleSheet('lblGalaxyNameContMulti { background-color : red; color : blue; }')
+        self.lblGalaxyNameContMulti.setStyleSheet('color: #FFFFFF; background-color: #4075CC;')
         self.lblMapNameContMulti.setText(gameInfo[2])
-        self.lblMapNameContMulti.setStyleSheet('color: yellow')
+        self.lblMapNameContMulti.setStyleSheet('color: cyan; background-color: black;')
         self.txtAddressContMulti.setText(gameInfo[3])
         self.lblRoundNumContMulti.setText('ROUND: %s' % gameInfo[4])
-        self.lblRoundNumContMulti.setStyleSheet('color: orange')
+        self.lblRoundNumContMulti.setStyleSheet('color: yellow; background-color: black;')
         self.lblVersionContMulti.setText(gameInfo[5])
-        self.lblVersionContMulti.setStyleSheet('color: cyan')
+        self.lblVersionContMulti.setStyleSheet('color: orange; background-color: black;')
     
     def start_new_single_game(self):
         if self.selectedMapName == None:
@@ -166,15 +221,14 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.message('Please delete some of your existing games from your Database folder')
             return
         runner = run.COSMICARunner(galaxy=dataBaseName, serverPort=None, mapfile=self.selectedMapName, 
-                                   remoteServer='http://localhost:8000', password='singleplayer')
+                                   remoteServer='http://localhost:8000', password='singleplayer', 
+                                   fullscreen=self.fullscreen, resolution=self.resolution, tutorial=self.tutorial)
         runner.start()
         self.exit_launcher()
     
     def message(self, text):
-        msg = QtGui.QMessageBox()
-        msg.setIcon(QtGui.QMessageBox.Information)
-        msg.setText(text)
-        msg.exec_()
+        w = QtGui.QWidget()
+        QtGui.QMessageBox.warning(w, "Cosmica", text)
     
     def load_cont_single(self):
         self.mainMenu.setCurrentIndex(3)
@@ -194,7 +248,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.message('Please select an existing game')
             return
         runner = run.COSMICARunner(galaxy=self.selectedDBOnDisk, serverPort=None, mapfile="quickstart-4man.map", 
-                                   remoteServer='http://localhost:8000', password='singleplayer')
+                                   remoteServer='http://localhost:8000', password='singleplayer', fullscreen=self.fullscreen, resolution=self.resolution)
         runner.start()
         self.exit_launcher()        
     
@@ -225,7 +279,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             if result == 1:
                 # run game
                 runner = run.COSMICARunner(galaxy=gameInfo[1], serverPort=None, empire=gameInfo[6], password=gameInfo[7],
-                                       remoteServer=gameInfo[3], startSinglePlayerServer=False)
+                                       remoteServer=gameInfo[3], startSinglePlayerServer=False, fullscreen=self.fullscreen, resolution=self.resolution)
                 runner.start()
                 self.exit_launcher()
             else:

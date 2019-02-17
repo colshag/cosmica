@@ -23,7 +23,7 @@ from anw.func import storedata, globals
 class COSMICARunner(object):
     def __init__(self, singlePlayer=True, startSinglePlayerServer=True, remoteServer=None, serverPort=8000, 
                  galaxy='COSMICA1', empire=1, password=None, sound=True, fullscreen=False, resolution="1280x1024", 
-                 mapfile="testai2man.map", playerList=[], playerGenData = {}):
+                 mapfile="testai2man.map", playerList=[], playerGenData = {}, tutorial=False):
         self.singlePlayer = singlePlayer
         self.startSinglePlayerServer = startSinglePlayerServer
         self.remoteServer = remoteServer
@@ -33,10 +33,14 @@ class COSMICARunner(object):
         self.password = password
         self.sound = sound
         self.fullscreen = fullscreen
+        if resolution == '':
+            resolution = '1280x1024'
         self.resolution = resolution
         self.mapfile = mapfile
         self.playerList = playerList
         self.playerGenData = playerGenData
+        if tutorial == True:
+            globals.isTutorial = True        
 
     def performSinglePlayerSetup(self):
         process = None
@@ -200,7 +204,7 @@ if __name__ == '__main__':
                            remoteServer=args.remoteserver, galaxy=args.galaxy, empire=args.empireid, 
                            password=args.empirepass, sound=not args.disableSound,
                            fullscreen=args.fullscreen, resolution=args.resolution, 
-                           serverPort=args.server, mapfile=args.map, playerList=args.playerList.split(','))
+                           serverPort=args.server, mapfile=args.map, playerList=args.playerList.split(','), tutorial=args.tutorial)
     runner.start()
 
 

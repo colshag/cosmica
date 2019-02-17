@@ -135,13 +135,15 @@ class COSMICAGame:
             self.regimentdata = data['regimentdata']
             self.industrydata = data['industrydata']
             try:
-                if globals.isTutorial:
-                    tutorialInfo = storedata.loadFromFile('%s/tutorial.data' % self.app.path)
+                tutorialInfo = storedata.loadFromFile('%s/tutorial.data' % self.app.path)
+                if tutorialInfo['tutorialGame'] == self.app.galaxy:
+                    globals.isTutorial = True
                     globals.tutorialStep = tutorialInfo['tutorialStep']
                     globals.tutorialStepComplete = tutorialInfo['tutorialStepComplete']
             except:
-                globals.tutorialStep = 0
-                globals.tutorialStepComplete = False
+                if globals.isTutorial == True:
+                    globals.tutorialStep = 0
+                    globals.tutorialStepComplete = False
         except TypeError:
             pass
         
