@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Sat Feb 16 20:04:04 2019
+# Created: Mon Feb 18 14:10:48 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -102,10 +102,10 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.formLayout_2.setWidget(2, QtGui.QFormLayout.LabelRole, self.label)
-        self.txtEmail = QtGui.QLineEdit(self.login_register)
-        self.txtEmail.setAutoFillBackground(False)
-        self.txtEmail.setObjectName(_fromUtf8("txtEmail"))
-        self.formLayout_2.setWidget(2, QtGui.QFormLayout.FieldRole, self.txtEmail)
+        self.txtNickname = QtGui.QLineEdit(self.login_register)
+        self.txtNickname.setAutoFillBackground(False)
+        self.txtNickname.setObjectName(_fromUtf8("txtNickname"))
+        self.formLayout_2.setWidget(2, QtGui.QFormLayout.FieldRole, self.txtNickname)
         self.label_2 = QtGui.QLabel(self.login_register)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Yu Gothic UI"))
@@ -207,10 +207,10 @@ class Ui_MainWindow(object):
         self.label_8.setFont(font)
         self.label_8.setObjectName(_fromUtf8("label_8"))
         self.formLayout_3.setWidget(3, QtGui.QFormLayout.LabelRole, self.label_8)
-        self.txtNickname = QtGui.QLineEdit(self.login_register)
-        self.txtNickname.setAutoFillBackground(False)
-        self.txtNickname.setObjectName(_fromUtf8("txtNickname"))
-        self.formLayout_3.setWidget(3, QtGui.QFormLayout.FieldRole, self.txtNickname)
+        self.txtNewNickname = QtGui.QLineEdit(self.login_register)
+        self.txtNewNickname.setAutoFillBackground(False)
+        self.txtNewNickname.setObjectName(_fromUtf8("txtNewNickname"))
+        self.formLayout_3.setWidget(3, QtGui.QFormLayout.FieldRole, self.txtNewNickname)
         self.label_9 = QtGui.QLabel(self.login_register)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Yu Gothic UI"))
@@ -427,7 +427,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Terminator Two"))
         font.setPointSize(12)
         self.lblGalaxyNameJoinMulti.setFont(font)
-        self.lblGalaxyNameJoinMulti.setAutoFillBackground(True)
+        self.lblGalaxyNameJoinMulti.setAutoFillBackground(False)
         self.lblGalaxyNameJoinMulti.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.lblGalaxyNameJoinMulti.setObjectName(_fromUtf8("lblGalaxyNameJoinMulti"))
         self.verticalLayout_10.addWidget(self.lblGalaxyNameJoinMulti)
@@ -626,7 +626,7 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Terminator Two"))
         font.setPointSize(12)
         self.lblGalaxyNameContMulti.setFont(font)
-        self.lblGalaxyNameContMulti.setAutoFillBackground(True)
+        self.lblGalaxyNameContMulti.setAutoFillBackground(False)
         self.lblGalaxyNameContMulti.setStyleSheet(_fromUtf8("background-color: rgb(0, 0, 0);"))
         self.lblGalaxyNameContMulti.setObjectName(_fromUtf8("lblGalaxyNameContMulti"))
         self.verticalLayout_11.addWidget(self.lblGalaxyNameContMulti)
@@ -719,7 +719,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Cosmica Launcher", None))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:48pt; color:#ffaa00;\">C O S M I C A</span></p></body></html>", None))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">LOGIN</span></p></body></html>", None))
-        self.label.setText(_translate("MainWindow", "Enter Email Address:", None))
+        self.label.setText(_translate("MainWindow", "Enter Nickname:", None))
         self.label_2.setText(_translate("MainWindow", "Enter Password:", None))
         self.btnLogin.setText(_translate("MainWindow", "Login to NeuroJump Servers", None))
         self.label_31.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-weight:600; color:#ffaaff;\">OPTIONS</span></p></body></html>", None))

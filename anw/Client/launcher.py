@@ -82,7 +82,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.email = ''
         self.nickname = ''
         self.myInfo = {}
-        f = open("neurojump.info", "r")
+        f = open('neurojump.info', 'r')
         self.serverAddress = f.read()
         self.gamesICanJoin = []
         self.selectedGameToJoin = 0
@@ -277,9 +277,25 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             server = ServerProxy(self.serverAddress)
             result = server.join_multiplayer_game(self.myInfo, gameID)
             if result == 1:
+                # check if a local connection overides the neurojump address for this user
+                address = ''
+                try:
+                    f = open('connections.info', 'r')
+                    li = f.read()
+                    li = li.split(',')
+                    for idx, elem in enumerate(li):
+                        thiselem = elem
+                        nextelem = li[(idx + 1) % len(li)]
+                        if thiselem == gameInfo[1]:
+                            address = nextelem
+                except:
+                    pass
+                
+                if address == '':
+                    address = gameInfo[3]
                 # run game
                 runner = run.COSMICARunner(galaxy=gameInfo[1], serverPort=None, empire=gameInfo[6], password=gameInfo[7],
-                                       remoteServer=gameInfo[3], startSinglePlayerServer=False, fullscreen=self.fullscreen, resolution=self.resolution)
+                                       remoteServer=address, startSinglePlayerServer=False, fullscreen=self.fullscreen, resolution=self.resolution)
                 runner.start()
                 self.exit_launcher()
             else:
@@ -386,17 +402,17 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             pass
         
     def register_user(self):
-        self.myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNickname.text()), 'password':str(self.txtNewPassword.text())}
+        self.myInfo = {'email':str(self.txtNewEmail.text()), 'nickname':str(self.txtNewNickname.text()), 'password':str(self.txtNewPassword.text())}
         server = ServerProxy(self.serverAddress)
         result = server.register_new_player(self.myInfo)
         if result == 1:
             self.mainMenu.setCurrentIndex(1)
-            self.message("Welcome to Cosmica %s" % str(self.txtNickname.text()))
+            self.message("Welcome to Cosmica %s, your registered email is: %s" % (str(self.txtNewNickname.text()), str(self.txtNewEmail.text())))
         else:
             self.message("Error in Registration: %s" % result)      
             
     def login_user(self):
-        self.myInfo = {'email':str(self.txtEmail.text()), 'password':str(self.txtPassword.text())}
+        self.myInfo = {'nickname':str(self.txtNickname.text()), 'password':str(self.txtPassword.text())}
         server = ServerProxy(self.serverAddress)
         result = server.login_player(self.myInfo)
         if len(result) == 4:
@@ -404,8 +420,8 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.email = result[1]
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
-            self.myInfo['nickname'] = self.nickname
-            self.message('Welcome to Cosmica %s' % self.nickname)
+            self.myInfo['email'] = self.email
+            self.message('Welcome to Cosmica %s, your registered email is: %s' % (self.nickname, self.email))
         else:
             self.message('Login Error: %s' % result)
     
