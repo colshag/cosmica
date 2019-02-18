@@ -39,7 +39,8 @@ class COSMICAServer(xmlrpc.XMLRPC):
         self.savingGalaxyFlag = [] # keep track of galaxies saving to disk
         self.endRoundGalaxyFlag = [] # keep track of galaxies going through endRound  
         self.lp = None
-        self.serverAddress = 'http://localhost:8090/' 
+        f = open("neurojump.info", "r")
+        self.serverAddress = f.read()
 
     def runServer(self, port, galaxyName=None, singleplayer=0):
         """run the Server"""
@@ -56,7 +57,6 @@ class COSMICAServer(xmlrpc.XMLRPC):
             myEmpire = myGalaxy.empires[empireID]
             if myEmpire.password <> "" and myEmpire.ai == 0:
                 subject = '%s - GAME HAS BEGUN' % galaxyName
-                login = "python run.py --galaxy %s --empireid %s --empirepass %s --remoteserver http://neurojump.hopto.org:%s --clientonly" % (galaxyName, empireID, myEmpire.password, myGalaxy.serverPort)
                 message = "Welcome to Cosmica, your first game has begun. Please log into the Neurjump Servers and Choose to Join a multiplayer game, select %s and launch the game to start playing!" % galaxyName
                 self.sendSMTPMail(galaxyName, myEmpire.player, subject, message)
 

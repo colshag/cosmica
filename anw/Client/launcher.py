@@ -82,7 +82,8 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.email = ''
         self.nickname = ''
         self.myInfo = {}
-        self.serverAddress = 'http://localhost:8090/'
+        f = open("neurojump.info", "r")
+        self.serverAddress = f.read()
         self.gamesICanJoin = []
         self.selectedGameToJoin = 0
         self.serversIAmHosting = []
