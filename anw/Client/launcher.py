@@ -198,7 +198,6 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     
     def lstChooseServerContMulti_clicked(self, index):
         # load selected game info
-        # G.id, G.galaxyname, G.mapname, G.ipaddress, G.roundnum, G.version
         self.selectedServerToCont = index.row()
         gameInfo = self.serversIAmHosting[index.row()]
         

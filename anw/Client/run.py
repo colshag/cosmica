@@ -40,7 +40,8 @@ class COSMICARunner(object):
         self.playerList = playerList
         self.playerGenData = playerGenData
         if tutorial == True:
-            globals.isTutorial = True        
+            globals.isTutorial = True
+            self.mapfile = '1player-tutorial.map'
 
     def performSinglePlayerSetup(self):
         process = None

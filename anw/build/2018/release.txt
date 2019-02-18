@@ -3,6 +3,10 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.20.20190218
+===================================
+- first release of actual launcher for Cosmica. Game now has one launcher to play singleplayer, multiplayer, or host games.
+
 0.17.20190121
 ===================================
 - fixed bug in ship design, game would not allow player to label ship design properly

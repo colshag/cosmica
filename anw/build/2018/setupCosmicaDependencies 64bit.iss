@@ -33,9 +33,11 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Source: "E:\development\COSMICA\anw\build\2018\Panda3D-SDK-1.9.4-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
 Source: "E:\development\COSMICA\anw\build\2018\Twisted-15.3.0.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
 Source: "E:\development\COSMICA\anw\build\2018\zope.interface-4.1.3.win32-py2.7.exe"; DestDir: "{win}"; Flags: ignoreversion
+Source: "E:\development\COSMICA\anw\build\2018\PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x64.exe"; DestDir: "{win}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Run]
 Filename: "{app}\Panda3D-SDK-1.9.4-x64.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
-Filename: "{app}\Twisted-15.3.0.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
-Filename: "{app}\zope.interface-4.1.3.win32-py2.7.exe"; StatusMsg: "Installing Panda 3D"; Flags: skipifsilent
+Filename: "{app}\Twisted-15.3.0.win32-py2.7.exe"; StatusMsg: "Installing Twisted"; Flags: skipifsilent
+Filename: "{app}\zope.interface-4.1.3.win32-py2.7.exe"; StatusMsg: "Installing Zope"; Flags: skipifsilent
+Filename: "{app}\PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x64.exe"; StatusMsg: "Installing Qt"; Flags: skipifsilent

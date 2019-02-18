@@ -1294,7 +1294,7 @@ class Galaxy(root.Root):
             
             for empireID, myEmpire in self.empires.iteritems():
                 if empireID != '0' and myEmpire.alive == 1 and self.currentRound > 0:
-                    ##resultsList.append('%s(%s) - calculateExperience:%s' % (myEmpire.name, empireID, myEmpire.calculateExperience()))
+                    resultsList.append('%s(%s) - calculateExperience:%s' % (myEmpire.name, empireID, myEmpire.calculateExperience()))
                     self.mailMarketReport(empireID)
             
             # reset galaxy data

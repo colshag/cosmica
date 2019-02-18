@@ -926,7 +926,7 @@ class COSMICAServer(xmlrpc.XMLRPC):
                         #self.writeGameStatus()
                         try:
                             server = ServerProxy(self.serverAddress)
-                            result = server.end_empire_turn(myGalaxy.name, myEmpire.id)
+                            neuro_result = server.end_empire_turn(myGalaxy.name, myEmpire.id)
                             self._Log('empire %s has logged turn end in Neurojump servers for %s' % (myEmpire.id, myGalaxy.name))
                         except:
                             pass   
@@ -945,10 +945,14 @@ class COSMICAServer(xmlrpc.XMLRPC):
             return s
 
     def xmlrpc_endRound(self, clientKey):
-        """End the Empires round of play"""
+        """End the round"""
         try:
             if self._ValidateKey(clientKey) == 1:
                 myGalaxy = self.galaxies[clientKey['galaxyName']]
+                server = ServerProxy(self.serverAddress)
+                newRoundNum = myGalaxy.currentRound + 1
+                neuro_result = server.end_round(myGalaxy.name, newRoundNum)
+                self._Log('%s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))                            
                 return endRound(self, myGalaxy.name)
             else:
                 s = 'invalid key: cannot endRound'
