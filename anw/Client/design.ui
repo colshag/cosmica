@@ -58,7 +58,10 @@
      <widget class="QLabel" name="label_3">
       <property name="font">
        <font>
-        <family>Terminator Two</family>
+        <family>Arial Black</family>
+        <pointsize>48</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -114,14 +117,14 @@
            <widget class="QLabel" name="label">
             <property name="font">
              <font>
-              <family>Yu Gothic UI</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Enter Nickname:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00aaff;&quot;&gt;Enter Nickname:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -136,14 +139,14 @@
            <widget class="QLabel" name="label_2">
             <property name="font">
              <font>
-              <family>Yu Gothic UI</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Enter Password:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#00aaff;&quot;&gt;Enter Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -161,10 +164,10 @@
            <widget class="QPushButton" name="btnLogin">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
-              <pointsize>9</pointsize>
-              <weight>50</weight>
-              <bold>false</bold>
+              <family>Arial Black</family>
+              <pointsize>8</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -209,14 +212,14 @@
            <widget class="QLabel" name="label_32">
             <property name="font">
              <font>
-              <family>Yu Gothic</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Fullscreen Resolution:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaaff;&quot;&gt;Fullscreen Resolution:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -227,11 +230,14 @@
            <widget class="QCheckBox" name="chkFullScreenMode">
             <property name="font">
              <font>
-              <family>Yu Gothic</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 170, 255);</string>
             </property>
             <property name="text">
              <string>Run in Fullscreen Mode</string>
@@ -274,14 +280,14 @@
            <widget class="QLabel" name="label_7">
             <property name="font">
              <font>
-              <family>Yu Gothic UI</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Enter Email Address:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Enter Email Address:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -296,14 +302,14 @@
            <widget class="QLabel" name="label_8">
             <property name="font">
              <font>
-              <family>Yu Gothic UI</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Enter Nickname:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Enter Nickname:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -318,14 +324,14 @@
            <widget class="QLabel" name="label_9">
             <property name="font">
              <font>
-              <family>Yu Gothic UI</family>
-              <pointsize>9</pointsize>
+              <family>Arial Black</family>
+              <pointsize>10</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="text">
-             <string>Enter Password:</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ffaa00;&quot;&gt;Enter Password:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
            </widget>
           </item>
@@ -343,10 +349,10 @@
            <widget class="QPushButton" name="btnRegister">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
-              <pointsize>9</pointsize>
-              <weight>50</weight>
-              <bold>false</bold>
+              <family>Arial Black</family>
+              <pointsize>8</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -366,8 +372,10 @@
            <widget class="QLabel" name="label_5">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -385,8 +393,10 @@
            <widget class="QPushButton" name="btnLoadNewSingle">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -398,8 +408,10 @@
            <widget class="QPushButton" name="btnLoadContSingle">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -415,8 +427,10 @@
            <widget class="QLabel" name="label_10">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -434,8 +448,10 @@
            <widget class="QPushButton" name="btnLoadJoinMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -447,8 +463,10 @@
            <widget class="QPushButton" name="btnLoadHostMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -460,8 +478,10 @@
            <widget class="QPushButton" name="btnLoadContMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -487,8 +507,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -507,8 +529,10 @@
            <widget class="QLabel" name="label_12">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -526,11 +550,14 @@
            <widget class="QCheckBox" name="chkTutorialMode">
             <property name="font">
              <font>
-              <family>Yu Gothic</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 170, 0);</string>
             </property>
             <property name="text">
              <string>tutorial Mode Enabled?</string>
@@ -541,8 +568,10 @@
            <widget class="QPushButton" name="btnNewSingle">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -554,8 +583,10 @@
            <widget class="QPushButton" name="btnBackNewSingle">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -602,8 +633,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>16</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -620,8 +653,10 @@
              <widget class="QLabel" name="label_14">
               <property name="font">
                <font>
-                <family>Terminator Two</family>
+                <family>Arial Black</family>
                 <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="styleSheet">
@@ -639,8 +674,10 @@
              <widget class="QPushButton" name="btnContSingle">
               <property name="font">
                <font>
-                <family>RowdyHeavy</family>
+                <family>Arial Black</family>
                 <pointsize>9</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -652,8 +689,10 @@
              <widget class="QPushButton" name="btnBackContSingle">
               <property name="font">
                <font>
-                <family>RowdyHeavy</family>
+                <family>Arial Black</family>
                 <pointsize>9</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -694,8 +733,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -713,8 +754,10 @@
            <widget class="QLabel" name="lblVersionJoinMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -732,8 +775,10 @@
            <widget class="QLabel" name="lblMapNameJoinMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -751,8 +796,10 @@
            <widget class="QLabel" name="lblAddressJoinMulti">
             <property name="font">
              <font>
-              <family>Microsoft PhagsPa</family>
+              <family>Arial Black</family>
               <pointsize>8</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -770,8 +817,10 @@
            <widget class="QLabel" name="lblRoundNumJoinMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -789,8 +838,10 @@
            <widget class="QLabel" name="lblEmpireNameJoinMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -808,8 +859,10 @@
            <widget class="QLabel" name="lblTurnStatusJoinMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -837,8 +890,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -856,8 +911,10 @@
            <widget class="QPushButton" name="btnJoinMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -869,8 +926,10 @@
            <widget class="QPushButton" name="btnBackJoinMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -890,8 +949,10 @@
           </property>
           <property name="font">
            <font>
-            <family>Terminator Two</family>
+            <family>Arial Black</family>
             <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
@@ -918,8 +979,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -962,8 +1025,10 @@
            <widget class="QLabel" name="label_23">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -981,8 +1046,10 @@
            <widget class="QLabel" name="lblAddressNewMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -1000,8 +1067,10 @@
            <widget class="QPushButton" name="btnStartNewMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -1013,8 +1082,10 @@
            <widget class="QPushButton" name="btnBackNewMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -1034,8 +1105,10 @@
           </property>
           <property name="font">
            <font>
-            <family>Terminator Two</family>
+            <family>Arial Black</family>
             <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
@@ -1062,8 +1135,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -1081,8 +1156,10 @@
            <widget class="QLabel" name="lblVersionContMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -1100,8 +1177,10 @@
            <widget class="QLabel" name="lblMapNameContMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -1119,8 +1198,10 @@
            <widget class="QLabel" name="lblRoundNumContMulti">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="autoFillBackground">
@@ -1148,8 +1229,10 @@
             </property>
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>12</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -1167,8 +1250,10 @@
            <widget class="QLabel" name="label_29">
             <property name="font">
              <font>
-              <family>Terminator Two</family>
+              <family>Arial Black</family>
               <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
@@ -1186,8 +1271,10 @@
            <widget class="QPushButton" name="btnContMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -1199,8 +1286,10 @@
            <widget class="QPushButton" name="btnBackContMulti">
             <property name="font">
              <font>
-              <family>RowdyHeavy</family>
+              <family>Arial Black</family>
               <pointsize>9</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -1220,8 +1309,10 @@
           </property>
           <property name="font">
            <font>
-            <family>Terminator Two</family>
+            <family>Arial Black</family>
             <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
