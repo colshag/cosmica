@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Tue Feb 19 13:31:34 2019
+# Created: Thu Feb 21 19:55:37 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(980, 851)
+        MainWindow.resize(1000, 586)
         MainWindow.setAutoFillBackground(True)
         MainWindow.setStyleSheet(_fromUtf8("#centralwidget {\n"
 "    background-image: url(:/images/background.png);\n"
@@ -64,15 +64,6 @@ class Ui_MainWindow(object):
         self.formLayout = QtGui.QFormLayout(self.centralwidget)
         self.formLayout.setFieldGrowthPolicy(QtGui.QFormLayout.AllNonFixedFieldsGrow)
         self.formLayout.setObjectName(_fromUtf8("formLayout"))
-        self.label_3 = QtGui.QLabel(self.centralwidget)
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Arial Black"))
-        font.setPointSize(48)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label_3.setFont(font)
-        self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.label_3)
         self.mainMenu = QtGui.QStackedWidget(self.centralwidget)
         self.mainMenu.setMinimumSize(QtCore.QSize(0, 0))
         self.mainMenu.setStyleSheet(_fromUtf8(""))
@@ -796,6 +787,15 @@ class Ui_MainWindow(object):
         self.horizontalLayout_8.addWidget(self.label_27)
         self.mainMenu.addWidget(self.continue_multi)
         self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.mainMenu)
+        self.label_3 = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Arial Black"))
+        font.setPointSize(36)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.label_3)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -804,7 +804,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Cosmica Launcher", None))
-        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:48pt; color:#ffaa00;\">C O S M I C A</span></p></body></html>", None))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">LOGIN</span></p></body></html>", None))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00aaff;\">Enter Nickname:</span></p></body></html>", None))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00aaff;\">Enter Password:</span></p></body></html>", None))
@@ -846,7 +845,7 @@ class Ui_MainWindow(object):
         self.label_16.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Join a</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))
         self.label_26.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Request Players</span></p><p align=\"center\"><span style=\" color:#00aaff;\">(neuroJump Nicknames)</span></p></body></html>", None))
         self.label_23.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Choose a Map</span></p></body></html>", None))
-        self.lblAddressNewMulti.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Address:</span></p><p align=\"center\"><span style=\" color:#00aaff;\">(http://address:port)</span></p></body></html>", None))
+        self.lblAddressNewMulti.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Server IP Address:</span></p><p align=\"center\"><span style=\" color:#00aaff;\">address:port</span></p></body></html>", None))
         self.btnStartNewMulti.setText(_translate("MainWindow", "Start New Multiplayer Server", None))
         self.btnBackNewMulti.setText(_translate("MainWindow", "Go Back", None))
         self.label_22.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Start a New </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">MultiPlayer </span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))
@@ -855,9 +854,10 @@ class Ui_MainWindow(object):
         self.lblMapNameContMulti.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#000000;\">Map Name</span></p></body></html>", None))
         self.lblRoundNumContMulti.setText(_translate("MainWindow", "Round:", None))
         self.label_28.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#00aaff;\">Choose Server</span></p></body></html>", None))
-        self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">CHANGE Address:</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">(http://address:port)</span></p></body></html>", None))
+        self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Change IP Address:</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">address:port</span></p></body></html>", None))
         self.btnContMulti.setText(_translate("MainWindow", "Continue Multiplayer Server", None))
         self.btnBackContMulti.setText(_translate("MainWindow", "Go Back", None))
         self.label_27.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Continue</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Running</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">a Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">ServeR</span></p></body></html>", None))
+        self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
 
 import resources_rc

@@ -3,9 +3,10 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
-0.20.20190218
+0.20.20190221
 ===================================
 - first release of actual launcher for Cosmica. Game now has one launcher to play singleplayer, multiplayer, or host games.
+- some minor bug fixes to launcher, better splash screen
 
 0.17.20190121
 ===================================

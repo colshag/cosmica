@@ -150,7 +150,9 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         myNewList = []
         for line in myList:
             line = line[12:]
-            myNewList.append(line)
+            if line in ['COSMICA1','COSMICA2','COSMICA3','COSMICA4','COSMICA5',
+                        'COSMICA6','COSMICA7','COSMICA8','COSMICA9','COSMICA10']:
+                myNewList.append(line)
         return myNewList
     
     def getAvailableDatabaseNameOnDisk(self):
@@ -206,7 +208,9 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.lblGalaxyNameContMulti.setStyleSheet('color: #FFFFFF; background-color: #4075CC;')
         self.lblMapNameContMulti.setText(gameInfo[2])
         self.lblMapNameContMulti.setStyleSheet('color: cyan; background-color: black;')
-        self.txtAddressContMulti.setText(gameInfo[3])
+        if 'http://' in gameInfo[3]:
+            address = gameInfo[3][7:]
+        self.txtAddressContMulti.setText(address)
         self.lblRoundNumContMulti.setText('ROUND: %s' % gameInfo[4])
         self.lblRoundNumContMulti.setStyleSheet('color: yellow; background-color: black;')
         self.lblVersionContMulti.setText(gameInfo[5])
@@ -333,7 +337,9 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.message('You have chosen %d players for a map of max size of %d players, choose a larger map or remove some players' % (len(nicknames), int(self.selectedMapName[:1])))
             return
         server = ServerProxy(self.serverAddress)
-        result = server.create_new_game(self.myInfo, nicknames, str(self.txtAddressNewMulti.text()), self.selectedMapName)
+        newAddress = str(self.txtAddressNewMulti.text())
+        newAddress = 'http://' + newAddress
+        result = server.create_new_game(self.myInfo, nicknames, newAddress, self.selectedMapName)
         # result should return ('GALAXYNAME', [email1@email.com,email2@email.com,...])
         # determine which players will be in what empireID and what password, send to server so players can log in properly.
         
@@ -390,6 +396,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             gameID = gameInfo[0]
             server = ServerProxy(self.serverAddress)
             newAddress = str(self.txtAddressContMulti.text())
+            newAddress = 'http://' + newAddress
             result = server.cont_multiplayer_server(self.myInfo, gameID, newAddress)
             if result == 1:
                 # run server
