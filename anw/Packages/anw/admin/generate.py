@@ -111,7 +111,7 @@ class GenerateGalaxy(object):
             self.genEmpire(0)
             s = range(1,8)
             random.shuffle(s)
-            empireList = self.playerGenData.keys()
+            
             for i in range(1,self.myGalaxy.numEmpires):
                 email = playerList.pop(0)
                 if email == 'ai':
@@ -121,7 +121,10 @@ class GenerateGalaxy(object):
                             empireID = myID
                             break
                 else:
-                    empireID = empireList.pop(0)
+                    for empireID, playerGenData in self.playerGenData.iteritems():
+                        if playerGenData['email'] == email:
+                            break
+                        
                 randomEmpires[str(i)] = int(empireID)
                 self.genEmpire(int(empireID), email, singleplayer=0)               
                 

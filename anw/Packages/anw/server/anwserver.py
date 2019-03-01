@@ -981,6 +981,8 @@ class COSMICAServer(xmlrpc.XMLRPC):
             result = self._ValidateLogin(loginKey)
             if result == 1:
                 myGalaxy = self.galaxies[loginKey['galaxyName']]
+
+
                 myEmpire = myGalaxy.empires[loginKey['empireID']]
     
                 # update empire login info
