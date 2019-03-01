@@ -46,10 +46,6 @@ defaultIndustry = {
     '36':4,# intellegent marine installation (8)
     '39':3,# intellegent warp gate (3)
     } #total (40/40)
-    
-startingTech = []
-for i in range(170):    
- startingTech.append(i)
 
 # Neutral ships
 ## include commonmap.data

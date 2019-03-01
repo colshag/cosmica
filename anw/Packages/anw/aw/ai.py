@@ -153,9 +153,9 @@ class AIPlayer(root.Root):
     def setLog(self, message):
         """Set a log message for this AI player"""
         myInfo = 'ROUND(%d):%s:' % (self.myGalaxy.currentRound, self.name)
-        file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
-        file_object.write(myInfo+message+'\n')
-        file_object.close()
+        #file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
+        #file_object.write(myInfo+message+'\n')
+        #file_object.close()
         
     def doMyTurn(self):
         """Do the AI round of decisions"""

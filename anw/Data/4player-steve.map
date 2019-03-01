@@ -49,11 +49,6 @@ defaultIndustry = {'14':1,# advanced design center (1)
        '26':1, #advanced fleet academy (1)
        } #total (40/40)
 
-# this sets technology to start in the third age
-startingTech = []
-for i in range(170):    
- startingTech.append(i)
-
  
 # Neutral ships
 ## include commonmap.data

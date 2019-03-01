@@ -11,6 +11,7 @@
 numEmpires = 3
 startingCredits = 200000
 #Credits & Market settings from commonmap.data
+speedstart = 0
 
 genSystemsLegend = {
   'a': ('0', 5), # neutral player

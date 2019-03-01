@@ -56,8 +56,6 @@ defaultIndustry = {'13':1,# basic design center
                    '34':3# basic marine installation
                    }
 
-startingTech = [0,1,2,3,5,6,7,8,10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,29,37,38,39,40,53,67]
-
 neutralShips = {
   5:['1','2'],			# 100% HCO
   10:['1','2'],		# 87.5% HCO, 12.5% Frigate

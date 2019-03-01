@@ -41,10 +41,6 @@ defaultIndustry = {'14':1,# advanced design center (1)
        '2':15, #advanced alloy factory(15)
        '26':1, #advanced fleet academy (1)
        } #total (40/40)
-	  
-startingTech = []
-for i in range(170):    
- startingTech.append(i)
 
 # Neutral ships
 ## include commonmap.data
