@@ -153,9 +153,9 @@ class AIPlayer(root.Root):
     def setLog(self, message):
         """Set a log message for this AI player"""
         myInfo = 'ROUND(%d):%s:' % (self.myGalaxy.currentRound, self.name)
-        #file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
-        #file_object.write(myInfo+message+'\n')
-        #file_object.close()
+        file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
+        file_object.write(myInfo+message+'\n')
+        file_object.close()
         
     def doMyTurn(self):
         """Do the AI round of decisions"""
@@ -167,7 +167,75 @@ class AIPlayer(root.Root):
         self.doMySystemBuilds()
         self.updateCityFocus()
         self.depotOrders()
+        self.buildMarines()
+        self.buildShips()
+        self.moveShips()
+        self.moveMarines()
+        
+    def MoveShips(self):
+        #scan all enemy planets distance from my fleet/army (use distance x,y)
+        #find the closest ones
+        #for each one that is closest (randomly choose, iteritems):
+            #is it not adjacent?
+                #find the nearest friendly planet going in that direction:
+                    #use A* ?
+                        #fly there to the nearest planet.
+        
+            #it is adjacent!
+                #determine if I should attack
+                    #check all of my fleets adjacent (that have not moved already):
+                        #if they are together >= planet fleet strength (use AI agressiveness)
+                            #move Just enough (use AI agressiveness)
+                    #check all of my armies adjacent (that have not moved already):
+                        #if they are together >= planet army strength (use AI agressiveness)
+                            #move Just enough (use AI agressiveness)        
+        pass
+
+    def MoveMarines(self):
+        #scan all enemy planets distance from my fleet/army (use distance x,y)
+        #find the closest ones
+        #for each one that is closest (randomly choose, iteritems):
+            #is it not adjacent?
+                #find the nearest friendly planet going in that direction:
+                    #use A* ?
+                        #fly there to the nearest planet.
+        
+            #it is adjacent!
+                #determine if I should attack
+                    #check all of my fleets adjacent (that have not moved already):
+                        #if they are together >= planet fleet strength (use AI agressiveness)
+                            #move Just enough (use AI agressiveness)
+                    #check all of my armies adjacent (that have not moved already):
+                        #if they are together >= planet army strength (use AI agressiveness)
+                            #move Just enough (use AI agressiveness)        
+        pass
     
+    def buildShips(self):
+        if self.round > 6:
+            for systemID, mySystem in self.myGalaxy.systems.iteritems():
+                if mySystem.myEmpireID == self.myEmpireID and self.myEmpire.CR > 200000:
+                    result = 1
+                    while result == 1:
+                        s = random.choice(['11','10','9'])
+                        dOrder = {'type':'Add Ship', 'value':'1-%s' % s,
+                                  'system':systemID, 'round':self.round}
+                        result = self.myEmpire.genIndustryOrder(dOrder)
+                        if result == 1:
+                            self.setLog('BUILDSHIP: name:%s, round:%d' % (mySystem.name, self.round))
+                
+    def buildMarines(self):
+        if self.round > 6 and self.myEmpire.CR > 200000:
+            for systemID, mySystem in self.myGalaxy.systems.iteritems():
+                if mySystem.myEmpireID == self.myEmpireID and self.myEmpire.CR > 200000:
+                    result = 1
+                    while result == 1:
+                        s = random.choice(['10','7','4'])
+                        dOrder = {'type':'Add Regiment', 'value':'1-%s' % s,
+                                  'system':systemID, 'round':self.round}
+                        result = self.myEmpire.genIndustryOrder(dOrder)
+                        if result == 1:
+                            self.setLog('BUILDMARINE: name:%s, round:%d' % (mySystem.name, self.round))
+
     def reset(self):
         """Reset AI assessments from last round"""
         self.resetMySystems()
