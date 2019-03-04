@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'design.ui'
 #
-# Created: Thu Feb 21 19:55:37 2019
+# Created: Sun Mar 03 19:26:53 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -786,16 +786,25 @@ class Ui_MainWindow(object):
         self.label_27.setObjectName(_fromUtf8("label_27"))
         self.horizontalLayout_8.addWidget(self.label_27)
         self.mainMenu.addWidget(self.continue_multi)
-        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.mainMenu)
+        self.formLayout.setWidget(3, QtGui.QFormLayout.FieldRole, self.mainMenu)
         self.label_3 = QtGui.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial Black"))
-        font.setPointSize(36)
+        font.setPointSize(28)
         font.setBold(True)
         font.setWeight(75)
         self.label_3.setFont(font)
         self.label_3.setObjectName(_fromUtf8("label_3"))
         self.formLayout.setWidget(1, QtGui.QFormLayout.FieldRole, self.label_3)
+        self.lblVersion = QtGui.QLabel(self.centralwidget)
+        font = QtGui.QFont()
+        font.setFamily(_fromUtf8("Arial Black"))
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.lblVersion.setFont(font)
+        self.lblVersion.setObjectName(_fromUtf8("lblVersion"))
+        self.formLayout.setWidget(2, QtGui.QFormLayout.FieldRole, self.lblVersion)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -857,7 +866,8 @@ class Ui_MainWindow(object):
         self.label_29.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Change IP Address:</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">address:port</span></p></body></html>", None))
         self.btnContMulti.setText(_translate("MainWindow", "Continue Multiplayer Server", None))
         self.btnBackContMulti.setText(_translate("MainWindow", "Go Back", None))
-        self.label_27.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Continue</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Running</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">a Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">ServeR</span></p></body></html>", None))
+        self.label_27.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffaa00;\">Continue</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Running</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">a Multiplayer</span></p><p align=\"center\"><span style=\" color:#ffaa00;\">Server</span></p></body></html>", None))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>", None))
+        self.lblVersion.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffff00;\">Version: </span></p></body></html>", None))
 
 import resources_rc

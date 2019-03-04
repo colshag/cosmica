@@ -54,19 +54,22 @@ class MainMenuButtons(RootButton):
     
     def writeTextRoundEnds(self):
         """Write when the round will auto-end"""
-        if self.textRoundEnds != None:
-            self.removeMyWidget(self.textRoundEnds)
-        if self.mode.game.myEmpire['roundComplete'] == 0:
-            text = 'PLEASE FINISH YOUR TURN\nROUND AUTO ENDS IN %d HRS' % self.game.myGalaxy['currentHoursLeft']
-            color = 'guiyellow'
-        else:
-            text = 'THANKS FOR ENDING TURN\nROUND AUTO ENDS IN %d HRS' % self.game.myGalaxy['currentHoursLeft']
-            color = 'guigreen'
-        self.textRoundEnds = textonscreen.TextOnScreen(self.path, text,
-                                                   scale=0.03, font=5, parent=aspect2d)
-        self.textRoundEnds.writeTextToScreen(-1.0, -0.05, 0.92, 30)
-        self.textRoundEnds.setColor(globals.colors[color])
-        self.myWidgets.append(self.textRoundEnds)
+        try:
+            if self.textRoundEnds != None:
+                self.removeMyWidget(self.textRoundEnds)
+            if self.mode.game.myEmpire['roundComplete'] == 0:
+                text = 'PLEASE FINISH YOUR TURN\nROUND AUTO ENDS IN %d HRS' % self.game.myGalaxy['currentHoursLeft']
+                color = 'guiyellow'
+            else:
+                text = 'THANKS FOR ENDING TURN\nROUND AUTO ENDS IN %d HRS' % self.game.myGalaxy['currentHoursLeft']
+                color = 'guigreen'
+            self.textRoundEnds = textonscreen.TextOnScreen(self.path, text,
+                                                       scale=0.03, font=5, parent=aspect2d)
+            self.textRoundEnds.writeTextToScreen(-1.0, -0.05, 0.92, 30)
+            self.textRoundEnds.setColor(globals.colors[color])
+            self.myWidgets.append(self.textRoundEnds)
+        except:
+            pass
         
     def createEmpireSim(self):
         """Display Empire Symbol"""

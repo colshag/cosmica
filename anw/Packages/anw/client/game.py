@@ -134,16 +134,17 @@ class COSMICAGame:
             self.dronehulldata = data['dronehulldata']
             self.regimentdata = data['regimentdata']
             self.industrydata = data['industrydata']
-            try:
-                tutorialInfo = storedata.loadFromFile('%s/tutorial.data' % self.app.path)
-                if tutorialInfo['tutorialGame'] == self.app.galaxy:
-                    globals.isTutorial = True
-                    globals.tutorialStep = tutorialInfo['tutorialStep']
-                    globals.tutorialStepComplete = tutorialInfo['tutorialStepComplete']
-            except:
-                if globals.isTutorial == True:
-                    globals.tutorialStep = 0
-                    globals.tutorialStepComplete = False
+            if globals.serverMode == 0:
+                try:
+                    tutorialInfo = storedata.loadFromFile('%s/tutorial.data' % self.app.path)
+                    if tutorialInfo['tutorialGame'] == self.app.galaxy:
+                        globals.isTutorial = True
+                        globals.tutorialStep = tutorialInfo['tutorialStep']
+                        globals.tutorialStepComplete = tutorialInfo['tutorialStepComplete']
+                except:
+                    if globals.isTutorial == True:
+                        globals.tutorialStep = 0
+                        globals.tutorialStepComplete = False
         except TypeError:
             pass
         

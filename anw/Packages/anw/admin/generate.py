@@ -45,6 +45,8 @@ class GenerateGalaxy(object):
         self.myGalaxy.serverPort = serverPort
         self.saveClientData()
         if self.myGalaxy.speedstart == 1:
+            serverMode = globals.serverMode
+            globals.serverMode = 1
             # special setup where map is zoomed ahead 5 turns with AI doing the moves
             oldAI = {}
             for empireID, myEmpire in self.myGalaxy.empires.iteritems():
@@ -57,6 +59,7 @@ class GenerateGalaxy(object):
             for empireID, myEmpire in self.myGalaxy.empires.iteritems():
                 myEmpire.ai = oldAI[empireID]
             self.myGalaxy.endRound(doAITurn=1)
+            globals.serverMode = serverMode
     
     def saveClientData(self):
         """Save the client Data"""

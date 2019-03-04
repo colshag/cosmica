@@ -9,9 +9,9 @@ import random
 import string
 from anw.func import root, funcs, globals, storedata
 
-ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2},
-            {'type':'2', 'name':'montgomery', 'tech':25, 'minthreat':0.6},
-            {'type':'3', 'name':'yamato', 'tech':10, 'minthreat':0.8}
+ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2, 'aggressiveness':0.9},
+            {'type':'2', 'name':'montgomery', 'tech':20, 'minthreat':0.6, 'aggressiveness':0.5},
+            {'type':'3', 'name':'yamato', 'tech':20, 'minthreat':0.8, 'aggressiveness':0.7}
             ]
 
 ai_builds_techreq = {'misc': [ ['1'], ['107','111'] ],
@@ -106,6 +106,7 @@ class AIPlayer(root.Root):
         self.name = str() # Name of AI
         self.tech = int() # Initial tech that AI player will add to each tech item
         self.minthreat = float() # minimum threat AI player will tolerate on border planets before they go defensive
+        self.aggressiveness = float() # how aggressive the ai is for attacking
         self.defaultAttributes = ('id', 'type', 'name', 'tech')
         self.setAttributes(args)
         self.mySystemOrders = {} # key = systemID, value = system assessment and orders for round
@@ -138,6 +139,7 @@ class AIPlayer(root.Root):
         self.name = myAI['name']
         self.tech = myAI['tech']
         self.minthreat = myAI['minthreat']
+        self.aggressiveness = myAI['aggressiveness']
     
     def setMyGalaxy(self, galaxyObject):
         """Set the Galaxy Object Owner of this AI Player"""
@@ -153,9 +155,9 @@ class AIPlayer(root.Root):
     def setLog(self, message):
         """Set a log message for this AI player"""
         myInfo = 'ROUND(%d):%s:' % (self.myGalaxy.currentRound, self.name)
-        file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
-        file_object.write(myInfo+message+'\n')
-        file_object.close()
+        #file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
+        #file_object.write(myInfo+message+'\n')
+        #file_object.close()
         
     def doMyTurn(self):
         """Do the AI round of decisions"""
@@ -167,61 +169,162 @@ class AIPlayer(root.Root):
         self.doMySystemBuilds()
         self.updateCityFocus()
         self.depotOrders()
+        self.moveFleets() # move before build so you don't move what you built
         self.buildMarines()
         self.buildShips()
-        self.moveShips()
-        self.moveMarines()
         
-    def MoveShips(self):
-        #scan all enemy planets distance from my fleet/army (use distance x,y)
-        #find the closest ones
-        #for each one that is closest (randomly choose, iteritems):
-            #is it not adjacent?
-                #find the nearest friendly planet going in that direction:
-                    #use A* ?
-                        #fly there to the nearest planet.
-        
-            #it is adjacent!
-                #determine if I should attack
-                    #check all of my fleets adjacent (that have not moved already):
-                        #if they are together >= planet fleet strength (use AI agressiveness)
-                            #move Just enough (use AI agressiveness)
-                    #check all of my armies adjacent (that have not moved already):
-                        #if they are together >= planet army strength (use AI agressiveness)
-                            #move Just enough (use AI agressiveness)        
-        pass
-
-    def MoveMarines(self):
-        #scan all enemy planets distance from my fleet/army (use distance x,y)
-        #find the closest ones
-        #for each one that is closest (randomly choose, iteritems):
-            #is it not adjacent?
-                #find the nearest friendly planet going in that direction:
-                    #use A* ?
-                        #fly there to the nearest planet.
-        
-            #it is adjacent!
-                #determine if I should attack
-                    #check all of my fleets adjacent (that have not moved already):
-                        #if they are together >= planet fleet strength (use AI agressiveness)
-                            #move Just enough (use AI agressiveness)
-                    #check all of my armies adjacent (that have not moved already):
-                        #if they are together >= planet army strength (use AI agressiveness)
-                            #move Just enough (use AI agressiveness)        
-        pass
+    def moveFleets(self):
+        #create a list of systems where I have ships to give them orders
+        try:
+            myFleetLocations = []
+            for shipID, myShip in self.myGalaxy.ships.iteritems():
+                if myShip.empireID == self.myEmpireID and myShip.toSystem not in myFleetLocations and myShip.fromSystem == myShip.toSystem:
+                    myFleetLocations.append(myShip.toSystem)
+            
+            for mySystemID in myFleetLocations:
+                mySystem = self.myGalaxy.systems[mySystemID]
+                targetSystems = self.findTargetSystems(mySystem)
+                if targetSystems <> []:
+                    targetSystem = random.choice(targetSystems)
+                    if targetSystem.id not in mySystem.connectedSystems:
+                        # not on the border so just pick a system to get closer
+                        closestSystems = self.moveCloserToTargetSystem(mySystem, targetSystem)
+                        if closestSystems <> []:
+                            closestSystem = random.choice(closestSystems)
+                            self.warpEverythingToSystem(closestSystem)
+                    else:
+                        # on the border so be careful what we warp to the system
+                        self.invasionAnalysis(targetSystem)
+        except:
+            self.setLog('general error moving ships and regiments, round:%d' % self.round)
     
+    def invasionAnalysis(self, targetSystem):
+        """Determine if Target System is ready for invasion"""
+        targetSystemFleetStrength = 0
+        targetSystemArmyStrength = 0
+        myConnectedFleetStrength = 0
+        myConnectedArmyStrength = 0
+        
+        targetSystemFleetStrength = self.calcFleetStrength(targetSystem, calcMyStrength=False)
+        targetSystemArmyStrength = self.calcMarineStrength(targetSystem, calcMyStrength=False)
+        
+        for systemID in targetSystem.connectedSystems:
+            connectedSystem = self.myGalaxy.systems[systemID]
+            if (connectedSystem.myEmpireID == self.myEmpireID):
+                myConnectedFleetStrength += self.calcFleetStrength(connectedSystem, calcMyStrength=True)
+                myConnectedArmyStrength += self.calcMarineStrength(connectedSystem, calcMyStrength=True)
+        
+        if myConnectedFleetStrength > targetSystemFleetStrength and myConnectedArmyStrength > targetSystemArmyStrength:
+            if self.aggressiveness >= random.random():
+                self.warpEverythingToSystem(targetSystem)
+    
+    def warpEverythingToSystem(self, targetSystem):
+        """Warp everything to the target system"""
+        shipDict = {}
+        regDict = {}
+        for shipID, myShip in self.myGalaxy.ships.iteritems():
+            if myShip.empireID == self.myEmpireID and myShip.toSystem == myShip.fromSystem and myShip.fromSystem in targetSystem.connectedSystems:
+                if myShip.fromSystem not in shipDict.keys():
+                    shipDict[myShip.fromSystem] = [shipID]
+                else:
+                    shipDict[myShip.fromSystem].append(shipID)
+        
+        for regID, myReg in self.myGalaxy.regiments.iteritems():
+            if myReg.empireID == self.myEmpireID and myReg.toSystem == myReg.fromSystem and myReg.fromSystem in targetSystem.connectedSystems:
+                if myReg.fromSystem not in regDict.keys():
+                    regDict[myReg.fromSystem] = [regID]
+                else:
+                    regDict[myReg.fromSystem].append(regID)
+        
+        if shipDict <> {}:
+            for fromSystemID, shipList in shipDict.iteritems():
+                result = self.myGalaxy.moveShips(shipList, self.myEmpireID, targetSystem.id)
+                if result == 1:
+                    self.setLog('MOVED %d SHIPS to %s, round:%d' % (len(shipList), targetSystem.name, self.round))
+                else:
+                    self.setLog('ERROR moving ships to %s, round:%d, Error: %s' % (targetSystem.name, self.round, result))
+                
+        if regDict <> {}:
+            for fromSystemID, regList in regDict.iteritems():
+                result = self.myGalaxy.moveReg(regList, self.myEmpireID, targetSystem.id)
+                if result == 1:
+                    self.setLog('MOVED %d MARINES to %s, round:%d' % (len(regList), targetSystem.name, self.round))
+                else:
+                    self.setLog('ERROR moving marines to %s, round:%d, Error: %s' % (targetSystem.name, self.round, result))
+
+    def findTargetSystems(self, mySystem):
+        """Find a target system to move to"""
+        closestSystemRange = 9999
+        closestSystems = []
+        for systemID, targetSystem in self.myGalaxy.systems.iteritems():
+            otherEmpire = self.myGalaxy.empires[targetSystem.myEmpireID]
+            if otherEmpire.id == '0' or otherEmpire.ai == 0:
+                range = funcs.getTargetRange(mySystem.x, mySystem.y, targetSystem.x, targetSystem.y)
+                if range == closestSystemRange:
+                    closestSystems.append(targetSystem)
+                elif range < closestSystemRange:
+                    closestSystems = [targetSystem]
+                    closestSystemRange = range
+        return closestSystems                
+
+    def moveCloserToTargetSystem(self, mySystem, targetSystem):
+        """decide on a system to travel to that is on the way to the target system"""
+        closestSystemRange = 9999
+        closestSystems = []
+        for id in mySystem.connectedSystems:
+            connectedSystem = self.myGalaxy.systems[id]
+            if (connectedSystem.myEmpireID == self.myEmpireID):
+                range = funcs.getTargetRange(connectedSystem.x, connectedSystem.y, targetSystem.x, targetSystem.y)
+                if range == closestSystemRange:
+                    closestSystems.append(connectedSystem)
+                elif range < closestSystemRange:
+                    closestSystems = [connectedSystem]
+                    closestSystemRange = range
+        return closestSystems
+    
+    def calcFleetStrength(self, chosenSystem, calcMyStrength=True):
+        strength = 0
+        for shipID, myShip in self.myGalaxy.ships.iteritems():
+            if myShip.toSystem == chosenSystem.id:
+                if (calcMyStrength == True and myShip.empireID == self.myEmpireID) or (calcMyStrength == False and myShip.empireID <> self.myEmpireID):
+                    strength += myShip.myDesign.myShipHull.mass
+        return strength
+    
+    def calcMarineStrength(self, chosenSystem, calcMyStrength=True):
+        strength = 0
+        for regID, myReg in self.myGalaxy.regiments.iteritems():
+            if myReg.toSystem == chosenSystem.id:
+                if (calcMyStrength == True and myReg.empireID == self.myEmpireID) or (calcMyStrength == False and myReg.empireID <> self.myEmpireID):
+                    strength += 1
+        
+        if calcMyStrength == False:
+            for dataID, amount in chosenSystem.myIndustry.iteritems():
+                myIndustryData = self.myGalaxy.industrydata[dataID]
+                if myIndustryData.abr[1:] == 'MF':
+                    strength += (myIndustryData.output * amount)
+        
+        return strength
+
     def buildShips(self):
         if self.round > 6:
             for systemID, mySystem in self.myGalaxy.systems.iteritems():
                 if mySystem.myEmpireID == self.myEmpireID and self.myEmpire.CR > 200000:
                     result = 1
                     while result == 1:
-                        s = random.choice(['11','10','9'])
+                        s = random.choice(self.getValidDesignsToBuild())
                         dOrder = {'type':'Add Ship', 'value':'1-%s' % s,
                                   'system':systemID, 'round':self.round}
                         result = self.myEmpire.genIndustryOrder(dOrder)
                         if result == 1:
                             self.setLog('BUILDSHIP: name:%s, round:%d' % (mySystem.name, self.round))
+    
+    def getValidDesignsToBuild(self):
+        designs = []
+        for designID, myShipDesign in self.myEmpire.shipDesigns.iteritems():
+            myShipDesign.setMyStatus()
+            if myShipDesign.hasAllTech == 1 and myShipDesign.id in ['2','3','4','6','7','8','17','18','19']:
+                designs.append(myShipDesign.id)
+        return designs
                 
     def buildMarines(self):
         if self.round > 6 and self.myEmpire.CR > 200000:
@@ -302,7 +405,6 @@ class AIPlayer(root.Root):
                 id != closestID and self.mySystemOrders[id]['stepsToHomeworld'] == 999):
                 if funcs.getTargetRange(childSystem.x, childSystem.y, homeSystem.x, homeSystem.y) > funcs.getTargetRange(mySystem.x, mySystem.y, homeSystem.x, homeSystem.y):
                     self.setMyChildPaths(id, distance+1, mySystemID)
-        return
     
     def resetTopIndustry(self):
         """Reset the dict of topIndustry to see what is available to build based on current tech"""

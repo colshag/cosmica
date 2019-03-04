@@ -15,6 +15,8 @@ import glob
 import re
 import random
 import string
+from anw.func import storedata
+from anw.func import globals
 
 class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
@@ -39,6 +41,9 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.cboResolution.setCurrentIndex(resolutions.index(resolution))
         except:
             pass
+        
+        self.lblVersion.setStyleSheet('color: yellow;')
+        self.lblVersion.setText('Version: '+ globals.currentVersion+globals.currentVersionTag)
         
         self.cboResolution.currentIndexChanged.connect(self.cboResolution_clicked)
         self.chkFullScreenMode.stateChanged.connect(self.chkFullScreenMode_clicked)
@@ -88,6 +93,11 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.selectedGameToJoin = 0
         self.serversIAmHosting = []
         self.selectedServerToCont = 0
+        
+        myUserInfo = storedata.loadFromFile('user.info')
+        if isinstance(myUserInfo, (list,)):
+            self.txtNickname.setText(myUserInfo[0])
+            self.txtPassword.setText(myUserInfo[1])
 
     def cboResolution_clicked(self, index):
         if self.chkFullScreenMode.isChecked():
@@ -423,12 +433,15 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         server = ServerProxy(self.serverAddress)
         result = server.login_player(self.myInfo)
         if len(result) == 4:
+            myUserInfo = [str(self.txtNickname.text()), str(self.txtPassword.text())]
+            storedata.saveToFile(myUserInfo, 'user.info')
+            
             self.id = result[0]
             self.email = result[1]
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
             self.myInfo['email'] = self.email
-            self.message('Welcome to Cosmica %s, your registered email is: %s' % (self.nickname, self.email))
+            self.message('Welcome to Cosmica %s, your registered email is: %s' % (self.nickname, self.email))         
         else:
             self.message('Login Error: %s' % result)
     

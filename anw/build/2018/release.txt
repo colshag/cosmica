@@ -3,6 +3,11 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.22.0
+===================================
+- AI players functional in a basic fashion
+- launcher now saves your username/pw
+
 0.21.0
 ===================================
 - changed the tech tree
