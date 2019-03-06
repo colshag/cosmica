@@ -109,19 +109,21 @@ class GenerateGalaxy(object):
         if playerList[0] == 'singleplayer':
             self.genEmpire(0)
             for i in range(1,self.myGalaxy.numEmpires):
-                self.genEmpire(i, playerList.pop(0), singleplayer=1)            
+                self.genEmpire(i, playerList.pop(0), singleplayer=1)
         else:
             self.genEmpire(0)
             s = range(1,8)
             random.shuffle(s)
+            ai = []
             
             for i in range(1,self.myGalaxy.numEmpires):
                 email = playerList.pop(0)
                 if email == 'ai':
                     while s <> []:
                         myID = str(s.pop(0))
-                        if myID not in self.playerGenData.keys():
+                        if myID not in self.playerGenData.keys() and myID not in ai:
                             empireID = myID
+                            ai.append(myID)
                             break
                 else:
                     for empireID, playerGenData in self.playerGenData.iteritems():
@@ -257,6 +259,18 @@ class GenerateSystems(object):
         self.setSystemNames()
         self.genSystems()
         self.setMax()
+        self.genGalaxyMaze()
+        
+    def genGalaxyMaze(self):
+        """Create the Galaxy Maze for AI Pathfinding purposes"""
+        for line in self.myGalaxy.genSystemsData:
+            newLine = []
+            for character in line:
+                if character == '.':
+                    newLine.append(0)
+                else:
+                    newLine.append(1)
+            self.myGalaxy.galaxyMaze.append(newLine)
     
     def setSystemNames(self):
         """Set the System Names by reading the system name data file"""

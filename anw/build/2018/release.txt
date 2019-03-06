@@ -3,6 +3,13 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.22.1
+===================================
+- launcher now shows username and email consistently
+- game does not declare which players have finished their turn
+- ai uses A* pathfinding for determining planet movement
+- fixed bug where ai players could take two empire locations on map generation
+
 0.22.0
 ===================================
 - AI players functional in a basic fashion

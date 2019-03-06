@@ -441,7 +441,8 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
             self.myInfo['email'] = self.email
-            self.message('Welcome to Cosmica %s, your registered email is: %s' % (self.nickname, self.email))         
+            self.lblVersion.setStyleSheet('color: green;')
+            self.lblVersion.setText('Version: %s%s - %s - %s' % (globals.currentVersion, globals.currentVersionTag, self.nickname, self.email))
         else:
             self.message('Login Error: %s' % result)
     
@@ -453,7 +454,6 @@ def main():
     form = Launcher()
     form.show()
     app.exec_()
-
 
 if __name__ == '__main__':
     main() 

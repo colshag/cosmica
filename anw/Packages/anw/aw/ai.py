@@ -8,6 +8,9 @@
 import random
 import string
 from anw.func import root, funcs, globals, storedata
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid
+from pathfinding.finder.a_star import AStarFinder
 
 ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2, 'aggressiveness':0.9},
             {'type':'2', 'name':'montgomery', 'tech':20, 'minthreat':0.6, 'aggressiveness':0.5},
@@ -188,9 +191,8 @@ class AIPlayer(root.Root):
                     targetSystem = random.choice(targetSystems)
                     if targetSystem.id not in mySystem.connectedSystems:
                         # not on the border so just pick a system to get closer
-                        closestSystems = self.moveCloserToTargetSystem(mySystem, targetSystem)
-                        if closestSystems <> []:
-                            closestSystem = random.choice(closestSystems)
+                        closestSystem = self.moveCloserToTargetSystem(mySystem, targetSystem)
+                        if closestSystem <> mySystem:
                             self.warpEverythingToSystem(closestSystem)
                     else:
                         # on the border so be careful what we warp to the system
@@ -254,33 +256,50 @@ class AIPlayer(root.Root):
 
     def findTargetSystems(self, mySystem):
         """Find a target system to move to"""
-        closestSystemRange = 9999
+        shortestPath = 9999
         closestSystems = []
         for systemID, targetSystem in self.myGalaxy.systems.iteritems():
             otherEmpire = self.myGalaxy.empires[targetSystem.myEmpireID]
-            if otherEmpire.id == '0' or otherEmpire.ai == 0:
-                range = funcs.getTargetRange(mySystem.x, mySystem.y, targetSystem.x, targetSystem.y)
-                if range == closestSystemRange:
-                    closestSystems.append(targetSystem)
-                elif range < closestSystemRange:
-                    closestSystems = [targetSystem]
-                    closestSystemRange = range
-        return closestSystems                
+            if (otherEmpire.id == '0' or otherEmpire.ai == 0) and otherEmpire.id <> self.myEmpire.id:
+                grid = Grid(matrix=self.myGalaxy.galaxyMaze)
+                finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
+                start = grid.node(self.getSystemGridX(mySystem), self.getSystemGridY(mySystem))
+                end = grid.node(self.getSystemGridX(targetSystem), self.getSystemGridY(targetSystem))
+                path, runs = finder.find_path(start, end, grid)
+                self.setLog('FIND TARGET SYSTEMS=====> mySystem=%s, targetSystem=%s, path length=%d, shortest path=%d' % (mySystem.name, targetSystem.name, len(path), shortestPath))
+                self.setLog(str(grid.grid_str(path=path, start=start, end=end)))
+                if path <> []:
+                    if len(path) == shortestPath:
+                        closestSystems.append(targetSystem)
+                        self.setLog('===>append %s to closest Systems List' % targetSystem.name)
+                    elif len(path) < shortestPath:
+                        closestSystems = [targetSystem]
+                        shortestPath = len(path)
+                        self.setLog('===>create new closest Systems List, add %s to it' % targetSystem.name)
+        return closestSystems
+
+    def getSystemGridX(self, mySystem):
+        return int(mySystem.x/6) - 1
+    
+    def getSystemGridY(self, mySystem):
+        y = int(mySystem.y/6)
+        return len(self.myGalaxy.galaxyMaze) - y
 
     def moveCloserToTargetSystem(self, mySystem, targetSystem):
         """decide on a system to travel to that is on the way to the target system"""
-        closestSystemRange = 9999
-        closestSystems = []
+        grid = Grid(matrix=self.myGalaxy.galaxyMaze)
+        finder = AStarFinder(diagonal_movement=DiagonalMovement.always)
+        start = grid.node(self.getSystemGridX(mySystem), self.getSystemGridY(mySystem))
+        end = grid.node(self.getSystemGridX(targetSystem), self.getSystemGridY(targetSystem))
+        path, runs = finder.find_path(start, end, grid)
+        newX, newY = path[1]
         for id in mySystem.connectedSystems:
             connectedSystem = self.myGalaxy.systems[id]
-            if (connectedSystem.myEmpireID == self.myEmpireID):
-                range = funcs.getTargetRange(connectedSystem.x, connectedSystem.y, targetSystem.x, targetSystem.y)
-                if range == closestSystemRange:
-                    closestSystems.append(connectedSystem)
-                elif range < closestSystemRange:
-                    closestSystems = [connectedSystem]
-                    closestSystemRange = range
-        return closestSystems
+            if self.getSystemGridX(connectedSystem) == newX and self.getSystemGridY(connectedSystem) == newY:
+                self.setLog('MOVE CLOSER TO TARGET SYSTEM===> newX=%d, newY=%d, connectedSystem=%s' % (newX, newY, connectedSystem.name))
+                self.setLog(str(grid.grid_str(path=path, start=start, end=end)))                
+                return connectedSystem
+        return mySystem
     
     def calcFleetStrength(self, chosenSystem, calcMyStrength=True):
         strength = 0

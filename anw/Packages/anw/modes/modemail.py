@@ -75,18 +75,21 @@ class ModeMail(mode.Mode):
     
     def populateRoundStatus(self):
         """Fill Round Status List"""
+        notdone = 0
         for empireID, myEmpire in self.game.allEmpires.iteritems():
             if (empireID != '0' and empireID != self.game.myEmpireID and
-                myEmpire['alive'] == 1) :
-                text = '%s is ' % myEmpire['name']
+                myEmpire['alive'] == 1):
                 if myEmpire['roundComplete'] == 0:
-                    text += 'not '
-                text += 'done'
-                ##if myEmpire['ai'] == 1:
-                    ##text += ' (AFK - Player will not hold up round end)'
-                color = myEmpire['color1']
-                self.roundStatus.myScrolledList.addItem(text=text, extraArgs=1, textColorName=color)        
-        
+                    notdone += 1
+
+        if self.game.myEmpire['roundComplete'] == 0 and notdone == 0:
+            text = 'You are the last person to finish your turn, once complete the round will end'
+            self.roundStatus.myScrolledList.addItem(text=text, extraArgs=1, textColorName='guired')
+        elif notdone > 0:
+            text = "%d of the other Empires has yet to complete their turn this round" % notdone
+            self.roundStatus.myScrolledList.addItem(text=text, extraArgs=1, textColorName='guiyellow')
+
+
     def populateMailRound(self):
         """Fill Mail Round List"""
         myRounds = range(1,self.game.currentRound+1)

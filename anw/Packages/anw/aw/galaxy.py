@@ -62,6 +62,7 @@ class Galaxy(root.Root):
 
         self.prices = {}
         self.serverPort = 0 # server port
+        self.galaxyMaze = [] # map of galaxy as a list of lists for ai pathfinding 1=obstacle, 0=open for travel
         
     def __getstate__(self):
         """Cannot pickle __builtins__ that include ellipse type, 
