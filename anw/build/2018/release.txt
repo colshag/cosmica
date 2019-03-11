@@ -6,6 +6,7 @@ NeuroJump (2018) all rights reserved
 0.22.2
 ===================================
 - fixed bug where game would not update on neurojump servers if player was force-ended turn
+- fixed bug where launcher was being used to open multiple clients
 
 0.22.1
 ===================================

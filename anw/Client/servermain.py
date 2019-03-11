@@ -221,7 +221,7 @@ def serverMain(queue=None, singleplayer=0, database='COSMICA1', port=8000, teste
     # Start reactor
     #reactorThread = Thread(target=reactor.run, args=(False,))
     #reactorThread.start()
-    app._Log("Server Started - Version %s" % globals.currentVersion)
+    app._Log("Server Started - Version %s%s" % (globals.currentVersion, globals.currentVersionTag))
     shutdownwait = Thread(target=monitorThread, args=(queue,))
     shutdownwait.start()
     reactor.run()
