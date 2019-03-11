@@ -3,6 +3,10 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.22.2
+===================================
+- fixed bug where game would not update on neurojump servers if player was force-ended turn
+
 0.22.1
 ===================================
 - launcher now shows username and email consistently

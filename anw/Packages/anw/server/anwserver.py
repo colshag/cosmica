@@ -952,7 +952,7 @@ class COSMICAServer(xmlrpc.XMLRPC):
                 server = ServerProxy(self.serverAddress)
                 newRoundNum = myGalaxy.currentRound + 1
                 neuro_result = server.end_round(myGalaxy.name, newRoundNum)
-                self._Log('%s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))                            
+                self._Log('%s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))
                 return endRound(self, myGalaxy.name)
             else:
                 s = 'invalid key: cannot endRound'
@@ -1604,6 +1604,10 @@ def endRoundCounter(server):
     # go through each galaxy in server
     for galaxyName, myGalaxy in server.galaxies.iteritems():
         if myGalaxy.currentHoursLeft <= 0:
+            server = ServerProxy(self.serverAddress)
+            newRoundNum = myGalaxy.currentRound + 1
+            neuro_result = server.end_round(myGalaxy.name, newRoundNum)
+            self._Log('FORCE END ROUND - %s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))
             endRound(server, galaxyName)
         elif myGalaxy.currentHoursLeft <= 2:
             # email all players that round will end in one hour
