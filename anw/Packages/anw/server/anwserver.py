@@ -1603,10 +1603,10 @@ def endRoundCounter(server):
     # go through each galaxy in server
     for galaxyName, myGalaxy in server.galaxies.iteritems():
         if myGalaxy.currentHoursLeft <= 0:
-            neuroServer = ServerProxy(self.serverAddress)
+            neuroServer = ServerProxy(server.serverAddress)
             newRoundNum = myGalaxy.currentRound + 1
             neuro_result = neuroServer.end_round(myGalaxy.name, newRoundNum)
-            self._Log('FORCE END ROUND - %s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))
+            server._Log('FORCE END ROUND - %s has ended round %d with Neurojump servers' % (myGalaxy.name, myGalaxy.currentRound))
             endRound(server, galaxyName)
         elif myGalaxy.currentHoursLeft <= 2:
             # email all players that round will end in one hour
