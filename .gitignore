@@ -9,5 +9,6 @@ anw/Database/*.*
 
 
 anw/Client/tutorial\.data
+anw/Client/user\.info
 
 *.exe
