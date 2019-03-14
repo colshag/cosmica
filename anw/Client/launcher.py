@@ -100,7 +100,10 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.txtNickname.setText(myUserInfo[0])
             self.txtPassword.setText(myUserInfo[1])
         
-        update()
+        try:
+            update(force=True, check_dev=False, message="python selfupdate", username=None, password=None, verbose=False)
+        except:
+            print 'Error updating from play-cosmica repo on GitHub'
 
     def cboResolution_clicked(self, index):
         if self.chkFullScreenMode.isChecked():

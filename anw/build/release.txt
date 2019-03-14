@@ -1,0 +1,93 @@
+Cosmica
+=======
+NeuroJump (2018) all rights reserved
+====================================
+0.23.0
+- launcher now auto-updates code based on play-cosmica github repository
+
+0.22.2
+===================================
+- fixed bug where game would not update on neurojump servers if player was force-ended turn
+- fixed bug where launcher was being used to open multiple clients
+
+0.22.1
+===================================
+- launcher now shows username and email consistently
+- game does not declare which players have finished their turn
+- ai uses A* pathfinding for determining planet movement
+- fixed bug where ai players could take two empire locations on map generation
+
+0.22.0
+===================================
+- AI players functional in a basic fashion
+- launcher now saves your username/pw
+
+0.21.0
+===================================
+- changed the tech tree
+- fixed some maps
+
+0.20.20190221
+===================================
+- first release of actual launcher for Cosmica. Game now has one launcher to play singleplayer, multiplayer, or host games.
+- some minor bug fixes to launcher, better splash screen
+
+0.17.20190121
+===================================
+- fixed bug in ship design, game would not allow player to label ship design properly
+- fixed bug in sending diplomacy in single player mode giving an error
+- in multiplayer games empires are randomized
+
+0.16.20190119
+===================================
+- make a fast forward map create a simulation and design center for homeworld
+- make zoom a bit smoother and limit zoom in and out settings for mousewheel zoom
+- more planet effect changes (brightness and texture)
+
+0.16.20190113 Release Notes:
+====================================
+- ai fixes
+- new steve.map
+- removed glow for planets and many objects
+- fast-forward mode in map
+- bug fix on trade routes between players
+- end turn toggle not disabled
+- enter key being needed for messages and ship design disabled
+- dark blue screen for ship battles and technology
+- lan mode
+- ship design gui persistanece bug removed
+- ship design components combine similar components
+- ship design weapons are a darker shade
+- new planet skin
+
+0.15.20181215 Release Notes:
+====================================
+- Tutorial Mode enhanced
+- Dynamic Backgrounds enabled
+- Gui buttons updated
+
+0.14.4.0 Release Notes:
+====================================
+- Certain Frigates and Cruisers now target carriers or assault ships
+- Carriers can now run away from battle (do not circle)
+- Tutorial Mode enabled (use --tutorial)
+- Game starts in map mode
+- Game now references games as COSMICA1,2,3, not ANW1,2,3
+
+0.14.3.0 Release Notes:
+====================================
+- Created a Check AI System to check players situation with server
+- Made ships under assault that take damage to have less security troops available
+
+0.14.2.0 Release Notes:
+====================================
+- Fixed bug with Transport Ships thinking they are assault ships
+- Some tweaks to the battle screen, removed some buttons, shrank the planet
+
+0.14.1.0 Release Notes:
+====================================
+- Assault ships will attack now without waiting for a damaged ship making them more useful
+- Trade routes over warp gates are 3 times more effective for empires (less costly)
+- medium and heavy regiments do not cost more than light regiments
+- regiments are cheaper to repair
+- starships have better stock defence to assault ships

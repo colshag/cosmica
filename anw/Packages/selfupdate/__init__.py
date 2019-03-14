@@ -221,10 +221,10 @@ def pull(force=False, check_dev=True, verbose=False):
 		branch = __find_current_branch(repo)
 
 		# record the diff, these will all replaced
-		diffs = __get_file_diffs(repo)
+		##diffs = __get_file_diffs(repo)
 
-		if len(diffs) == 0:
-			return (False, [])
+		##if len(diffs) == 0:
+			##return (False, [])
 
 		# fetch all
 		fetch_resp = str(repo.git.fetch("--all"))
@@ -235,7 +235,8 @@ def pull(force=False, check_dev=True, verbose=False):
 		# clean
 		clean_resp = str(repo.git.clean("-f"))
 		__print(verbose, "Completed clean with response: {}".format(clean_resp))
-		return (True, diffs)
+		##return (True, diffs)
+		return (True, [])
 
 def update(force=False, check_dev=True, message="python selfupdate", username=None, password=None, verbose=False):
 	'''
