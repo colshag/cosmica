@@ -17,7 +17,6 @@ import random
 import string
 from anw.func import storedata
 from anw.func import globals
-from selfupdate import update
 
 class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
     def __init__(self):
@@ -99,11 +98,6 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         if isinstance(myUserInfo, (list,)):
             self.txtNickname.setText(myUserInfo[0])
             self.txtPassword.setText(myUserInfo[1])
-        
-        try:
-            update(force=True, check_dev=False, message="python selfupdate", username=None, password=None, verbose=False)
-        except:
-            print 'Error updating from play-cosmica repo on GitHub'
 
     def cboResolution_clicked(self, index):
         if self.chkFullScreenMode.isChecked():

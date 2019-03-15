@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cosmica"
-#define MyAppVersion "0.23.0"
+#define MyAppVersion "0.22.11"
 #define MyAppPublisher "NeuroJump"
 #define MyAppURL "www.playcosmica.com"
-#define MyAppExeName "Cosmica-Setup-0.23.0.exe"
+#define MyAppExeName "Cosmica-Setup-0.22.11.exe"
 #define MyGameBuildPath "E:\development\cosmica\anw\build"
 
 [Setup]
@@ -25,7 +25,7 @@ LicenseFile={#MyGameBuildPath}\license.txt
 InfoBeforeFile={#MyGameBuildPath}\release.txt
 OutputDir={#MyGameBuildPath}
 OutputBaseFilename=Cosmica-{#MyAppVersion}
-SetupIconFile={#MyGameBuildPath}\app.ico
+SetupIconFile={#MyGameBuildPath}\logo.ico
 Compression=lzma
 SolidCompression=yes
 UsePreviousAppDir=no
@@ -39,14 +39,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
 
 [Files]
 ; dependency source
+Source: "{#MyGameBuildPath}\zope.interface-4.6.0-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\Twisted-18.9.0-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\PyQt4-4.11.4-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\python-2.7.16.amd64.msi"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\setup-dependencies.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\setup-notes.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\getCosmica.py"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#MyGameBuildPath}\cosmica.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MyGameBuildPath}\logo.ico"; DestDir: "{app}"; Flags: ignoreversion
 ; game source
-Source: "{#MyGameBuildPath}\client-build\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: users-full
+;Source: "{#MyGameBuildPath}\client-build\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: users-full
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -57,6 +60,4 @@ Filename: "{app}\setup-dependencies.bat"; Parameters: waituntilterminated;
 
 [Icons]
 Name: "{userdesktop}\Play Cosmica"; Filename: "{app}\play-cosmica\Client\cosmica.bat"; \
-    IconFilename: "{app}\Client\logo.ico"; Tasks: desktopicon
-;Name: "{userdesktop}\Setup Cosmica One Time Dependencies"; Filename: "{tmp}\setup-dependencies.bat"; \
-    IconFilename: "{app}\Client\logo.ico"; Tasks: desktopicon
+    IconFilename: "{app}\logo.ico"; Tasks: desktopicon

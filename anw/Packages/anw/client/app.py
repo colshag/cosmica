@@ -13,7 +13,7 @@ from game import COSMICAGame
 class Application(object):
     """set the basic app parameters, startup a client game, main Panda3d World Class"""
     def __init__(self, server='', galaxy='', empire='', password='', shipBattle=None, glow=1):
-        self.path = os.path.abspath(sys.path[0])
+        self.path = os.path.abspath(os.getcwd())
         self.server = str(server)
         self.password = password
         self.galaxy = str(galaxy)

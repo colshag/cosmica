@@ -17,6 +17,7 @@ c:\Python27\Scripts\pip install panda3d==1.10.2
 c:\Python27\Scripts\pip install gitpython
 c:\Python27\Scripts\pip install Twisted-18.9.0-cp27-cp27m-win_amd64.whl
 c:\Python27\Scripts\pip install PyQt4-4.11.4-cp27-cp27m-win_amd64.whl
+c:\Python27\Scripts\pip install zope.interface-4.6.0-cp27-cp27m-win_amd64.whl
 echo ================================================
 echo downloading cosmica from play-cosmica git repository....
 echo ....This will take a minute or two depending on your
