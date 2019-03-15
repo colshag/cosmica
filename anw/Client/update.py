@@ -10,7 +10,6 @@ import os
 
 if __name__ == '__main__':
 	repo = git.Repo(os.getcwd(), search_parent_directories=True)
-	branch = __find_current_branch(repo)
 	# fetch all
 	fetch_resp = str(repo.git.fetch("--all"))
 	print("Fetched any and all changes with response: {}".format(fetch_resp))

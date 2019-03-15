@@ -6,9 +6,7 @@
 .project
 .pydevproject
 anw/Database/*.*
-
-
 anw/Client/tutorial\.data
 anw/Client/user\.info
-
+anw/Client/resolution.txt
 *.exe
