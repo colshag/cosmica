@@ -1,4 +1,4 @@
-import git
+from git import Repo
 import os
 
-git.Git(os.getcwd()).clone("https://github.com/colshag/play-cosmica.git")
+Repo.clone_from("http://github.com/colshag/play-cosmica.git", os.getcwd()+'\\play-cosmica', quiet=True)
