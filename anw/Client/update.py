@@ -14,7 +14,7 @@ if __name__ == '__main__':
 	fetch_resp = str(repo.git.fetch("--all"))
 	print("Fetched any and all changes with response: {}".format(fetch_resp))
 	# reset
-	reset_resp = str(repo.git.reset("--hard", "origin/{}".format(branch)))
+	reset_resp = str(repo.git.reset("--hard", "origin/{}"))
 	print("Completed hard pull with response: {}".format(reset_resp))
 	# clean
 	clean_resp = str(repo.git.clean("-f"))
