@@ -17,7 +17,5 @@ echo ================================================
 echo downloading cosmica from play-cosmica git repository....
 echo ....This will take a minute or two depending on your
 echo ....Internet speed
-cp getCosmica.py ~
-python ~\getCosmica.py
-cp cosmica.desktop /usr/share/applications
+python ./getCosmica.py
 read -p "Press enter to exit"
