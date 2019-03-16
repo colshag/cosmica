@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=0.22
+Name=Cosmica
+Comment=Play Cosmica
+GenericName=Play Cosmica
+Keywords=Games;Multiplayer;4X;Python
+Exec=~\play-cosmica\Client\cosmica.sh
+Terminal=true
+X-MultipleArgs=false
+Type=Games
+Icon=/home/chrislewis/development/cosmica/anw/build/logo.ico
+StartupNotify=true
+
