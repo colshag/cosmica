@@ -14,3 +14,11 @@ if __name__ == '__main__':
 	fetch_resp = str(repo.git.fetch("--all"))
 	print("Fetched any and all changes with response: {}".format(fetch_resp))
 	
+	branch = 'master'
+	# fetch all
+	fetch_resp = str(repo.git.fetch("--all"))
+	print("Fetched any and all changes with response: {}".format(fetch_resp))
+	# reset
+	reset_resp = str(repo.git.reset("--hard", "origin/{}".format(branch)))
+	print("Completed hard pull with response: {}".format(reset_resp))
+	
