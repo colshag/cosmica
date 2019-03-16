@@ -9,4 +9,6 @@ anw/Database/*.*
 anw/Client/tutorial\.data
 anw/Client/user\.info
 anw/Client/resolution.txt
+anw/Client/connections\.info
+anw/Client/neurojump\.info
 *.exe
