@@ -12,8 +12,6 @@ Remember to install the game in a non-protected folder structure
 (stay away from program files) 
 as Cosmica does build sub directories and database files at times.
 
-When Installing Python make sure to enable the "Add python.exe to Path" option!
-
 Welcome to our community of space strategy enthusiasts! 
 Please join our community at www.playcosmica.com!
 

@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cosmica"
-#define MyAppVersion "0.22.11"
+#define MyAppVersion "0.22"
 #define MyAppPublisher "NeuroJump"
 #define MyAppURL "www.playcosmica.com"
-#define MyAppExeName "Cosmica-Setup-0.22.11.exe"
+#define MyAppExeName "Cosmica-Setup-0.22.exe"
 #define MyGameBuildPath "E:\development\cosmica\anw\build"
 
 [Setup]
@@ -44,18 +44,11 @@ Source: "{#MyGameBuildPath}\Twisted-18.9.0-cp27-cp27m-win_amd64.whl"; DestDir: "
 Source: "{#MyGameBuildPath}\PyQt4-4.11.4-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\python-2.7.16.amd64.msi"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\setup-dependencies.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyGameBuildPath}\setup-notes.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\getCosmica.py"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#MyGameBuildPath}\cosmica.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\logo.ico"; DestDir: "{app}"; Flags: ignoreversion
-; game source
-;Source: "{#MyGameBuildPath}\client-build\*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Permissions: users-full
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-
 [Run]
-Filename: "{app}\setup-notes.bat"; Parameters: waituntilterminated;
-Filename: "msiexec.exe"; Parameters: "/i ""{app}\python-2.7.16.amd64.msi""";
 Filename: "{app}\setup-dependencies.bat"; Parameters: waituntilterminated;
 
 [Icons]

@@ -13,6 +13,7 @@ echo ================================================
 echo Chris Lewis.
 echo NeuroJump. 2019.
 echo ================================================
+msiexec /i "python-2.7.16.amd64.msi" /quiet /norestart Include_pip=1 Include_test=0 PrependPath=1 ADDLOCAL=ALL
 c:\Python27\Scripts\pip install panda3d==1.10.2
 c:\Python27\Scripts\pip install gitpython
 c:\Python27\Scripts\pip install Twisted-18.9.0-cp27-cp27m-win_amd64.whl
