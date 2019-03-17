@@ -96,7 +96,7 @@ class COSMICARunner(object):
         workingGalaxy = generateGalaxy.getGalaxy()
         storedata.saveToFile(workingGalaxy, os.path.join("..", "Database", self.galaxy, self.galaxy + ".anw"))
         try:
-            os.remove('tutorial.data')
+            os.remove('tutorial.info')
         except:
             pass
 

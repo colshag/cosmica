@@ -136,7 +136,7 @@ class COSMICAGame:
             self.industrydata = data['industrydata']
             if globals.serverMode == 0:
                 try:
-                    tutorialInfo = storedata.loadFromFile('%s/tutorial.data' % self.app.path)
+                    tutorialInfo = storedata.loadFromFile('%s/tutorial.info' % self.app.path)
                     if tutorialInfo['tutorialGame'] == self.app.galaxy:
                         globals.isTutorial = True
                         globals.tutorialStep = tutorialInfo['tutorialStep']

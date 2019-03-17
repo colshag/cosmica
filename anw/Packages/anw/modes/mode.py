@@ -394,7 +394,7 @@ class Mode(object):
         self.alive = 0
         if globals.isTutorial:
             tutorialInfo = {'tutorialGame':self.game.myGalaxy['name'], 'tutorialStep':globals.tutorialStep, 'tutorialStepComplete':globals.tutorialStepComplete}
-            storedata.saveToFile(tutorialInfo, '%s/tutorial.data' % self.game.app.path)        
+            storedata.saveToFile(tutorialInfo, '%s/tutorial.info' % self.game.app.path)        
         self.game.app.quit()
     
     def getCreditInfoFromServer(self):

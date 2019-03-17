@@ -30,7 +30,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.resolution = ''
         self.tutorial = False
         try:
-            f = open("resolution.txt", "r")
+            f = open("resolution.info", "r")
             resolution = f.read()
             if resolution == '':
                 self.fullscreen = False
@@ -87,8 +87,13 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
         self.email = ''
         self.nickname = ''
         self.myInfo = {}
-        f = open('neurojump.info', 'r')
-        self.serverAddress = f.read()
+        
+        try:
+            f = open('neurojump.info', 'r')
+            self.serverAddress = f.read()
+        except:
+            self.serverAddress = 'http://neurojump.hopto.org:8090'
+
         self.gamesICanJoin = []
         self.selectedGameToJoin = 0
         self.serversIAmHosting = []
@@ -106,13 +111,13 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
 
     def chkFullScreenMode_clicked(self, state):
         if state == QtCore.Qt.Checked:
-            text_file = open("resolution.txt", "w")
+            text_file = open("resolution.info", "w")
             text_file.write(self.cboResolution.currentText())
             text_file.close()
             self.fullscreen = True
             self.resolution = self.cboResolution.currentText()
         else:
-            text_file = open("resolution.txt", "w")
+            text_file = open("resolution.info", "w")
             text_file.write('')
             text_file.close() 
             self.fullscreen = False
@@ -294,6 +299,8 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             result = server.join_multiplayer_game(self.myInfo, gameID)
             if result == 1:
                 # check if a local connection overides the neurojump address for this user
+                # create a connections.info file in the Client folder and place something like this in there:
+                # COSMICA31,http://localhost:8002,COSMICA32,http://192.168.3.1:8008,COSMICA34,http://localhost:8008
                 address = ''
                 try:
                     f = open('connections.info', 'r')
@@ -446,7 +453,7 @@ class Launcher(QtGui.QMainWindow, design.Ui_MainWindow):
             self.nickname = result[2]
             self.mainMenu.setCurrentIndex(1)
             self.myInfo['email'] = self.email
-            self.lblVersion.setStyleSheet('color: green;')
+            self.lblVersion.setStyleSheet('color: yellow;')
             self.lblVersion.setText('Version: %s%s - %s - %s' % (globals.currentVersion, globals.currentVersionTag, self.nickname, self.email))
         else:
             self.message('Login Error: %s' % result)

@@ -39,8 +39,11 @@ class COSMICAServer(xmlrpc.XMLRPC):
         self.savingGalaxyFlag = [] # keep track of galaxies saving to disk
         self.endRoundGalaxyFlag = [] # keep track of galaxies going through endRound  
         self.lp = None
-        f = open("neurojump.info", "r")
-        self.serverAddress = f.read()
+        try:
+            f = open('neurojump.info', 'r')
+            self.serverAddress = f.read()
+        except:
+            self.serverAddress = 'http://neurojump.hopto.org:8090'
 
     def runServer(self, port, galaxyName=None, singleplayer=0):
         """run the Server"""
