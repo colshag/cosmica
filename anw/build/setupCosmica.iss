@@ -2,10 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cosmica"
-#define MyAppVersion "0.22"
+#define MyAppVersion "0.22.03182019"
 #define MyAppPublisher "NeuroJump"
 #define MyAppURL "www.playcosmica.com"
-#define MyAppExeName "Cosmica-Setup-0.22.exe"
+#define MyAppExeName "Cosmica-Setup-0.22.03182019.exe"
 #define MyGameBuildPath "E:\development\cosmica\anw\build"
 
 [Setup]
@@ -39,16 +39,17 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
 
 [Files]
 ; dependency source
+Source: "{#MyGameBuildPath}\Git-2.21.0-64-bit.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\zope.interface-4.6.0-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\Twisted-18.9.0-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\PyQt4-4.11.4-cp27-cp27m-win_amd64.whl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\python-2.7.16.amd64.msi"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\setup-dependencies.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MyGameBuildPath}\getCosmica.py"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyGameBuildPath}\logo.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 [Run]
+Filename: "{app}\Git-2.21.0-64-bit.exe"; Parameters: waituntilterminated;
 Filename: "{app}\setup-dependencies.bat"; Parameters: waituntilterminated;
 
 [Icons]
