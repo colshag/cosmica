@@ -28,8 +28,8 @@ class Galaxy(root.Root):
         self.yMax = int() # total y size of Galactic Map
         self.delayBonus = int() # delay bonus for finishing turn early
         self.currentRound = int() # Current Round of Play
-        self.maxHoursLeft = int(25) # Game Max Hours Set that all Players agree to try and finish turn within
-        self.currentHoursLeft = int(25) # Current Hours Left before Round Forced
+        self.maxHoursLeft = int(24) # Game Max Hours Set that all Players agree to try and finish turn within
+        self.currentHoursLeft = int(24) # Current Hours Left before Round Forced
         self.cities = 0 # total cities in galaxy currently
         self.defaultAttributes = ('name', 'version', 'systemSize', 'xMax','yMax', 'delayBonus',
                                   'currentRound', 'maxHoursLeft', 'currentHoursLeft', 'cities')
