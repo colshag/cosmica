@@ -2,7 +2,13 @@ Cosmica
 =======
 NeuroJump (2018) all rights reserved
 ====================================
+
+0.22.15
+===================================
+- fixed bug with battle carriers on tech tree
+
 0.22.11
+===================================
 - launcher now auto-updates code based on play-cosmica github repository
 
 0.22.2
