@@ -548,10 +548,28 @@ class Mode(object):
         if self.selector2 != None:
             self.selector2.hide()
     
+    def isScrollListInFocus(self):
+        """If the scrollList is in focus of the mouse cursor return True"""
+        try:
+            for myGui in self.gui:
+                if myGui.__module__ == 'anw.gui.buttonlist':
+                    if myGui.myScrolledList.isMouseInRegion == True:
+                        return True
+                elif myGui.__module__ == 'anw.gui.systemmenu':
+                    if myGui.newtradelist.myScrolledList.isMouseInRegion == True:
+                        return True
+            return False
+        except:
+            return False
+
     def onMouse1Down(self):
         """Allow dynamic picking of an object within mode"""
         #Check to see if we can access the mouse. We need it to do anything else
         if base.mouseWatcherNode.hasMouse():
+            # do not allow a click if a scrollList is in focus
+            if self.isScrollListInFocus():
+                return
+
             #get the mouse position
             mpos = base.mouseWatcherNode.getMouse()
          
@@ -853,7 +871,7 @@ class Mode(object):
             return
         
         message1 = "Now do the following for your other planets:"
-        message2 = "Change Strigs production focus to Energy and build Crystal Mines.\nChange Cyngus production focus to Arrays and build Synthetic Systems."
+        message2 = "Change Strigs production focus to Energy and build Crystal Mines.\nChange Cygnus production focus to Arrays and build Synthetic Systems."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
         

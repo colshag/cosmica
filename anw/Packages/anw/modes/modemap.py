@@ -201,6 +201,10 @@ class ModeMap(mode.Mode):
         """Allow dynamic picking of an object within mode"""
         #Check to see if we can access the mouse. We need it to do anything else
         if base.mouseWatcherNode.hasMouse():
+            # do not allow a click if a scrollList is in focus
+            if self.isScrollListInFocus():
+                return
+            
             #get the mouse position
             mpos = base.mouseWatcherNode.getMouse()
          

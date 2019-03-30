@@ -11,7 +11,7 @@ except:
     pass
 currentVersion = '0.22'
 currentVersionShort = 'master'
-currentVersionTag = '.16'
+currentVersionTag = '.17'
 serverMode = 0
 bSinglePlayer= False
 

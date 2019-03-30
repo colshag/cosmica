@@ -3,6 +3,11 @@ Cosmica
 NeuroJump (2018) all rights reserved
 ====================================
 
+0.22.17
+===================================
+- cannot click behind listboxes in map mode for trade our ship movement
+- fixed spelling mistake in tutorial
+
 0.22.15
 ===================================
 - fixed bug with battle carriers on tech tree
