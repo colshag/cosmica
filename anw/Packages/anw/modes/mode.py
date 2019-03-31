@@ -871,7 +871,7 @@ class Mode(object):
             return
         
         message1 = "Now do the following for your other planets:"
-        message2 = "Change Strigs production focus to Energy and build Crystal Mines.\nChange Cygnus production focus to Arrays and build Synthetic Systems."
+        message2 = "Change Strigs production focus to Energy and build 4 Crystal Mines.\nChange Cygnus production focus to Arrays and build 6 Synthetic Systems."
         globals.tutorialStepComplete = False
         self.createDialogBox(x=0.15, y=-0.25, texts=[message1,message2],textColors=['orange','cyan'])
         
