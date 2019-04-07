@@ -1,0 +1,39 @@
+Hellow Windows Cosmica Users!
+
+This zip is being provided for users that do not want to run the all-in-one exe file
+(worried about viruses).
+
+Unfortunately the setup exe I made is not recognized by virus scanners, so this is
+another way to get cosmica.
+
+==== Setups to install =======
+===> First - make sure you install Git (Git is a way to get updated code).
+run the provided Git exe file, or download it from the web if you like.
+Make sure to install it into its default location on C:\
+
+I use Git to keep Cosmica up-to-date as changes are made. 
+You can learn more about git here:
+https://git-scm.com/
+
+The code you will download using git is open-source and hosted on GitHub here:
+https://github.com/colshag/play-cosmica
+
+
+===> Second - run the install cosmica.bat file. This file will install python
+and all the libraries that cosmica needs all at once. Lastly, it will attempt to
+download the cosmica code from GitHub using Git.
+
+
+===> Third make a shortcut to the game on your desktop
+To run Cosmica you need to goto:
+\play-cosmica\Client\cosmica.bat
+
+I like to make a shortcut to this bat file on my desktop personally, you do this by
+right clicking on the bat file and dragging it to your desktop.
+
+Have fun and join us on Discord if you have any issues!
+
+Chris, Jeremy, Steve,
+NeuroJump 2019.
+
+

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Cosmica"
-#define MyAppVersion "0.22.03182019"
+#define MyAppVersion "0.22.04062019"
 #define MyAppPublisher "NeuroJump"
 #define MyAppURL "www.playcosmica.com"
 #define MyAppExeName "Cosmica-Setup-0.22.03182019.exe"
@@ -29,13 +29,10 @@ SetupIconFile={#MyGameBuildPath}\logo.ico
 Compression=lzma
 SolidCompression=yes
 UsePreviousAppDir=no
+DisableDirPage=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
-
-[Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
-    GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
 ; dependency source
@@ -54,4 +51,4 @@ Filename: "{app}\setup-dependencies.bat"; Parameters: waituntilterminated;
 
 [Icons]
 Name: "{userdesktop}\Play Cosmica"; Filename: "{app}\play-cosmica\Client\cosmica.bat"; \
-    IconFilename: "{app}\logo.ico"; Tasks: desktopicon
+    IconFilename: "{app}\logo.ico";
