@@ -12,9 +12,9 @@ from pathfinding.core.diagonal_movement import DiagonalMovement
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 
-ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2, 'aggressiveness':0.9},
-            {'type':'2', 'name':'montgomery', 'tech':20, 'minthreat':0.6, 'aggressiveness':0.5},
-            {'type':'3', 'name':'yamato', 'tech':20, 'minthreat':0.8, 'aggressiveness':0.7}
+ai_types = [{'type':'1', 'name':'patton', 'tech':20, 'minthreat':1.2, 'aggressiveness':0.95},
+            {'type':'2', 'name':'montgomery', 'tech':20, 'minthreat':0.6, 'aggressiveness':0.6},
+            {'type':'3', 'name':'yamato', 'tech':20, 'minthreat':0.8, 'aggressiveness':0.8}
             ]
 
 ai_builds_techreq = {'misc': [ ['1'], ['107','111'] ],
@@ -158,23 +158,37 @@ class AIPlayer(root.Root):
     def setLog(self, message):
         """Set a log message for this AI player"""
         myInfo = 'ROUND(%d):%s:' % (self.myGalaxy.currentRound, self.name)
-        #file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
-        #file_object.write(myInfo+message+'\n')
-        #file_object.close()
+        file_object = open('ai_%s.log' % self.myEmpire.name[:3], 'a')
+        file_object.write(myInfo+message+'\n')
+        file_object.close()
         
     def doMyTurn(self):
         """Do the AI round of decisions"""
-        self.reset()
-        self.assessSituation()
-        self.updateRound()
-        self.doMyTech()
-        self.getClusterBuildOrders()
-        self.doMySystemBuilds()
-        self.updateCityFocus()
-        self.depotOrders()
-        self.moveFleets() # move before build so you don't move what you built
-        self.buildMarines()
-        self.buildShips()
+        try:
+            self.setLog('========reset')
+            self.reset()
+            self.setLog('========assessSituation')
+            self.assessSituation()
+            self.setLog('========updateRound')
+            self.updateRound()
+            self.setLog('========doMyTech')
+            self.doMyTech()
+            self.setLog('========getClusterBuildOrders')
+            self.getClusterBuildOrders()
+            self.setLog('========doMySystemBuilds')
+            self.doMySystemBuilds()
+            self.setLog('========updateCityFocus')
+            self.updateCityFocus()
+            self.setLog('========depotOrders')
+            self.depotOrders()
+            self.setLog('========moveFleets')
+            self.moveFleets() # move before build so you don't move what you built
+            self.setLog('========buildMarines')
+            self.buildMarines()
+            self.setLog('========buildShips')
+            self.buildShips()
+        except:
+            self.setLog('========ERROR with doMyTurn==========!!!')
         
     def moveFleets(self):
         #create a list of systems where I have ships to give them orders
@@ -327,7 +341,7 @@ class AIPlayer(root.Root):
     def buildShips(self):
         if self.round > 6:
             for systemID, mySystem in self.myGalaxy.systems.iteritems():
-                if mySystem.myEmpireID == self.myEmpireID and self.myEmpire.CR > 200000:
+                if mySystem.myEmpireID == self.myEmpireID and self.myEmpire.CR > 100000:
                     result = 1
                     while result == 1:
                         s = random.choice(self.getValidDesignsToBuild())
@@ -525,12 +539,16 @@ class AIPlayer(root.Root):
         threat = 0.0
         for systemID in mySystem.connectedSystems:
             borderSystem = self.myGalaxy.systems[systemID]
-            if borderSystem.myEmpireID != mySystem.myEmpireID:
-                if borderSystem.myEmpireID == '0':
-                    threat += 0.01
-                elif self.myGalaxy.empires[borderSystem.myEmpireID].diplomacy.diplomacyID <= 3:
-                    threat += 0.3
-                    ##TODO: scan for ships and troops?  add to threat
+            otherEmpire = self.myGalaxy.empires[borderSystem.myEmpireID]
+            if borderSystem.myEmpireID != mySystem.myEmpireID and otherEmpire.ai == 0 and borderSystem.myEmpireID <> '0':
+                borderFleetStrength = self.calcFleetStrength(borderSystem, calcMyStrength=False)
+                borderArmyStrength = self.calcMarineStrength(borderSystem, calcMyStrength=False)
+                myFleetStrength = self.calcFleetStrength(mySystem, calcMyStrength=True)
+                myArmyStrength = self.calcMarineStrength(mySystem, calcMyStrength=True)
+                if borderFleetStrength > myFleetStrength and borderArmyStrength > myArmyStrength:
+                    threat += 5
+                elif borderArmyStrength > myArmyStrength:
+                    threat += 0.6
         return threat
             
     def updateRound(self):
@@ -612,9 +630,11 @@ class AIPlayer(root.Root):
             clusters[i] = []
         for systemID, orderDict in self.mySystemOrders.iteritems():
             mySystem = self.myGalaxy.systems[systemID]
-            if 'cluster' in orderDict['tobuild']:
-                (clusterName, clusterID) = string.split(orderDict['tobuild'], '-')
-                clusters[int(clusterID)].append(systemID)
+            space = mySystem.cities - mySystem.citiesUsed
+            if space <> 0 or (self.myGalaxy.currentRound % 5) == 0:         
+                if 'cluster' in orderDict['tobuild']:
+                    (clusterName, clusterID) = string.split(orderDict['tobuild'], '-')
+                    clusters[int(clusterID)].append(systemID)
         for clusterID, systemIDList in clusters.iteritems():
             if systemIDList != []:
                 self.setMyClusterBuildOrder(systemIDList)
@@ -658,7 +678,7 @@ class AIPlayer(root.Root):
     def doMySystemBuilds(self):
         """Every system needs to go through its system build orders based on earlier assessments"""
         for systemID, orderDict in self.mySystemOrders.iteritems():
-            if orderDict['tobuild'] != '':
+            if orderDict['tobuild'] != '' and orderDict['tobuild'] in ai_builds_techreq.keys():
                 mySystem = self.myGalaxy.systems[systemID]
                 self.removeAllIndustry(mySystem)
                 ##mySystem.name = '%s-%d' % (orderDict['tobuild'], orderDict['cluster'])## DEBUG
